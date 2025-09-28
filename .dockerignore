@@ -1,0 +1,9 @@
+.git
+db_data
+documents
+conf
+node_modules
+vendor
+*.log
+.env
+

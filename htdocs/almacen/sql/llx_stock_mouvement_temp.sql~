@@ -1,0 +1,19 @@
+CREATE TABLE llx_stock_mouvement_temp (
+  rowid int(11) NOT NULL,
+  tms timestamp,
+  datem datetime DEFAULT NULL,
+  fk_product int(11) NOT NULL,
+  fk_entrepot int(11) NOT NULL,
+  value double DEFAULT NULL,
+  quant double DEFAULT '0',
+  price double(24,8) DEFAULT '0.00000000',
+  type_mouvement smallint(6) DEFAULT NULL,
+  fk_user_author int(11) DEFAULT NULL,
+  label varchar(255) DEFAULT NULL,
+  fk_origin int(11) DEFAULT NULL,
+  origintype varchar(32) DEFAULT NULL,
+  inventorycode varchar(128) DEFAULT NULL,
+  batch varchar(30) DEFAULT NULL,
+  eatby date DEFAULT NULL,
+  sellby date DEFAULT NULL
+) ENGINE=InnoDB;

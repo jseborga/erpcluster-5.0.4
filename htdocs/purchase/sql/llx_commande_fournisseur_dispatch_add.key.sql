@@ -1,0 +1,2 @@
+ALTER TABLE llx_commande_fournisseur_dispatch_add ADD UNIQUE uk_unique (fk_commande_fournisseur_dispatch);
+ALTER TABLE llx_commande_fournisseur_dispatch_add ADD fk_stock_mouvement_doc INTEGER NULL DEFAULT '0' AFTER fk_commande_fournisseur_dispatch;

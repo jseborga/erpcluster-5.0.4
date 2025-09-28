@@ -1,0 +1,1 @@
+ALTER TABLE llx_product_pricemod ADD UNIQUE KEY uk_unique (fk_product,period_year,month_year);

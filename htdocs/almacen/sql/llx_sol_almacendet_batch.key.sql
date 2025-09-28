@@ -1,0 +1,1 @@
+ALTER TABLE llx_sol_almacendet_batch ADD KEY idx_fk_solalmacendet (fk_solalmacendet);

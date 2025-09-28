@@ -1,0 +1,15 @@
+CREATE TABLE llx_poa_partida_dev (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  fk_poa_prev integer NOT NULL,
+  fk_structure integer NOT NULL,
+  fk_poa integer NOT NULL,
+  fk_contrat integer NOT NULL,
+  nro_paid varchar(30) NOT NULL,
+  date_paid date NOT NULL,
+  partida varchar(10) NOT NULL,
+  amount double NOT NULL DEFAULT '0',
+  date_create date NOT NULL,
+  tms timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  statut tinyint NOT NULL DEFAULT '0',
+  active tinyint NOT NULL DEFAULT '1'
+) ENGINE=InnoDB;

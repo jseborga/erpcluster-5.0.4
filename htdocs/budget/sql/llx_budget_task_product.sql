@@ -1,0 +1,21 @@
+CREATE TABLE llx_budget_task_product (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  fk_budget_task integer NOT NULL,
+  ref varchar(30) NOT NULL,
+  group_structure varchar(2) NOT NULL,
+  fk_product integer NOT NULL,
+  label varchar(255) NOT NULL,
+  formula varchar(100) DEFAULT NULL,
+  units integer DEFAULT NULL,
+  commander tinyint(4) NOT NULL DEFAULT '0',
+  price_productive double NOT NULL DEFAULT '0',
+  price_improductive double NOT NULL DEFAULT '0',
+  active tinyint(4) NOT NULL DEFAULT '1',
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  fk_object integer DEFAULT NULL,
+  datec date NOT NULL,
+  datem date NOT NULL,
+  tms timestamp NOT NULL,
+  status tinyint NOT NULL
+) ENGINE=InnoDB;

@@ -1,0 +1,38 @@
+<?php
+  //inicio
+  //require("../../../main.inc.php");
+$filtromenu = $_SESSION['filtermenupoa'];
+
+print '<div class="left">';
+print '<a href="'.DOL_URL_ROOT.'/poa/poa/liste.php?dol_hide_leftmenu=1&dol_hide_topmenu=1&action=menu1&f11=1'.'" title="'.$langs->trans('Meta').'" ><div class="'.($filtromenu['f11']?'tabmenumark':'tabmenu').'">'.img_picto('',DOL_URL_ROOT.'/poa/img/meta.png','',1).'</div></a>';
+print '</div>';
+
+print '<div class="left">';
+print '<a href="'.DOL_URL_ROOT.'/poa/poa/liste.php?dol_hide_leftmenu=1&dol_hide_topmenu=1&action=menu1&f1=1'.'" title="'.$langs->trans('Insumos').'"><div class="'.($filtromenu['f1']?'tabmenumark':'tabmenu').'">'.img_picto('',DOL_URL_ROOT.'/poa/img/insumo.png','',1).'</div></a>';
+print '</div>';
+
+print '<div class="left">';
+print '<a href="'.DOL_URL_ROOT.'/poa/poa/liste.php?dol_hide_leftmenu=1&dol_hide_topmenu=1&action=menu1&f2=1'.'"><div class="'.($filtromenu['f2']?'tabmenumark':'tabmenu').'">'.img_picto('',DOL_URL_ROOT.'/poa/img/activity.png','',1).'</div></a>';
+print '</div>';
+
+print '<div class="left">';
+print '<a href="'.DOL_URL_ROOT.'/poa/poa/liste.php?dol_hide_leftmenu=1&dol_hide_topmenu=1&action=menu1&f3=1'.'" title="'.$langs->trans('Finished').'"><div class="'.($filtromenu['f3']?'tabmenumark':'tabmenu').'">'.img_picto('',DOL_URL_ROOT.'/poa/img/finish.png','',1).'</label></div></a>';
+print '</div>';
+
+print '<div class="left">';
+print '<a href="'.DOL_URL_ROOT.'/poa/poa/liste.php?dol_hide_leftmenu=1&dol_hide_topmenu=1&action=menu1&f4=1'.'" title="'.$langs->trans('Inprogress').'"><div class="'.($filtromenu['f4']?'tabmenumark':'tabmenu').'">'.img_picto('',DOL_URL_ROOT.'/poa/img/encurso.png','',1).'</label></div></a>';
+print '</div>';
+
+print '<div class="left">';
+print '<a href="'.DOL_URL_ROOT.'/poa/poa/liste.php?dol_hide_leftmenu=1&dol_hide_topmenu=1&action=menu1&f5=1'.'" title="'.$langs->trans('Delay').'"><div class="'.($filtromenu['f5']?'tabmenumark':'tabmenu').'">'.img_picto('',DOL_URL_ROOT.'/poa/img/delay.png','',1).'</label></div></a>';
+print '</div>';
+
+print '<div class="left">';
+print '<a href="'.DOL_URL_ROOT.'/poa/poa/liste.php?dol_hide_leftmenu=1&dol_hide_topmenu=1&action=menu1&f6=1'.'" title="'.$langs->trans('Notimetable').'"><div class="'.($filtromenu['f6']?'tabmenumark':'tabmenu').'">'.img_picto('',DOL_URL_ROOT.'/poa/img/nocrono.png','',1).'</label></div></a>';
+print '</div>';
+
+print '<div class="left">';
+print '<a href="'.DOL_URL_ROOT.'/user/logout.php"><div class="tabmenu">'.img_picto('',DOL_URL_ROOT.'/poa/img/logout.png','',1).'</div></a>';
+print '</div>';
+
+?>

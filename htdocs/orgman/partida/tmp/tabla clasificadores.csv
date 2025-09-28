@@ -1,0 +1,576 @@
+codigo_clasif|Descripcion|padre|tipo clasificador|tipo_ing_gasto|gestion
+11000|INGRESOS DE OPERACIÓN||CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+11100|Venta de Bienes|11000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+11300|Venta de Servicios|11000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+11400|Alquiler de Edificios y/o Equipos|11000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+11500|Ingresos Financieros de Instituciones Financieras|11000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+11900|Otros Ingresos de Operación|11000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+12000|VENTA DE BIENES Y SERVICIOS DE LAS ADMINISTRACIONES PÚBLICAS||CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+12100|Venta de Bienes de las Administraciones Públicas|12000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+12200|Venta de Servicios de las Administraciones Públicas|12000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+12300|Alquiler de Edificios y/o Equipos de las Administraciones Públicas|12000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13000|INGRESOS POR IMPUESTOS||CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13100|Impuestos Internos (Renta Interna)|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13110|Impuesto sobre las Utilidades de las Empresas|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13112|En Certificados de Crédito Fiscal|13110|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13120|Impuesto a las Transacciones|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13122|En Certificados de Crédito Fiscal|13120|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13130|Impuesto al Valor Agregado -Mercado Interno|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13132|En Certificados de Crédito Fiscal|13130|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13140|Impuesto al Valor Agregado -Importaciones|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13142|En Certificados de Crédito Fiscal|13140|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13150|Impuesto a los Consumos Específicos -Mercado Interno|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13152|En Certificados de Crédito Fiscal|13150|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13160|Impuesto a los Consumos Específicos -Importaciones|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13162|En Certificados de Crédito Fiscal|13160|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13170|Impuestos a los Hidrocarburos|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13175|Impuesto Directo a los Hidrocarburos|13170|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13190|Otros Impuestos|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13199|Impuestos a la Participación en Juegos, a la Venta de Moneda Extranjera y Otros|13190|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13200|Impuestos Aduaneros (Renta Aduanera)|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13210|Gravamen Arancelario|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13212|En Certificados de Crédito Fiscal|13210|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13300|Impuestos Municipales|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13310|Impuesto a la Propiedad de Bienes Inmuebles|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13330|Impuesto a la Propiedad de Vehículos Automotores|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13360|Impuesto Municipal a la Transferencia de Inmuebles|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13370|Impuesto Municipal a la Transferencia de Vehículos Automotores|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13390|Otros|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13400|Impuestos Departamentales|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13410|Impuesto a la Sucesión Hereditaria y Donación de Bienes Inmuebles y Muebles Sujetos a|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13420|Impuesto a la Propiedad de Vehículos a motor para la navegación Aérea y Acuática|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13430|Impuesto a la afectación del Medio Ambiente|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+13490|Otros|13000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+14000|REGALIAS||CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+14100|Regalías Mineras|14000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+14200|Regalías por Hidrocarburos|14000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+14210|Nacionales|14000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+14212|6% Participación TGN|14210|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+14220|Departamentales|14000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+14222|1% Regalía Compensatoria Departamental|14220|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+14300|Regalías Agropecuarias y Forestales|14000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+14900|Otras Regalías|14000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15000|TASAS, DERECHOS Y OTROS INGRESOS||CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15100|Tasas|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15200|Derechos|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15300|Patentes y Concesiones|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15310|Patentes Forestales|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15320|Patentes Petroleras|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15330|Patentes y Concesiones Mineras|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15331|Patentes Mineras|15330|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15332|Concesiones Mineras|15330|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15340|Patentes Municipales|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15350|Otras Patentes y Concesiones|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15400|Contribuciones por Mejoras|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15900|Otros Ingresos|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15910|Multas|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15920|Intereses Penales|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15930|Ganancias en Operaciones Cambiarias|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15940|Renta Consular|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+15990|Otros Ingresos no Especificados|15000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+16000|INTERESES Y OTRAS RENTAS DE LA PROPIEDAD||CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+16100|Intereses|16000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+16110|Intereses por Depósitos|16000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+16120|Intereses por Valores|16000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+16140|Intereses por Inversiones en instrumentos financieros en el extranjero|16000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+16190|Otros Intereses|16000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+16200|Dividendos|16000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+16300|Alquiler de Tierras y Terrenos|16000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+16400|Derechos sobre Bienes Intangibles|16000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+17000|CONTRIBUCIONES A LA SEGURIDAD SOCIAL||CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+17100|Contribuciones Obligatorias|17000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+17110|Patronales|17000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+17112|Del Sector Privado|17110|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+17120|Laborales|17000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+17122|Del Sector Privado|17120|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+17130|Especiales de las Universidades Públicas|17000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+17200|Contribuciones Voluntarias|17000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+18000|DONACIONES CORRIENTES||CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+18100|Donaciones Corrientes Internas|18000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+18110|Del Sector Privado Nacional realizados por personas naturales y jurídicas.|18000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+18111|Monetizables|18110|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+18112|No Monetizable|18110|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+18200|Donaciones Corrientes del Exterior|18000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+18210|Del Sector Privado del Exterior|18000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+18212|No Monetizable|18210|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+18220|De Países y Organismos Internacionales|18000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+18222|No Monetizable|18220|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19000|TRANSFERENCIAS CORRIENTES||CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19100|Del Sector Privado|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19120|De Instituciones Privadas sin Fines de Lucro|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19130|De Empresas Privadas|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19200|Del Sector Público No Financiero|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19210|Del Órgano Ejecutivo|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19219|Por Emisión de Certificados de Crédito Fiscal|19210|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19220|De los Órganos Legislativo, Judicial y Electoral, Entidades de Control y Defensa,|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19230|De las Entidades Territoriales Autónomas|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19234|Del Gobierno Autónomo Regional|19230|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19260|De las Instituciones de Seguridad Social|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19270|De las Empresas Públicas Nacionales|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19272|Por Excedentes Financieros|19270|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19280|De las Empresas Públicas Territoriales|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19283|Del Gobierno Indígena Originario Campesino|19280|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19300|Del Sector Público Financiero|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19310|De las Instituciones Públicas Financieras No Bancarias|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19320|De las Instituciones Públicas Financieras Bancarias|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+19400|Del Exterior|19000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+21100|Venta de Activos Fijos|21000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+21110|Edificios|21100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+21120|Maquinaria y Equipo|21100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+21130|Semovientes|21100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+21200|Venta de Tierras y Terrenos|21100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+21400|Venta de Activos Intangibles|21100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+21900|Venta de Otros Activos Fijos|21100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+22100|Donaciones de Capital Internas|22000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+22110|Del Sector Privado Nacional realizados por personas naturales y jurídicas.|22100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+22200|Donaciones de Capital del Exterior|22100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+22210|Del Sector Privado del Exterior|22200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+22220|De Países y Organismos Internacionales|22200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+23100|Del Sector Privado|23000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+23130|De Empresas Privadas|23100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+23200|Del Sector Público No Financiero|23000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+23210|Del Órgano Ejecutivo|23200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+23220|De los Órganos Legislativo, Judicial y Electoral, Entidades de Control y Defensa,|23200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+23230|De las Entidades Territoriales Autónomas|23200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+23260|De las Instituciones de Seguridad Social|23200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+23270|De las Empresas Públicas Nacionales|23200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+23280|De las Empresas Públicas Territoriales|23200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+23300|Del Sector Público Financiero|23000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+32100|Del Sector Privado|32100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+32200|Del Sector Público No Financiero|32100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+32210|Del Órgano Ejecutivo|32200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+32220|De los Órganos Legislativo, Judicial y Electoral, Entidades de Control y Defensa,|32200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+32230|De las Entidades Territoriales Autónomas|32200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+32260|De las Instituciones de Seguridad Social|32200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+32270|De las Empresas Públicas Nacionales|32200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+32280|De las Empresas Públicas Territoriales|32200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+32300|Del Sector Público Financiero|32100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+32310|De las Instituciones Públicas Financieras No Bancarias|32300|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+32400|Del Exterior|32100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33100|Del Sector Privado|33000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33200|Del Sector Público No Financiero|33000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33210|Del Órgano Ejecutivo|33200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33220|De los Órganos Legislativo, Judicial y Electoral, Entidades de Control y Defensa,|33200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33230|De las Entidades Territoriales Autónomas|33200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33260|De las Instituciones de Seguridad Social|33200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33270|De las Empresas Públicas Nacionales|33200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33280|De las Empresas Públicas Territoriales|33200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33300|Del Sector Público Financiero|33000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33310|De las Instituciones Públicas Financieras No Bancarias|33300|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33400|Recuperación de Fondos de Fideicomiso y Servicios Financieros|33000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33500|Del Exterior|33000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+33600|Recuperaciones por Afectaciones al Tesoro General de la Nación|33000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+34100|Venta de Títulos y Valores de Corto Plazo|34000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+34110|Letras del Tesoro|34100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+34120|Bonos del Tesoro|34100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+34130|Otros|34100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+34200|Venta de Títulos y Valores de Largo Plazo|34000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+34210|Letras del Tesoro|34200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+34220|Bonos del Tesoro|34200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+34230|Otros|34200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35100|Disminución del Activo Disponible|35000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35110|Disminución de Caja y Bancos|35100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35120|Disminución de Inversiones Temporales|35100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35130|Disminución de Anticipos Financieros|35100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35200|Disminución de Cuentas y Documentos por Cobrar y Otros Activos Financieros a Corto Plazo|35000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35210|Disminución de Cuentas por Cobrar a Corto Plazo|35200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35220|Disminución de Documentos por Cobrar y Otros Activos Financieros a Corto Plazo|35200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35300|Disminución de Cuentas y Documentos por Cobrar y Otros Activos Financieros a Largo Plazo|35000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35310|Disminución de Cuentas por Cobrar a Largo Plazo|35300|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35320|Disminución de Documentos por Cobrar y Otros Activos Financieros a Largo Plazo|35300|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35400|Cobro de Cuentas y Documentos por Cobrar y Otros Activos Financieros a Corto Plazo|35000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35410|Recursos Devengados no Cobrados por Cuentas por Cobrar de Corto Plazo|35400|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+35420|Recursos Devengados no Cobrados por Documentos por Cobrar y Otros Activos|35400|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+36100|Obtención de Préstamos Internos a Corto Plazo|36000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+36200|Obtención de Préstamos Internos a Largo Plazo|36000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+36300|Obtención de Fondos en Fideicomiso|36000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+36310|Obtención de Fondos -Fideicomiso a Corto Plazo|36300|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+36320|Obtención de Fondos -Fideicomiso a Largo Plazo|36300|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+36400|Financiamiento por Afectaciones al Tesoro General de la Nación|36000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+37100|Obtención de Préstamos del Exterior a Corto Plazo|37000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+37110|Del Sector Privado del Exterior|37100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+37120|De Países y Organismos Internacionales|37100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+37200|Obtención de Préstamos del Exterior a Largo Plazo|37000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+37210|Del Sector Privado del Exterior|37200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+37220|De Países y Organismos Internacionales|37200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+38100|Títulos y Valores Internos de Corto Plazo|38000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+38200|Títulos y Valores Internos de Largo Plazo|38000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+38300|Títulos y Valores Externos de Corto Plazo|38000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+38400|Títulos y Valores Externos de Largo Plazo|38000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39100|Incremento de Cuentas por Pagar a Corto Plazo|39000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39110|Incremento de Cuentas por Pagar a Corto Plazo por Deudas Comerciales|39100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39120|Incremento de Cuentas por Pagar a Corto Plazo con Contratistas|39100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39130|Incremento de Cuentas por Pagar a Corto Plazo por Sueldos y Jornales|39100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39140|Incremento de Cuentas por Pagar a Corto Plazo por Aportes Patronales|39100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39150|Incremento de Cuentas por Pagar a Corto Plazo por Retenciones|39100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39160|Incremento de Cuentas por Pagar a Corto Plazo por Impuestos, Regalías y Tasas|39100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39170|Incremento de Cuentas por Pagar a Corto Plazo por Jubilaciones y Pensiones|39100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39180|Incremento de Cuentas por Pagar a Corto Plazo por Intereses|39100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39190|Incremento de Otros Pasivos y Otras Cuentas por Pagar a Corto Plazo|39100|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39200|Incremento de Cuentas por Pagar a Largo Plazo|39000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39210|Incremento de Cuentas por Pagar a Largo Plazo por Deudas Comerciales|39200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39220|Incremento de Otras Cuentas por Pagar a Largo Plazo|39200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39300|Aportes de Capital|39000|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39310|Del Sector Público|39200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+39320|Del Sector Privado|39200|CLASIFICADOR DE RECURSOS POR RUBROS|ingreso|2017
+10000|SERVICIOS PERSONALES||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11000|Empleados Permanentes||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11100|Haberes Básicos|11000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11200|Bono de Antigüedad|11000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11220|Bono de Antigüedad|11200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11300|Bonificaciones|11000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11310|Bono de Frontera|11300|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11320|Remuneraciones Colaterales Médicas y de Trabajadores en Salud|11300|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11321|Categorías Médicas|11320|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11322|Escalafón Médico|11320|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11323|Escalafón de los Trabajadores en Salud|11320|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11324|Otras Remuneraciones|11320|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11330|Otras Bonificaciones|11300|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11400|Aguinaldos|11000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11500|Primas y Bono de Producción|11000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11510|Primas|11500|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11520|Bono de Producción|11500|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11600|Asignaciones Familiares|11000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11700|Sueldos|11000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11800|Dietas|11000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11810|Dietas de Directorio|11800|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11820|Otras Dietas|11800|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11900|Otros Servicios Personales|11000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11940|Suplencias|11900|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+12000|Empleados No Permanentes||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+12100|Personal Eventual|12000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+13000|Previsión Social||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+11300|Bonificaciones.|11000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+12100|Personal Eventual|12000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+13100|Aporte Patronal al Seguro Social|13000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+13130|Aporte Patronal Fondo Solidario Régimen de Largo Plazo|13000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+13131|Aporte Patronal Solidario 3%|13130|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+13132|Aporte Patronal Minero Solidario 2%|13130|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+13200|Aporte Patronal para Vivienda|13000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+14000|Otros||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+14100|Otros|14000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+15000|Previsiones para Incremento de Gastos en Servicios Personales||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+15100|Incremento Salarial|15000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+15200|Crecimiento Vegetativo|15000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+15300|Creación de Ítems|15000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+15400|Otras Previsiones|15000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+21000|Servicios Básicos||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+21100|Comunicaciones|21000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+21200|Energía Eléctrica|21100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+21300|Agua|21000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+21400|Telefonía|21100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+21500|Gas Domiciliario|21000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+21600|Internet|21000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+22000|Servicios de Transporte y Seguros||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+22100|Pasajes|22000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+22110|Pasajes al Interior del País|22100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+22120|Pasajes al Exterior del País|22100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+22200|Viáticos|22100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+22300|Fletes y Almacenamiento|22000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+22400|Gastos de Instalación y Retorno|22000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+22500|Seguros|22000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+22600|Transporte de Personal|22000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+23000|Alquileres||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+23100|Alquiler de Inmuebles|23000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+23200|Alquiler de Equipos y Maquinarias|23000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+23300|Alquiler de Tierras y Terrenos|23000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+23400|Otros Alquileres|23000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+24000|Instalación, Mantenimiento y Reparaciones||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+24100|Mantenimiento y Reparación de Inmuebles y Equipos|24000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+24200|Mantenimiento y Reparación de Vías de Comunicación|24000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+24300|Otros Gastos por Concepto de Instalación, Mantenimiento y Reparación|24000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25000|Servicios Profesionales y Comerciales||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25100|Médicos, Sanitarios y Sociales|25000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25120|Gastos Especializados por Atención Médica y Otros|25100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25130|Gastos por Afiliación de Estudiantes Universitarios al Seguro Social|25100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25200|Estudios, Investigaciones, Auditorías Externas y Revalorizaciones|25000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25210|Consultorías por Producto|25200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25220|Consultores Individuales de Línea|25200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25230|Auditorías Externas|25200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25300|Comisiones y Gastos Bancarios|25000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25400|Lavandería, Limpieza e Higiene|25000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25500|Publicidad|25000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25600|Servicios de Imprenta, Fotocopiado y Fotográficos|25000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25700|Capacitación del Personal|25000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25800|Estudios e Investigaciones para Proyectos de Inversión No Capitalizables|25000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25810|Consultorías por Producto|25800|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25820|Consultores Individuales de Línea|25800|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+25900|Servicios Manuales|25000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26000|Otros Servicios No Personales||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26200|Gastos Judiciales|26000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26300|Derechos sobre Bienes Intangibles|26000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26500|Conjueces y Jueces Ciudadanos|26000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26600|Servicio de Seguridad de los Batallones de Seguridad Física de la Policía Nacional y|26000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26610|Servicios Públicos|26600|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26620|Servicios Privados|26600|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26630|Servicios por Traslado de Valores|26600|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26700|Servicios de Laboratorios Especializados|26000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26900|Otros Servicios No Personales|26000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26910|Gastos de Representación|26900|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26920|Fallas de Caja|26900|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26930|Pago por Trabajos Dirigidos y Pasantías|26900|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26940|Compensación Costo de Vida|26900|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26950|Aguinaldo “Esfuerzo por Bolivia”|26900|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+26990|Otros|26900|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+27000|Gastos por Servicios Especializados por la Actividad Extractiva de Recursos Naturales del||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+27100|Servicios por la Extracción, Transformación y Conversión de los Recursos Naturales de|27000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+27110|Pago por Costos Incurridos|27100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+27120|Pago por Utilidades|27100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+31000|Alimentos y Productos Agroforestales||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+31100|Alimentos y Bebidas para Personas, Desayuno Escolar y Otros|31000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+31110|Gastos por Refrigerios al personal permanente, eventual y consultores|31100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+31120|Gastos por Alimentación y Otros Similares|31100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+31130|Alimentación Complementaria Escolar|31100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+31140|Alimentación Hospitalaria, Penitenciaria, Aeronaves y Otras Específicas|31100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+31150|Alimentos y Bebidas para la atención de emergencias y desastres naturales.|31100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+31200|Alimentos para Animales|31000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+31300|Productos Agrícolas, Pecuarios y Forestales|31000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+32000|Productos de Papel, Cartón e Impresos||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+32100|Papel|32100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+32200|Productos de Artes Gráficas|32100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+32300|Libros, Manuales y Revistas|32100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+32400|Textos de Enseñanza|32100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+32500|Periódicos y Boletines|32000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+33000|Textiles y Vestuario||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+33100|Hilados, Telas, Fibras y Algodón|33000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+33200|Confecciones Textiles|33000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+33300|Prendas de Vestir|33000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+33400|Calzados|33000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+34000|Combustibles, Productos Químicos, Farmacéuticos y Otras Fuentes de Energía||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+34100|Combustibles, Lubricantes, Derivados y otras Fuentes de Energía|34000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+34200|Productos Químicos y Farmacéuticos|34000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+34300|Llantas y Neumáticos|34000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+34400|Productos de Cuero y Caucho|34000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+34500|Productos de Minerales no Metálicos y Plásticos|34000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+34600|Productos Metálicos|34000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+34700|Minerales|34000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+34800|Herramientas Menores|34000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+34900|Material y Equipo Militar|34000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+39000|Productos Varios||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+39100|Material de Limpieza e Higiene|39000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+39200|Material Deportivo y Recreativo|39000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+39300|Utensilios de Cocina y Comedor|39000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+39400|Instrumental Menor Médico-Quirúrgico|39000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+39500|Útiles de Escritorio y Oficina|39000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+39600|Útiles Educacionales, Culturales y de Capacitación|39000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+39700|Útiles y Materiales Eléctricos|39000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+39800|Otros Repuestos y Accesorios|39000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+39900|Otros Materiales y Suministros|39000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+39910|Acuñación de Monedas e Impresión de Billetes|39900|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+39990|Otros Materiales y Suministros|39900|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+41000|Inmobiliarios||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+41100|Edificios|41000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+41200|Tierras y Terrenos|41000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+41300|Otras Adquisiciones|41000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+42000|Construcciones||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+42200|Construcciones y Mejoras de Bienes Públicos Nacionales de Dominio Privado|42000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+42210|Construcciones y Mejoras de Viviendas|42200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+42220|Construcciones y Mejoras para Defensa y Seguridad|42200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+42230|Otras Construcciones y Mejoras de Bienes Públicos de Dominio Privado|42200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+42240|Supervisión de Construcciones y Mejoras de Bienes Públicos de Dominio Privado|42200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+42300|Construcciones y Mejoras de Bienes Nacionales de Dominio Público|42000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+42310|Construcciones y Mejoras de Bienes de Dominio Público|42300|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+42320|Supervisión de Construcciones y Mejoras de Bienes de Dominio Público|42300|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43000|Maquinaria y Equipo||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43100|Equipo de Oficina y Muebles|43000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43110|Equipo de Oficina y Muebles|43100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43120|Equipo de Computación|43100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43200|Maquinaria y Equipo de Producción|43000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43300|Equipo de Transporte, Tracción y Elevación|43000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43310|Vehículos Livianos para Funciones Administrativas|43300|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43320|Vehículos Livianos para Proyectos de Inversión Pública|43300|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43330|Maquinaria y Equipo de Transporte|43300|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43340|Equipo de Elevación|43300|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43400|Equipo Médico y de Laboratorio|43000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43500|Equipo de Comunicación|43000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43600|Equipo Educacional y Recreativo|43000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+43700|Otra Maquinaria y Equipo|43000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+46000|Estudios y Proyectos para Inversión||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+46100|Para Construcciones de Bienes Públicos de Dominio Privado|46000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+46110|Consultoría por Producto para Construcciones de Bienes Públicos de Dominio|46100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+46120|Consultoría de Línea para Construcciones de Bienes Públicos de Dominio|46100|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+46200|Para Construcciones de Bienes de Dominio Público|46000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+46210|Consultoría por Producto para Construcciones de Bienes Públicos de Dominio|46200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+46220|Consultoría de Línea para Construcciones de Bienes Públicos de Dominio|46200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+46300|Consultoría para capacitación, transferencia de tecnología y organización para procesos|46000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+49000|Otros Activos||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+49100|Activos Intangibles|49000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+49300|Semovientes y Otros Animales|49000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+49400|Activos Museológicos y Culturales|49000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+49900|Otros|49000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+51000|Compra de Acciones, Participaciones de Capital e Inversiones||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+51100|Acciones y Participaciones de Capital en Empresas Privadas Nacionales|51000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+51200|Acciones y Participaciones de Capital en Empresas Públicas Nacionales|51000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+51300|Acciones y Participaciones de Capital en Empresas Públicas Territoriales|51000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+51500|Acciones y Participaciones de Capital en Instituciones Públicas Financieras No Bancarias|51000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+51600|Acciones y Participaciones de Capital en Instituciones Públicas Financieras Bancarias|51000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+51700|Acciones y Participaciones de Capital en Organismos Internacionales|51000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+51800|Otras Acciones y Participaciones de Capital en el Exterior|51000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+51900|Inversiones en el Exterior|51000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+52000|Concesión de Préstamos a Corto Plazo al Sector Público No Financiero||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+52100|Concesión de Préstamos a Corto Plazo a los Órganos del Estado Plurinacional|52000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+52200|Concesión de Préstamos a Corto Plazo a Instituciones Públicas Descentralizadas|52000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+53000|Concesión de Préstamos a Largo Plazo al Sector Público No Financiero||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+54000|Concesión de Préstamos al Sector Público Financiero y a los Sectores Privado y del Exterior||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+54100|Concesión de Préstamos a Corto Plazo a Instituciones Públicas Financieras No Bancarias|54000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+54600|Concesión de Préstamos a Largo Plazo a Instituciones Públicas Financieras No Bancarias|54000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+54700|Concesión de Préstamos a Largo Plazo a Instituciones Públicas Financieras Bancarias|54000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+54800|Concesión de Préstamos a Largo Plazo al Sector Privado|54000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+54900|Concesión de Préstamos a Largo Plazo al Exterior|54000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+55000|Compra de Títulos y Valores||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+55100|Títulos y Valores a Corto Plazo|55000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+55200|Títulos y Valores a Largo Plazo|55000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+56000|Constitución de Fideicomisos y Servicios Financieros||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+56100|Colocación de Fondos en Fideicomiso|56000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+56200|Concesiones de Recursos de Fideicomisos|56000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+56300|Colocación de Fondos por Servicios Financieros|56000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+57000|Incremento de Disponibilidades||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+57100|Incremento de Caja y Bancos|57000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+57200|Incremento de Inversiones Temporales|57000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+58000|Incremento de Cuentas y Documentos por Cobrar y Otros Activos Financieros||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+58100|Incremento de Cuentas por Cobrar a Corto Plazo|58000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+58200|Incremento de Documentos por Cobrar y Otros Activos Financieros a Corto Plazo|58000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+58300|Incremento de Cuentas por Cobrar a Largo Plazo|58000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+58400|Incremento de Documentos por Cobrar y Otros Activos Financieros a Largo Plazo|58000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+59000|Afectaciones al Tesoro General de la Nación||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+59100|Afectaciones al Tesoro General de la Nación|59000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+60000|SERVICIO DE LA DEUDA PUBLICA Y DISMINUCION DE OTROS PASIVOS||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+61000|Servicio de la Deuda Pública Interna||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+61100|Amortización de la Deuda Pública Interna a Corto Plazo|61000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+62000|Servicio de la Deuda Pública Externa||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+62100|Amortización de la Deuda Pública Externa a Corto Plazo|62000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+63000|Disminución de Cuentas por Pagar a Corto Plazo||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+63100|Disminución de Cuentas por Pagar a Corto Plazo por Deudas Comerciales con Proveedores|63000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+63200|Disminución de Cuentas por Pagar a Corto Plazo con Contratistas|63000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+63300|Disminución de Cuentas por Pagar a Corto Plazo por Sueldos y Jornales|63000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+63400|Disminución de Cuentas por Pagar a Corto Plazo por Aportes Patronales|63000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+63500|Disminución de Cuentas por Pagar a Corto Plazo por Retenciones|63000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+63600|Disminución de Cuentas por Pagar a Corto Plazo por Impuestos, Regalías y Tasas|63000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+63700|Disminución de Cuentas por Pagar a Corto Plazo por Jubilaciones y Pensiones|63000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+63800|Disminución de Cuentas por Pagar a Corto Plazo por Intereses|63000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+63900|Disminución de Otros Pasivos y Otras Cuentas por Pagar a Corto Plazo|63000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+64000|Disminución de Cuentas por Pagar a Largo Plazo||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+64100|Disminución de Cuentas por Pagar a Largo Plazo por Deudas Comerciales|64000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+64200|Disminución de Otras Cuentas por Pagar a Largo Plazo|64000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+65000|Gastos Devengados No Pagados –||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+65100|Gastos Devengados No Pagados por Servicios Personales|65000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+65200|Gastos Devengados No Pagados por Servicios No Personales, Materiales y Suministros,|65000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+65300|Gastos Devengados No Pagados por Transferencias|65000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+65400|Gastos Devengados No Pagados por Retenciones|65000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+65500|Gastos Devengados No Pagados por Intereses Deuda Pública Interna|65000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+65600|Gastos Devengados No Pagados por Intereses Deuda Pública Externa|65000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+65700|Gastos Devengados No Pagados por Comisiones Deuda Pública Interna|65000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+65800|Gastos Devengados No Pagados por Comisiones Deuda Pública Externa|65000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+65900|Otros Gastos Devengados No Pagados|65000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+66000|Gastos Devengados No Pagados –||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+66100|Gastos Devengados No Pagados por Servicios Personales|66000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+66200|Gastos Devengados No Pagados por Servicios No Personales, Materiales y Suministros,|66000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+66300|Gastos Devengados No Pagados por Transferencias|66000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+66400|Gastos Devengados No pagados por Retenciones|66000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+66900|Otros Gastos No Pagados|66000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+67000|Obligaciones por Afectaciones al Tesoro General de la Nación||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+67100|Obligaciones por Afectaciones al Tesoro General de la Nación|67000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+68000|Disminución de Otros Pasivos||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+68200|Pago de Beneficios Sociales|68000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+69000|Devolución de Fondos -Fideicomisos||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+69200|Devolución de Fondos -Fideicomiso de Largo Plazo|69000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+71000|Transferencias Corrientes al Sector Privado||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+71100|Pensiones y Jubilaciones|71000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+71200|Becas|71000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+71210|Becas de Estudios Otorgadas a los Servidores Públicos|71200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+71220|Becas de Estudios Otorgadas a los Estudiantes Universitarios|71200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+71230|Becas de Estudios Otorgadas a Particulares|71200|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+71300|Donaciones, Ayudas Sociales y Premios a Personas|71000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+71600|Subsidios y Donaciones a Personas e Instituciones Privadas sin Fines de Lucro|71000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+71700|Subvenciones Económicas a Empresas|71000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+71800|Pensiones Vitalicias|71000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+71900|Transferencias por las Compras de Control Tributario|71000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+72000|Transferencias Corrientes al Sector Público No Financiero por Participación en Tributos||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+72200|Transferencias Corrientes a Instituciones Públicas Descentralizadas, Universidades|72000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+72400|Transferencias Corrientes al Gobierno Autónomo Departamental por Participación en|72000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+72500|Transferencias Corrientes a los Gobiernos Autónomos Municipales e Indígena Originario|72000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+73000|Transferencias Corrientes al Sector Público No Financiero por Subsidios o Subvenciones||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+73100|Transferencias Corrientes al Órgano Ejecutivo del Estado Plurinacional por Subsidios o|73000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+73200|Transferencias Corrientes a los Órganos Legislativo, Judicial y Electoral, Entidades de|73000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+73300|Transferencias Corrientes del Fondo Compensatorio Nacional de Salud|73000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+73400|Transferencias Corrientes a Entidades Territoriales Autónomas por Subsidios o|73000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+73600|Transferencias Corrientes a Instituciones de Seguridad Social por Subsidios o|73000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+73700|Transferencias Corrientes a Empresas Públicas Nacionales por Subsidios o Subvenciones|73000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+73800|Transferencias Corrientes a Empresas Públicas de las Entidades Territoriales Autónomas|73000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+74000|Transferencias Corrientes al Sector Público Financiero||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+74100|Transferencias Corrientes a Instituciones Públicas Financieras No Bancarias|74000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+75000|Transferencias de Capital al Sector Privado||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+75100|Transferencias de Capital a Personas|75000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+75200|Transferencias de Capital a Instituciones Privadas sin Fines de Lucro|75000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+75300|Transferencias de Capital a Empresas Privadas|75000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+77000|Transferencias de Capital al Sector Público No Financiero por Subsidios o Subvenciones||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+77100|Transferencias de Capital al Órgano Ejecutivo del Estado Plurinacional por Subsidios o|77000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+77200|Transferencias de Capital a los Órganos Legislativo, Judicial y Electoral, Entidades de|77000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+77400|Transferencias de Capital a las Entidades Territoriales Autónomas por Subsidios o|77000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+77500|Transferencias de Capital a los Gobiernos Autónomos Municipales e Indígena Originario|77000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+77510|Diálogo Nacional 2000|77500|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+77520|Por Patentes Petroleras|77500|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+77530|Otras|77500|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+77600|Transferencias de Capital a Instituciones de Seguridad Social por Subsidios o Subvenciones|77000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+77700|Transferencias de Capital a Empresas Públicas Nacionales por Subsidios o Subvenciones|77000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+77800|Transferencias de Capital a Empresas Públicas de las Entidades Territoriales Autónomas|77000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+78000|Transferencias de Capital al Sector Público Financiero||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+78100|Transferencias de Capital a Instituciones Públicas Financieras No Bancarias|78000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+78200|Transferencias de Capital a Instituciones Públicas Financieras Bancarias|78000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+79000|Transferencias al Exterior||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+79100|Transferencias Corrientes a Gobiernos Extranjeros y Organismos Internacionales por|79000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+79200|Transferencias Corrientes a Gobiernos Extranjeros y Organismos Internacionales por|79000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+79300|Otras Transferencias Corrientes al Exterior|79000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+79400|Transferencias de Capital al Exterior|79000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+81000|Renta Interna||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+81100|Impuesto sobre las Utilidades de las Empresas|81000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+81200|Impuesto a las Transacciones|81000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+81300|Impuesto al Valor Agregado Mercado Interno|81000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+81400|Impuesto al Valor Agregado Importaciones|81000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+81500|Impuesto a los Consumos Específicos Mercado Interno|81000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+81600|Impuesto a los Consumos Específicos Importaciones|81000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+81700|Impuesto Especial a los Hidrocarburos y sus Derivados Mercado Interno|81000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+81800|Impuesto Especial a los Hidrocarburos y sus Derivados Importación|81000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+81900|Otros Impuestos|81000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+82000|Renta Aduanera||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+82100|Gravamen Arancelario|82000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+83000|Impuestos Municipales||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+83100|Impuesto a la Propiedad de Bienes|83000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+83200|Impuesto a las Transferencias onerosas de bienes inmuebles y vehículos automotores|83000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+84000|Regalías||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+84100|Regalías Mineras|84000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+84200|Regalías por Hidrocarburos|84000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+84300|Regalías Agropecuarias|84000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+84900|Otras Regalías|84000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+85000|Tasas, Multas y Otros||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+85100|Tasas|85000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+85200|Derechos|85000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+85300|Contribuciones por Mejoras|85000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+85400|Multas|85000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+85500|Intereses Penales|85000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+85900|Otros|85000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+86000|Patentes||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+86100|Patentes|86000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+91000|Intereses de Instituciones Financieras||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+91100|Intereses de Instituciones Públicas Financieras no Bancarias|91000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+91200|Intereses de Instituciones Públicas Financieras Bancarias|91000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+94000|Beneficios Sociales y Otros||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+94100|Indemnización|94000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+94200|Desahucio|94000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+94300|Otros Beneficios Sociales|94000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+95000|Contingencias Judiciales||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+95100|Contingencias Judiciales|95000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+96000|Otras Pérdidas y Devoluciones||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+96100|Pérdidas en Operaciones Cambiarias|96000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+96200|Devoluciones|96000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+96900|Otras Pérdidas|96000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+97000|Comisiones y Bonificaciones||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+97100|Comisiones por Ventas|97000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+97200|Bonificaciones por Ventas|97000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+98000|Retiros de Capital||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+98100|Del Sector Público|98000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+98200|Del Sector Privado|98000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+98300|Pago de Dividendos|98000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+99000|Provisiones para Gastos Corrientes y de Capital||CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+99100|Provisiones para Gastos de Capital|99000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017
+99200|Provisiones para Gastos Corrientes|99000|CLASIFICADOR POR OBJETO DEL GASTO|gasto|2017

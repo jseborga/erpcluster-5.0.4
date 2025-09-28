@@ -1,0 +1,31 @@
+Advancepayments=Anticipos
+Advancepayment=Anticipos
+AdvancePayment=Anticipos
+SupplierAdvancePayment=Pago anticipado a proveedor
+Linkpaymentstoinvoices=Enlazar pagos a facturas
+ConfirmLinkpaymentstoinvoices=confirma enlazar los pagos a facturas
+Bind=Enlazar
+Selected=Seleccionar
+Supplierorder=Pedido Proveedor
+Commande=Pedido
+PaidTo=Pagado a
+PaidBy=Pagado por
+Concept=Concepto
+Paymenttoprovider=Pago a proveedor
+Place of the event=Lugar del evento
+Dateevent=Fecha del evento
+
+Fieldref=Ref.
+Fieldamount=Monto
+Fieldfk_user_author=Autor
+Fieldfk_soc=Compañia
+Fieldorigin=Origen
+Fieldoriginid=Origen id
+Fieldfk_paiement=Pago
+Fieldnum_paiement=Numero de pago
+Fieldnote=Notas
+Fieldfk_bank=Movimiento Bancario
+Fieldstatut=Estado
+Fieldmulticurrency_amount=Montomoneda
+Fieldinvoice=Factura
+

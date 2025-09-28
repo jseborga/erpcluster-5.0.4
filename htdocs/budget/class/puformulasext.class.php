@@ -1,0 +1,42 @@
+<?php
+require_once DOL_DOCUMENT_ROOT.'/budget/class/puformulas.class.php';
+
+class Puformulasext extends Puformulas
+{
+	public function form_select($selected='',$htmlname='fk_formula',$htmloption='',$showempty=0,$campo='id')
+	{
+		global $user;
+		if (count($this->lines)>0)
+		{
+			$html.= '<select id="'.$htmlname.'" class="flat" name="'.$htmlname.'">';
+			if ($showempty) 
+			{
+				$html.= '<option value="0">&nbsp;</option>';
+			}
+			if ($selected <> 0 && $selected == '-1')
+			{
+				$html.= '<option value="-1" selected="selected">'.$langs->trans('To be defined').'</option>';
+			}
+			$num = count($this->lines);
+			$i = 0;
+			if ($num)
+			{
+				foreach ($this->lines AS $j => $obj)
+				{
+					if (!empty($selected) && $selected == $obj->$campo)
+					{
+						$html.= '<option value="'.$obj->$campo.'" selected="selected">'.$obj->ref.' - '.$obj->detail.'</option>';
+					}
+					else
+					{
+						$html.= '<option value="'.$obj->$campo.'">'.$obj->ref.' - '.$obj->detail.'</option>';
+					}
+					$i++;
+				}
+			}
+			$html.= '</select>';
+			return $html;
+		}
+	}
+}
+?>

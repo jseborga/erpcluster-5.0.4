@@ -1,0 +1,1 @@
+ALTER TABLE llx_tva_add ADD UNIQUE uk_unique (fk_tva);

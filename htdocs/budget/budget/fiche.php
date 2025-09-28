@@ -1,0 +1,521 @@
+<?php
+/* Copyright (C) 2007-2015 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) ---Put here your own copyright and developer email---
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *   	\file       budget/budgettask_card.php
+ *		\ingroup    budget
+ *		\brief      This file is an example of a php page
+ *					Initialy built by build_class_from_table on 2018-04-23 16:46
+ */
+
+//if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
+//if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
+//if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
+//if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
+//if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');			// Do not check anti CSRF attack test
+//if (! defined('NOSTYLECHECK'))   define('NOSTYLECHECK','1');			// Do not check style html tag into posted data
+//if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1');		// Do not check anti POST attack test
+//if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1');			// If there is no need to load and show top and left menu
+//if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML','1');			// If we don't need to load the html.form.class.php
+//if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
+//if (! defined("NOLOGIN"))        define("NOLOGIN",'1');				// If this page is public (can be called outside logged session)
+
+// Change this following line to use the correct relative path (../, ../../, etc)
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include '../main.inc.php';					// to work if your module directory is into dolibarr root htdocs directory
+if (! $res && file_exists("../../main.inc.php")) $res=@include '../../main.inc.php';			// to work if your module directory is into a subdir of root htdocs directory
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include '../../../dolibarr/htdocs/main.inc.php';     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include '../../../../dolibarr/htdocs/main.inc.php';   // Used on dev env only
+if (! $res) die("Include of main fails");
+// Change this following line to use the correct relative path from htdocs
+include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php');
+dol_include_once('/budget/class/budgettask.class.php');
+dol_include_once('/budget/class/budgetext.class.php');
+dol_include_once('/budget/class/itemsext.class.php');
+dol_include_once('/budget/class/budgettaskresourceext.class.php');
+dol_include_once('/budget/lib/budget.lib.php');
+
+// Load traductions files requiredby by page
+$langs->load("budget");
+$langs->load("other");
+
+// Get parameters
+$id			= GETPOST('id','int');
+$idr = GETPOST('idr','int');
+$action		= GETPOST('action','alpha');
+$cancel     = GETPOST('cancel');
+$backtopage = GETPOST('backtopage');
+$myparam	= GETPOST('myparam','alpha');
+
+
+$search_entity=GETPOST('search_entity','int');
+$search_ref=GETPOST('search_ref','alpha');
+$search_fk_budget=GETPOST('search_fk_budget','int');
+$search_fk_task=GETPOST('search_fk_task','int');
+$search_fk_task_parent=GETPOST('search_fk_task_parent','int');
+$search_label=GETPOST('search_label','alpha');
+$search_description=GETPOST('search_description','alpha');
+$search_duration_effective=GETPOST('search_duration_effective','alpha');
+$search_planned_workload=GETPOST('search_planned_workload','alpha');
+$search_progress=GETPOST('search_progress','int');
+$search_priority=GETPOST('search_priority','int');
+$search_fk_user_creat=GETPOST('search_fk_user_creat','int');
+$search_fk_user_valid=GETPOST('search_fk_user_valid','int');
+$search_fk_statut=GETPOST('search_fk_statut','int');
+$search_note_private=GETPOST('search_note_private','alpha');
+$search_note_public=GETPOST('search_note_public','alpha');
+$search_rang=GETPOST('search_rang','int');
+$search_model_pdf=GETPOST('search_model_pdf','alpha');
+
+
+
+if (empty($action) && empty($id) && empty($ref)) $action='view';
+
+// Protection if external user
+if ($user->societe_id > 0)
+{
+	//accessforbidden();
+}
+//$result = restrictedArea($user, 'budget', $id);
+
+
+$object = new Budgettask($db);
+$extrafields = new ExtraFields($db);
+$objBudget = new Budgetext($db);
+$objItems = new Itemsext($db);
+$objBudgettaskresource = new Budgettaskresourceext($db);
+
+// fetch optionals attributes and labels
+$extralabels = $extrafields->fetch_name_optionals_label($object->table_element);
+
+// Load object
+include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php';  // Must be include, not include_once  // Must be include, not include_once. Include fetch and fetch_thirdparty but not fetch_optionals
+
+// Initialize technical object to manage hooks of modules. Note that conf->hooks_modules contains array array
+$hookmanager->initHooks(array('budgettask'));
+
+
+
+/*******************************************************************
+* ACTIONS
+*
+* Put here all code to do according to value of "action" parameter
+********************************************************************/
+
+$now=dol_now();
+$parameters=array();
+$reshook=$hookmanager->executeHooks('doActions',$parameters,$object,$action);    // Note that $action and $object may have been modified by some hooks
+if ($reshook < 0) setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+
+if (empty($reshook))
+{
+	if ($cancel)
+	{
+		if ($action != 'addlink')
+		{
+			$urltogo=$backtopage?$backtopage:dol_buildpath('/budget/list.php',1);
+			header("Location: ".$urltogo);
+			exit;
+		}
+		if ($id > 0 || ! empty($ref)) $ret = $object->fetch($id,$ref);
+		$action='';
+	}
+
+	// Action to add record
+	if ($action == 'add')
+	{
+		if (GETPOST('cancel'))
+		{
+			$urltogo=$backtopage?$backtopage:dol_buildpath('/budget/list.php',1);
+			header("Location: ".$urltogo);
+			exit;
+		}
+
+		$error=0;
+
+		/* object_prop_getpost_prop */
+
+		$object->entity=GETPOST('entity','int');
+		$object->ref=GETPOST('ref','alpha');
+		$object->fk_budget=GETPOST('fk_budget','int');
+		$object->fk_task=GETPOST('fk_task','int');
+		$object->fk_task_parent=GETPOST('fk_task_parent','int');
+		$object->label=GETPOST('label','alpha');
+		$object->description=GETPOST('description','alpha');
+		$object->duration_effective=GETPOST('duration_effective','alpha');
+		$object->planned_workload=GETPOST('planned_workload','alpha');
+		$object->progress=GETPOST('progress','int');
+		$object->priority=GETPOST('priority','int');
+		$object->fk_user_creat=GETPOST('fk_user_creat','int');
+		$object->fk_user_valid=GETPOST('fk_user_valid','int');
+		$object->fk_statut=GETPOST('fk_statut','int');
+		$object->note_private=GETPOST('note_private','alpha');
+		$object->note_public=GETPOST('note_public','alpha');
+		$object->rang=GETPOST('rang','int');
+		$object->model_pdf=GETPOST('model_pdf','alpha');
+
+
+
+		if (empty($object->ref))
+		{
+			$error++;
+			setEventMessages($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Ref")), null, 'errors');
+		}
+
+		if (! $error)
+		{
+			$result=$object->create($user);
+			if ($result > 0)
+			{
+				// Creation OK
+				$urltogo=$backtopage?$backtopage:dol_buildpath('/budget/list.php',1);
+				header("Location: ".$urltogo);
+				exit;
+			}
+			{
+				// Creation KO
+				if (! empty($object->errors)) setEventMessages(null, $object->errors, 'errors');
+				else  setEventMessages($object->error, null, 'errors');
+				$action='create';
+			}
+		}
+		else
+		{
+			$action='create';
+		}
+	}
+
+	// Action to update record
+	if ($action == 'update')
+	{
+		$error=0;
+
+
+		$object->entity=GETPOST('entity','int');
+		$object->ref=GETPOST('ref','alpha');
+		$object->fk_budget=GETPOST('fk_budget','int');
+		$object->fk_task=GETPOST('fk_task','int');
+		$object->fk_task_parent=GETPOST('fk_task_parent','int');
+		$object->label=GETPOST('label','alpha');
+		$object->description=GETPOST('description','alpha');
+		$object->duration_effective=GETPOST('duration_effective','alpha');
+		$object->planned_workload=GETPOST('planned_workload','alpha');
+		$object->progress=GETPOST('progress','int');
+		$object->priority=GETPOST('priority','int');
+		$object->fk_user_creat=GETPOST('fk_user_creat','int');
+		$object->fk_user_valid=GETPOST('fk_user_valid','int');
+		$object->fk_statut=GETPOST('fk_statut','int');
+		$object->note_private=GETPOST('note_private','alpha');
+		$object->note_public=GETPOST('note_public','alpha');
+		$object->rang=GETPOST('rang','int');
+		$object->model_pdf=GETPOST('model_pdf','alpha');
+
+
+
+		if (empty($object->ref))
+		{
+			$error++;
+			setEventMessages($langs->transnoentitiesnoconv("ErrorFieldRequired",$langs->transnoentitiesnoconv("Ref")), null, 'errors');
+		}
+
+		if (! $error)
+		{
+			$result=$object->update($user);
+			if ($result > 0)
+			{
+				$action='view';
+			}
+			else
+			{
+				// Creation KO
+				if (! empty($object->errors)) setEventMessages(null, $object->errors, 'errors');
+				else setEventMessages($object->error, null, 'errors');
+				$action='edit';
+			}
+		}
+		else
+		{
+			$action='edit';
+		}
+	}
+
+	// Action to delete
+	if ($action == 'confirm_delete')
+	{
+		$result=$object->delete($user);
+		if ($result > 0)
+		{
+			// Delete OK
+			setEventMessages("RecordDeleted", null, 'mesgs');
+			header("Location: ".dol_buildpath('/budget/list.php',1));
+			exit;
+		}
+		else
+		{
+			if (! empty($object->errors)) setEventMessages(null, $object->errors, 'errors');
+			else setEventMessages($object->error, null, 'errors');
+		}
+	}
+	// Action to delete
+	if ($action == 'confirm_validate')
+	{
+		$object->fk_statut = ($object->fk_statut?0:1);
+		$object->fk_user_valid = $user->id;
+		$object->datev = $now;
+
+		$result = $object->update($user);
+		if ($result > 0)
+		{
+			// Delete OK
+			setEventMessages("Updaterecords", null, 'mesgs');
+			header("Location: ".dol_buildpath('/budget/budget/fiche.php?id='.$id,1));
+			exit;
+		}
+		else
+		{
+			if (! empty($object->errors)) setEventMessages(null, $object->errors, 'errors');
+			else setEventMessages($object->error, null, 'errors');
+		}
+	}
+}
+
+
+
+
+/***************************************************
+* VIEW
+*
+* Put here all code to build page
+****************************************************/
+
+llxHeader('',$langs->trans('Budgettask'),'');
+
+$form=new Form($db);
+
+
+// Put here content of your page
+
+// Example : Adding jquery code
+print '<script type="text/javascript" language="javascript">
+jQuery(document).ready(function() {
+	function init_myfunc()
+	{
+		jQuery("#myid").removeAttr(\'disabled\');
+		jQuery("#myid").attr(\'disabled\',\'disabled\');
+	}
+	init_myfunc();
+	jQuery("#mybutton").click(function() {
+		init_myfunc();
+	});
+});
+</script>';
+
+
+// Part to create
+if ($action == 'create')
+{
+	print load_fiche_titre($langs->trans("NewMyModule"));
+
+	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+	print '<input type="hidden" name="action" value="add">';
+	print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
+
+	dol_fiche_head();
+
+	print '<table class="border centpercent">'."\n";
+	// print '<tr><td class="fieldrequired">'.$langs->trans("Label").'</td><td><input class="flat" type="text" size="36" name="label" value="'.$label.'"></td></tr>';
+	//
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldentity").'</td><td><input class="flat" type="text" name="entity" value="'.GETPOST('entity').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldref").'</td><td><input class="flat" type="text" name="ref" value="'.GETPOST('ref').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_budget").'</td><td><input class="flat" type="text" name="fk_budget" value="'.GETPOST('fk_budget').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_task").'</td><td><input class="flat" type="text" name="fk_task" value="'.GETPOST('fk_task').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_task_parent").'</td><td><input class="flat" type="text" name="fk_task_parent" value="'.GETPOST('fk_task_parent').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldlabel").'</td><td><input class="flat" type="text" name="label" value="'.GETPOST('label').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fielddescription").'</td><td><input class="flat" type="text" name="description" value="'.GETPOST('description').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldduration_effective").'</td><td><input class="flat" type="text" name="duration_effective" value="'.GETPOST('duration_effective').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldplanned_workload").'</td><td><input class="flat" type="text" name="planned_workload" value="'.GETPOST('planned_workload').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldprogress").'</td><td><input class="flat" type="text" name="progress" value="'.GETPOST('progress').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldpriority").'</td><td><input class="flat" type="text" name="priority" value="'.GETPOST('priority').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_user_creat").'</td><td><input class="flat" type="text" name="fk_user_creat" value="'.GETPOST('fk_user_creat').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_user_valid").'</td><td><input class="flat" type="text" name="fk_user_valid" value="'.GETPOST('fk_user_valid').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_statut").'</td><td><input class="flat" type="text" name="fk_statut" value="'.GETPOST('fk_statut').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldnote_private").'</td><td><input class="flat" type="text" name="note_private" value="'.GETPOST('note_private').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldnote_public").'</td><td><input class="flat" type="text" name="note_public" value="'.GETPOST('note_public').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldrang").'</td><td><input class="flat" type="text" name="rang" value="'.GETPOST('rang').'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldmodel_pdf").'</td><td><input class="flat" type="text" name="model_pdf" value="'.GETPOST('model_pdf').'"></td></tr>';
+
+	print '</table>'."\n";
+
+	dol_fiche_end();
+
+	print '<div class="center"><input type="submit" class="button" name="add" value="'.$langs->trans("Create").'"> &nbsp; <input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'"></div>';
+
+	print '</form>';
+}
+
+
+
+// Part to edit record
+if (($id || $ref) && $action == 'edit')
+{
+	print load_fiche_titre($langs->trans("Budgettask"));
+
+	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+	print '<input type="hidden" name="action" value="update">';
+	print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
+	print '<input type="hidden" name="id" value="'.$object->id.'">';
+
+	dol_fiche_head();
+
+	print '<table class="border centpercent">'."\n";
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldentity").'</td><td><input class="flat" type="text" name="entity" value="'.$object->entity.'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldref").'</td><td><input class="flat" type="text" name="ref" value="'.$object->ref.'" readonly></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_budget").'</td><td><input class="flat" type="text" name="fk_budget" value="'.$object->fk_budget.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_task").'</td><td><input class="flat" type="text" name="fk_task" value="'.$object->fk_task.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_task_parent").'</td><td><input class="flat" type="text" name="fk_task_parent" value="'.$object->fk_task_parent.'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fieldlabel").'</td><td><input class="flat" type="text" name="label" value="'.$object->label.'"></td></tr>';
+	print '<tr><td class="fieldrequired">'.$langs->trans("Fielddescription").'</td><td><input class="flat" type="text" name="description" value="'.$object->description.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldduration_effective").'</td><td><input class="flat" type="text" name="duration_effective" value="'.$object->duration_effective.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldplanned_workload").'</td><td><input class="flat" type="text" name="planned_workload" value="'.$object->planned_workload.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldprogress").'</td><td><input class="flat" type="text" name="progress" value="'.$object->progress.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldpriority").'</td><td><input class="flat" type="text" name="priority" value="'.$object->priority.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_user_creat").'</td><td><input class="flat" type="text" name="fk_user_creat" value="'.$object->fk_user_creat.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_user_valid").'</td><td><input class="flat" type="text" name="fk_user_valid" value="'.$object->fk_user_valid.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_statut").'</td><td><input class="flat" type="text" name="fk_statut" value="'.$object->fk_statut.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldnote_private").'</td><td><input class="flat" type="text" name="note_private" value="'.$object->note_private.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldnote_public").'</td><td><input class="flat" type="text" name="note_public" value="'.$object->note_public.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldrang").'</td><td><input class="flat" type="text" name="rang" value="'.$object->rang.'"></td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldmodel_pdf").'</td><td><input class="flat" type="text" name="model_pdf" value="'.$object->model_pdf.'"></td></tr>';
+
+	print '</table>';
+
+	dol_fiche_end();
+
+	print '<div class="center"><input type="submit" class="button" name="save" value="'.$langs->trans("Save").'">';
+	print ' &nbsp; <input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'">';
+	print '</div>';
+
+	print '</form>';
+}
+
+// Part to show record
+if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create')))
+{
+	$res = $object->fetch_optionals($object->id, $extralabels);
+	$head = budgettask_prepare_head($object, $user);
+	$titre=$langs->trans("Budgettask");
+	$picto='budget';
+	$getcard = 'card';
+	dol_fiche_head($head, $getcard, $titre, 0, $picto);
+
+
+	if ($action == 'delete') {
+		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('DeleteMyOjbect'), $langs->trans('ConfirmDeleteMyObject'), 'confirm_delete', '', 0, 1);
+		print $formconfirm;
+	}
+	if ($action == 'validate') {
+		if ($object->fk_statut==0)
+			$formquestion = array(array('type'=>'other','label'=>$langs->trans('Message'),'value'=>$langs->trans('Whenvalidatingtheinputsandoutputscannolongerbemodified')));
+		else {
+			$formquestion = array(array('type'=>'other','label'=>$langs->trans('Message'),'value'=>$langs->trans('Themodificationofinputsandoutputswillbeenabled')));
+		}
+		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, ($object->fk_statut?$langs->trans('NovalidateBudgettask'):$langs->trans('ValidateBudgettask')), ($object->fk_statut?$langs->trans('ConfirmNovalidateBudgettask'):$langs->trans('ConfirmValidateBudgettask')), 'confirm_validate', $formquestion, 0, 2);
+		print $formconfirm;
+	}
+
+
+	print '<table class="border centpercent">'."\n";
+	// print '<tr><td class="fieldrequired">'.$langs->trans("Label").'</td><td>'.$object->label.'</td></tr>';
+	//
+//print '<tr><td>'.$langs->trans("Fieldentity").'</td><td>'.$object->entity.'</td></tr>';
+	print '<tr><td>'.$langs->trans("Fieldref").'</td><td>'.$object->ref.'</td></tr>';
+	$objBudget->fetch($object->fk_budget);
+	print '<tr><td>'.$langs->trans("Fieldfk_budget").'</td><td>'.$objBudget->getNomUrl(1).'</td></tr>';
+	if ($object->fk_task>0)
+	{
+		$objItems->fetch($object->fk_task);
+		print '<tr><td>'.$langs->trans("Fieldfk_task").'</td><td>'.$objItems->getNomUrl(1).'</td></tr>';
+	}
+	//print '<tr><td>'.$langs->trans("Fieldfk_task_parent").'</td><td>'.$object->fk_task_parent.'</td></tr>';
+	print '<tr><td>'.$langs->trans("Fieldlabel").'</td><td>'.$object->label.'</td></tr>';
+	print '<tr><td>'.$langs->trans("Fielddescription").'</td><td>'.$object->description.'</td></tr>';
+	//print '<tr><td>'.$langs->trans("Fieldduration_effective").'</td><td>'.$object->duration_effective.'</td></tr>';
+	//print '<tr><td>'.$langs->trans("Fieldplanned_workload").'</td><td>'.$object->planned_workload.'</td></tr>';
+	//print '<tr><td>'.$langs->trans("Fieldprogress").'</td><td>'.$object->progress.'</td></tr>';
+	//print '<tr><td>'.$langs->trans("Fieldpriority").'</td><td>'.$object->priority.'</td></tr>';
+	//print '<tr><td>'.$langs->trans("Fieldfk_user_creat").'</td><td>'.$object->fk_user_creat.'</td></tr>';
+//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldfk_user_valid").'</td><td>'.$object->fk_user_valid.'</td></tr>';
+	print '<tr><td>'.$langs->trans("Fieldcost").'</td><td>'.$object->amount.'</td></tr>';
+	print '<tr><td>'.$langs->trans("Fieldmanual_performance").'</td><td>'.($object->manual_performance?$langs->trans('Yes'):$langs->trans('Not')).'</td></tr>';
+
+	print '<tr><td>'.$langs->trans("Fieldfk_statut").'</td><td>'.$object->libStatut($object->fk_statut,6).'</td></tr>';
+	print '<tr><td>'.$langs->trans("Fieldnote_private").'</td><td>'.$object->note_private.'</td></tr>';
+	print '<tr><td>'.$langs->trans("Fieldnote_public").'</td><td>'.$object->note_public.'</td></tr>';
+//print '<tr><td>'.$langs->trans("Fieldrang").'</td><td>'.$object->rang.'</td></tr>';
+//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldmodel_pdf").'</td><td>'.$object->model_pdf.'</td></tr>';
+
+	print '</table>';
+
+	dol_fiche_end();
+
+
+	// Buttons
+	print '<div class="tabsAction">'."\n";
+	$parameters=array();
+	$reshook=$hookmanager->executeHooks('addMoreActionsButtons',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+	if ($reshook < 0) setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+
+	if (empty($reshook))
+	{
+		//vamos a verificar si el budget esta en estado 0
+		if($objBudget->fk_statut==0)
+		{
+			if ($object->fk_statut==0)
+			{
+					print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/budget/budget/card.php?id='.$object->id.'&amp;action=viewgr">'.$langs->trans("Return").'</a></div>'."\n";
+					if ($user->rights->budget->budi->val)
+					{
+						print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=validate">'.$langs->trans("Validate").'</a></div>'."\n";
+					}
+					if ($user->rights->budget->budi->mod)
+					{
+						print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=edit">'.$langs->trans("Modify").'</a></div>'."\n";
+					}
+
+					if ($user->rights->budget->budi->del)
+					{
+						print '<div class="inline-block divButAction"><a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a></div>'."\n";
+					}
+			}
+			else
+			{
+
+				if ($user->rights->budget->budi->val)
+				{
+					print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=validate">'.$langs->trans("Novalidate").'</a></div>'."\n";
+				}
+			}
+		}
+	}
+	print '</div>'."\n";
+}
+
+
+// End of page
+llxFooter();
+$db->close();

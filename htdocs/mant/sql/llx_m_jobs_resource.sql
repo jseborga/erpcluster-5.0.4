@@ -1,0 +1,21 @@
+CREATE TABLE llx_m_jobs_resource (
+  rowid integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  fk_jobs integer NOT NULL,
+  ref varchar(30) NOT NULL,
+  fk_sol_almacen integer DEFAULT '0',
+  fk_sol_almacendet integer DEFAULT '0',
+  fk_jobs_program integer NULL,
+  fk_product integer DEFAULT '0',
+  dater date NOT NULL,
+  type_cost varchar(3) NOT NULL,
+  description text NOT NULL,
+  quant double NOT NULL,
+  fk_unit integer DEFAULT NULL,
+  price double DEFAULT '0',
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  datec date NOT NULL,
+  datem date NOT NULL,
+  tms timestamp NOT NULL,
+  status tinyint(4) NOT NULL
+) ENGINE=InnoDB;

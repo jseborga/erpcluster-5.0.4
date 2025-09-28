@@ -1,0 +1,1 @@
+ALTER TABLE llx_calendar_conf ADD UNIQUE uk_unique (fk_calendar, working_day);

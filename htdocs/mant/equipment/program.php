@@ -1,0 +1,539 @@
+<?php
+/* Copyright (C) 2007-2015 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) ---Put here your own copyright and developer email---
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *   	\file       mant/mequipment_card.php
+ *		\ingroup    mant
+ *		\brief      This file is an example of a php page
+ *					Initialy built by build_class_from_table on 2017-04-07 18:07
+ */
+
+//if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
+//if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
+//if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
+//if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
+//if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');			// Do not check anti CSRF attack test
+//if (! defined('NOSTYLECHECK'))   define('NOSTYLECHECK','1');			// Do not check style html tag into posted data
+//if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1');		// Do not check anti POST attack test
+//if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1');			// If there is no need to load and show top and left menu
+//if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML','1');			// If we don't need to load the html.form.class.php
+//if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
+//if (! defined("NOLOGIN"))        define("NOLOGIN",'1');				// If this page is public (can be called outside logged session)
+
+// Change this following line to use the correct relative path (../, ../../, etc)
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include '../main.inc.php';					// to work if your module directory is into dolibarr root htdocs directory
+if (! $res && file_exists("../../main.inc.php")) $res=@include '../../main.inc.php';			// to work if your module directory is into a subdir of root htdocs directory
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include '../../../dolibarr/htdocs/main.inc.php';     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include '../../../../dolibarr/htdocs/main.inc.php';   // Used on dev env only
+if (! $res) die("Include of main fails");
+// Change this following line to use the correct relative path from htdocs
+include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formv.class.php');
+include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php');
+dol_include_once('/mant/class/mequipment.class.php');
+dol_include_once('/mant/class/mequipmentprogram.class.php');
+dol_include_once('/mant/class/mequipmentmant.class.php');
+dol_include_once('/mant/class/mgroups.class.php');
+dol_include_once('/mant/class/mgroupsprogram.class.php');
+dol_include_once('/mant/class/mtyperepair.class.php');
+require_once DOL_DOCUMENT_ROOT.'/orgman/class/mproperty.class.php';
+require_once DOL_DOCUMENT_ROOT.'/orgman/class/mlocation.class.php';
+require_once DOL_DOCUMENT_ROOT.'/mant/lib/mant.lib.php';
+
+if ($conf->assets->enabled)
+	dol_include_once('/assets/class/assetsext.class.php');
+
+// Load traductions files requiredby by page
+$langs->load("mant");
+$langs->load("other");
+
+// Get parameters
+$id			= GETPOST('id','int');
+$idr		= GETPOST('idr','int');
+$action		= GETPOST('action','alpha');
+$cancel     = GETPOST('cancel');
+$backtopage = GETPOST('backtopage');
+$myparam	= GETPOST('myparam','alpha');
+
+
+$search_entity=GETPOST('search_entity','int');
+$search_ref=GETPOST('search_ref','alpha');
+$search_ref_ext=GETPOST('search_ref_ext','alpha');
+$search_label=GETPOST('search_label','alpha');
+$search_metered=GETPOST('search_metered','int');
+$search_accountant=GETPOST('search_accountant','int');
+$search_fk_unit=GETPOST('search_fk_unit','int');
+$search_margin=GETPOST('search_margin','int');
+$search_trademark=GETPOST('search_trademark','alpha');
+$search_model=GETPOST('search_model','alpha');
+$search_anio=GETPOST('search_anio','alpha');
+$search_fk_location=GETPOST('search_fk_location','int');
+$search_fk_asset=GETPOST('search_fk_asset','int');
+$search_hour_cost=GETPOST('search_hour_cost','alpha');
+$search_fk_equipment_program=GETPOST('search_fk_equipment_program','alpha');
+$search_fk_user_create=GETPOST('search_fk_user_create','int');
+$search_fk_user_mod=GETPOST('search_fk_user_mod','int');
+$search_active=GETPOST('search_active','int');
+$search_status=GETPOST('search_status','int');
+
+
+
+if (empty($action) && empty($id) && empty($ref)) $action='view';
+
+// Protection if external user
+if ($user->societe_id > 0)
+{
+	//accessforbidden();
+}
+//$result = restrictedArea($user, 'mant', $id);
+
+
+$object = new Mequipment($db);
+$objectp = new Mequipmentprogram($db);
+$extrafields = new ExtraFields($db);
+$objProperty = new Mproperty($db);
+$objLocation = new Mlocation($db);
+$objGroup = new Mgroups($db);
+$objGroupprogram = new Mgroupsprogram($db);
+$objMant = new Mequipmentmant($db);
+// fetch optionals attributes and labels
+$extralabels = $extrafields->fetch_name_optionals_label($object->table_element);
+
+// Load object
+include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php';  // Must be include, not include_once  // Must be include, not include_once. Include fetch and fetch_thirdparty but not fetch_optionals
+
+// Initialize technical object to manage hooks of modules. Note that conf->hooks_modules contains array array
+
+$hookmanager->initHooks(array('mequipmentprogram'));
+if ($id>0)
+{
+	$object->fetch($id);
+}
+
+if ($idr>0)
+{
+	$res = $objectp->fetch($idr);
+	if ($res<=0)
+	{
+		setEventMessages($objectp->error,$objectp->errors,'errors');
+		exit;
+	}
+}
+
+/*******************************************************************
+* ACTIONS
+*
+* Put here all code to do according to value of "action" parameter
+********************************************************************/
+
+$parameters=array();
+$reshook=$hookmanager->executeHooks('doActions',$parameters,$objectp,$action);    // Note that $action and $objectp may have been modified by some hooks
+if ($reshook < 0) setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+
+if (empty($reshook))
+{
+	if ($cancel)
+	{
+		if ($action != 'addlink')
+		{
+			$urltogo=$backtopage?$backtopage:dol_buildpath('/mant/equipment/list.php',1);
+			header("Location: ".$urltogo);
+			exit;
+		}
+		if ($idr > 0 || ! empty($ref)) $ret = $objectp->fetch($idr,$ref);
+		$action='';
+	}
+
+	// Action to add record
+	if ($action == 'add')
+	{
+		if (GETPOST('cancel'))
+		{
+			$urltogo=$backtopage?$backtopage:dol_buildpath('/mant/equipment/program.php?id='.$id,1);
+			header("Location: ".$urltogo);
+			exit;
+		}
+
+		$error=0;
+
+		/* object_prop_getpost_prop */
+
+		$objectp->fk_equipment=$id;
+		$objectp->ref=GETPOST('ref','alpha');
+		$objectp->accountant=GETPOST('accountant','int');
+		$objectp->description=GETPOST('description','alpha');
+		$objectp->fk_user_create=$user->id;
+		$objectp->fk_user_mod=$user->id;
+		$objectp->active=GETPOST('active','int')+0;
+		$objectp->datec = dol_now();
+		$objectp->datem = dol_now();
+		$objectp->tms = dol_now();
+
+
+		if (empty($objectp->ref))
+		{
+			$error++;
+			setEventMessages($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Ref")), null, 'errors');
+		}
+		if (empty($objectp->accountant))
+		{
+			$error++;
+			setEventMessages($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Fieldaccountant")), null, 'errors');
+		}
+
+		if (! $error)
+		{
+			$result=$objectp->create($user);
+			if ($result > 0)
+			{
+				// Creation OK
+				$urltogo=$backtopage?$backtopage:dol_buildpath('/mant/equipment/program.php?id='.$id,1);
+				header("Location: ".$urltogo);
+				exit;
+			}
+			{
+				// Creation KO
+				if (! empty($objectp->errors)) setEventMessages(null, $objectp->errors, 'errors');
+				else  setEventMessages($objectp->error, null, 'errors');
+				$action='create';
+			}
+		}
+		else
+		{
+			$action='create';
+		}
+	}
+
+	// Action to update record
+	if ($action == 'update')
+	{
+		$error=0;
+
+
+		$objectp->fk_equipment=$id;
+		$objectp->ref=GETPOST('ref','alpha');
+		$objectp->fk_parent_previous=GETPOST('fk_parent_previous','int');
+		$objectp->accountant=GETPOST('accountant','int');
+		$objectp->description=GETPOST('description','alpha');
+		$objectp->fk_user_mod=$user->id;
+		$objectp->active=GETPOST('active','int');
+		$objectp->datem=dol_now();
+
+		if ($objectp->id == $objectp->fk_parent_previous)
+		{
+			$error++;
+			setEventMessages($langs->trans("The above programming code can not be the same as the programming code"), null, 'errors');
+		}
+
+		if (empty($objectp->ref))
+		{
+			$error++;
+			setEventMessages($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Ref")), null, 'errors');
+		}
+		if (empty($objectp->accountant))
+		{
+			$error++;
+			setEventMessages($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Fieldaccountant")), null, 'errors');
+		}
+
+		if (! $error)
+		{
+			$result=$objectp->update($user);
+			if ($result > 0)
+			{
+				$action='view';
+			}
+			else
+			{
+				// Creation KO
+				if (! empty($objectp->errors)) setEventMessages(null, $objectp->errors, 'errors');
+				else setEventMessages($objectp->error, null, 'errors');
+				$action='edit';
+			}
+		}
+		else
+		{
+			$action='edit';
+		}
+	}
+
+	// Action to delete
+	if ($action == 'confirm_delete')
+	{
+		$result=$objectp->delete($user);
+		if ($result > 0)
+		{
+			// Delete OK
+			setEventMessages("RecordDeleted", null, 'mesgs');
+			header("Location: ".dol_buildpath('/mant/equipment/list.php',1));
+			exit;
+		}
+		else
+		{
+			if (! empty($objectp->errors)) setEventMessages(null, $objectp->errors, 'errors');
+			else setEventMessages($objectp->error, null, 'errors');
+		}
+	}
+}
+
+
+
+/***************************************************
+* VIEW
+*
+* Put here all code to build page
+****************************************************/
+//$aArrjs = array('mant/javascript/recargar.js');
+$aArrcss = array('mant/css/style-desktop.css');
+$help_url='EN:Module_Mant_En|FR:Module_Mant|ES:M&oacute;dulo_Mant';
+
+llxHeader("",$langs->trans("Teams"),$help_url,'','','',$aArrjs,$aArrcss);
+//llxHeader('',$langs->trans('Teams'),'');
+
+$form=new Formv($db);
+
+
+// Put here content of your page
+
+// Example : Adding jquery code
+print '<script type="text/javascript" language="javascript">
+jQuery(document).ready(function() {
+	function init_myfunc()
+	{
+		jQuery("#myid").removeAttr(\'disabled\');
+		jQuery("#myid").attr(\'disabled\',\'disabled\');
+	}
+	init_myfunc();
+	jQuery("#mybutton").click(function() {
+		init_myfunc();
+	});
+});
+</script>';
+
+
+// Part to show record
+if ($object->id > 0)
+{
+	$res = $object->fetch_optionals($object->id, $extralabels);
+
+	$objectline = new MequipmentLine($db);
+
+	$objectline->fk_unit = $object->fk_unit;
+	$unit = $langs->trans($objectline->getLabelOfUnit());
+	$head = equipment_prepare_head($object);
+	dol_fiche_head($head, 'program', $langs->trans("Equipment"), 0, 'equipment');
+
+	print load_fiche_titre($langs->trans("Mant"));
+
+	dol_fiche_head();
+
+	if ($action == 'delete') {
+		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('DeleteMyOjbect'), $langs->trans('ConfirmDeleteMyObject'), 'confirm_delete', '', 0, 1);
+		print $formconfirm;
+	}
+
+	print '<table class="border centpercent">'."\n";
+	// print '<tr><td class="fieldrequired">'.$langs->trans("Label").'</td><td>'.$object->label.'</td></tr>';
+	//
+	print '<tr><td width="20%">'.$langs->trans("Fieldref").'</td><td colspan="3">'.$object->ref.'</td></tr>';
+	print '<tr><td>'.$langs->trans("Fieldref_ext").'</td><td colspan="3">'.$object->ref_ext.'</td></tr>';
+	print '<tr><td>'.$langs->trans("Fieldlabel").'</td><td colspan="3">'.$object->label.'</td></tr>';
+	//print '<tr><td>'.$langs->trans("Fieldmetered").'</td><td>'.($object->metered?$langs->trans('Yes'):$langs->trans('No')).'</td></tr>';
+	print '<tr><td>'.$langs->trans("Last account reported").'</td><td colspan="3">'.$object->accountant_last.' '.$unit.'</td></tr>';
+
+	print '<tr class="liste_titre">';
+	print '<td>'.$langs->trans('Type').'</td>';
+	print '<td>'.$langs->trans('Last').'</td>';
+	print '<td>'.$langs->trans('Next').'</td>';
+	print '<td>'.$langs->trans('Foul').'</td>';
+	print '</tr>';
+
+	print '<tr class="selmarkc">';
+	print '<td>'.$langs->trans("Countinuous").'</td>';
+		//buscamos registro del ultimo contador reportado
+	$filter = " AND t.fk_equipment = ".$object->id;
+	$filter.= " AND t.fk_jobs >= 0";
+	$res = $objMant->fetchAll('DESC','dater',1,2,array('status'=>1,'type'=>'C'),'AND',$filter,true);
+	if ($res==1)
+	{
+		$nAccountant = $objMant->accountant;
+		print '<td>'.$objMant->accountant.'</td>';
+	}
+	else
+	{
+		$nAccountant = $object->accountant_mant;
+		print '<td>'.$object->accountant_mant.'</td>';
+	}
+	//determinamos la siguiente accion para continuo
+	$fkProgramc =0;
+	$fkPrograme =0;
+	$objectptmp = new Mequipmentprogram($db);
+	if (empty($object->fk_equipment_program)) $object->fk_equipment_program = 0;
+	$filterstatic = " AND t.fk_parent_previous = ".$object->fk_equipment_program;
+	$filterstatic.= " AND t.fk_equipment = ".$object->id;
+	echo '<hr>'.$res = $objectptmp->fetchAll('','', 0, 0, array('active'=>1,'type'=>'C'),'AND',$filterstatic,true);
+	$lView = false;
+	if ($res >= 1)
+	{
+		//es programacion por equipo
+		$lView = true;
+	}
+	else
+	{
+		//programacion por grupo
+		$objectptmp = new Mgroupsprogram($db);
+		$filterstatic = " AND t.fk_parent_previous = ".$object->fk_equipment_program;
+		$filterstatic.= " AND t.fk_group = ".$object->fk_group;
+		$res = $objectptmp->fetchAll('','', 0, 0, array('active'=>1,'type'=>'C'),'AND',$filterstatic,true);
+		if ($res>=0)
+		{
+			$fkProgramc = $objectptmp->fk_type_repair;
+			$lView = true;
+		}
+	}
+	if ($lView)
+	{
+		$fkEquipmentProgram = $objectptmp->id;
+		$fk_type_repair = $objecttmp->fk_type_repair;
+		print '<td>'.($nAccountant+$objectptmp->accountant).'</td>';
+
+		if (empty($object->accountant_mant))
+			$balance = $objectptmp->accountant - $object->accountant_last;
+		else
+		{
+			$dif = $object->accountant_last - $object->accountant_mant;
+			$balance = $objectptmp->accountant - $dif;
+		}
+		print '<td>'.$balance.'</td>';
+
+		if ($balance <= $object->margin)
+			setEventMessages($langs->trans('Precaucion, se esta dentro del margen para el mantenimiento'),null,'warnings');
+
+	}
+	print '</tr>';
+
+	//para E
+	print '<tr class="selmarke">';
+	print '<td>'.$langs->trans("Fixed").'</td>';
+	$res = $objMant->fetchAll('DESC','dater',0,0,array('status'=>1,'type'=>'E'),'AND',$filter,true);
+	if ($res==1)
+	{
+		$nAccountant = $objMant->accountant;
+		print '<td>'.$objMant->accountant.'</td>';
+	}
+	else
+	{
+		$nAccountant = $object->accountant_mante;
+		print '<td>'.$object->accountant_mante.'</td>';
+	}
+
+	//determinamos la siguiente accion para fixed
+	$fkEquipmentProgram =0;
+	$objectptmp = new Mequipmentprogram($db);
+	$filterstatic = " AND t.fk_parent_previous = ".$object->fk_equipment_program;
+	$filterstatic.= " AND t.fk_equipment = ".$object->id;
+	$res = $objectptmp->fetchAll('','', 0, 0, array('active'=>1,'type'=>'E'),'AND',$filterstatic,true);
+	$lView = false;
+	if ($res >= 1)
+	{
+		//es programacion por equipo
+		$lView = true;
+	}
+	else
+	{
+		//programacion por grupo
+		$objectptmp = new Mgroupsprogram($db);
+		$filterstatic = " AND t.fk_parent_previous = ".$object->fk_equipment_program;
+		$filterstatic.= " AND t.fk_group = ".$object->fk_group;
+		$res = $objectptmp->fetchAll('','', 0, 0, array('active'=>1,'type'=>'E'),'AND',$filterstatic,true);
+		if ($res>=0)
+		{
+			$fkPrograme = $objectptmp->fk_type_repair;
+			$lView = true;
+		}
+	}
+	if ($lView)
+	{
+		$fkEquipmentProgram = $objectptmp->id;
+		$fk_type_repair = $objecttmp->fk_type_repair;
+		print '<td>'.($nAccountant+$objectptmp->accountant).'</td>';
+
+		if (empty($object->accountant_mant))
+			$balance = $objectptmp->accountant - $object->accountant_last;
+		else
+		{
+			$dif = $object->accountant_last - $object->accountant_mante;
+			$balance = $objectptmp->accountant - $dif;
+		}
+		print '<td>'.$balance.'</td>';
+		if ($balance <= $object->margin)
+			setEventMessages($langs->trans('Precaucion, se esta dentro del margen para el mantenimiento'),null,'warnings');
+	}
+	print '</tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldactive").'</td><td>'.$object->active.'</td></tr>';
+	//print '<tr><td class="fieldrequired">'.$langs->trans("Fieldstatus").'</td><td>'.$object->status.'</td></tr>';
+
+	print '</table>';
+
+	dol_fiche_end();
+
+
+	// Buttons
+	print '<div class="tabsAction">'."\n";
+	$parameters=array();
+	$reshook=$hookmanager->executeHooks('addMoreActionsButtons',$parameters,$object,$action);    // Note that $action and $object may have been modified by hook
+	if ($reshook < 0) setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+
+	if (empty($reshook))
+	{
+		if ($user->rights->mant->write)
+		{
+			print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=edit">'.$langs->trans("Modify").'</a></div>'."\n";
+		}
+
+		if ($user->rights->mant->delete)
+		{
+			print '<div class="inline-block divButAction"><a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=delete">'.$langs->trans('Delete').'</a></div>'."\n";
+		}
+	}
+	print '</div>'."\n";
+
+	if ($object->metered)
+	{
+		//verificamos si tiene registro indiviudal de programacion por equipo
+		$res = $objectp->fetchAll('','',0,0,array('active'=>1),'AND'," AND t.fk_equipment = ".$object->id);
+		if ($res > 0)
+			include DOL_DOCUMENT_ROOT.'/mant/equipment/tpl/equipmentprogram.tpl.php';
+		else
+		{
+			$fk_group = $object->fk_group;
+			$editdisabled = true;
+			include DOL_DOCUMENT_ROOT.'/mant/groups/tpl/groupsprogram.tpl.php';
+		}
+	}
+	// Example 2 : Adding links to objects
+	// Show links to link elements
+	//$linktoelem = $form->showLinkToObjectBlock($object, null, array('mequipment'));
+	//$somethingshown = $form->showLinkedObjectBlock($object, $linktoelem);
+
+}
+
+
+// End of page
+llxFooter();
+$db->close();

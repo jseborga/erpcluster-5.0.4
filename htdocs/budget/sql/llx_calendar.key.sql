@@ -1,0 +1,1 @@
+ALTER TABLE llx_calendar ADD UNIQUE uk_unique (entity, ref);

@@ -1,0 +1,22 @@
+CREATE TABLE llx_p_user (
+	rowid integer AUTO_INCREMENT PRIMARY KEY,
+	fk_user integer NOT NULL,
+	firstname varchar( 40 ) NOT NULL,
+	lastname varchar( 40 ) NULL,
+	lastnametwo varchar( 40 ) DEFAULT NULL,
+	state_marital varchar(20) NOT NULL,
+	docum varchar( 15 ) DEFAULT NULL,
+	registration varchar(30) DEFAULT NULL,
+	issued_in varchar( 20 ) DEFAULT NULL,
+	sex varchar( 2 ) DEFAULT NULL,
+	phone_emergency varchar( 20 ) DEFAULT NULL,
+	blood_type varchar(20) DEFAULT NULL,
+	dependents smallint DEFAULT NULL,
+	days_assigned integer NULL,
+	fk_user_create integer NOT NULL,
+	fk_user_mod integer NOT NULL,
+	datec date NOT NULL,
+	datem date NOT NULL,
+	tms timestamp NOT NULL,
+	status tinyint DEFAULT '0' NOT NULL
+) ENGINE = InnoDB;

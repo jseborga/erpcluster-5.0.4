@@ -1,0 +1,1 @@
+ALTER TABLE llx_entrepot_relation ADD fk_projet INTEGER NULL AFTER fk_entrepot_father;

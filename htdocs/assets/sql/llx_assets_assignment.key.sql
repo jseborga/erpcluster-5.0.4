@@ -1,0 +1,13 @@
+ALTER TABLE llx_assets_assignment ADD fk_user INTEGER NOT NULL DEFAULT '0' AFTER ref;
+ALTER TABLE llx_assets_assignment ADD fk_user_from INTEGER NOT NULL DEFAULT '0' AFTER fk_projet;
+ALTER TABLE llx_assets_assignment ADD fk_property_from INTEGER NOT NULL DEFAULT '0' AFTER fk_user_from;
+ALTER TABLE llx_assets_assignment ADD fk_user_approved INTEGER NULL DEFAULT '0' AFTER fk_user_create;
+ALTER TABLE llx_assets_assignment ADD date_approved DATE NULL AFTER fk_user_approved;
+ALTER TABLE llx_assets_assignment ADD origin VARCHAR( 50 ) NULL AFTER date_approved;
+ALTER TABLE llx_assets_assignment ADD originid INTEGER NULL AFTER origin;
+ALTER TABLE llx_assets_assignment ADD date_mod DATE NOT NULL AFTER date_create;
+ALTER TABLE llx_assets_assignment ADD fk_user_mod DATE NOT NULL AFTER fk_user_create;
+ALTER TABLE llx_assets_assignment CHANGE statut status TINYINT( 4 ) NOT NULL;
+ALTER TABLE llx_assets_assignment ADD fk_projet_from INTEGER NULL DEFAULT '0' AFTER fk_projet;
+ALTER TABLE llx_assets_assignment ADD fk_user_to INTEGER NULL AFTER fk_user_from;
+ALTER TABLE llx_assets_assignment ADD model_pdf VARCHAR(50) NULL AFTER date_approved;

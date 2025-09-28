@@ -1,0 +1,2 @@
+ALTER TABLE llx_assets_low ADD CONSTRAINT idk_assetslow_fk_asset FOREIGN KEY (fk_asset) REFERENCES llx_assets(rowid) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE llx_assets_low CHANGE baja_year baja_year MEDIUMINT NULL DEFAULT NULL;

@@ -1,0 +1,20 @@
+CREATE TABLE llx_poa_certification (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  fk_poa integer NOT NULL,
+  label varchar(255) NOT NULL,
+  nro_preventive integer NOT NULL,
+  date_preventive date NOT NULL,
+  amount_preventive double NOT NULL DEFAULT '0',
+  nro_commited integer DEFAULT NULL,
+  date_commited date DEFAULT NULL,
+  amount_commited double DEFAULT '0',
+  nro_accrual integer DEFAULT NULL,
+  date_accrual date DEFAULT NULL,
+  amount_accrual double DEFAULT '0',
+  nro_paid integer DEFAULT NULL,
+  date_paid date DEFAULT NULL,
+  amount_paid double DEFAULT '0',
+  date_create date NOT NULL,
+  tms timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  statut tinyint NOT NULL DEFAULT '0'
+) ENGINE=InnoDB;

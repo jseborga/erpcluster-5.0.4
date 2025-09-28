@@ -1,0 +1,18 @@
+div.mainmenu.standard2 {
+    background-image: url(../img/standard2.png);
+}
+div.mainmenu.vista {
+    background-image: url(../img/vista.png);
+}
+div.mainmenu.filter {
+    background-image: url(../img/filter.png);
+}
+div.mainmenu.review {
+    background-image: url(../img/review.png);
+}
+div.mainmenu.program {
+    background-image: url(../img/program.png);
+}
+div.mainmenu.area {
+    background-image: url(../img/area.png);
+}

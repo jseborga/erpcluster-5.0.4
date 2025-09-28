@@ -1,0 +1,139 @@
+Finint=Finanzas internas
+FinintSetup=Configuración Finanzas internas
+
+Define the types in the Dictionary=Defina los tipos en Configuración, Diccionarios
+Typeofrequest=Tipo requerimiento
+Newrequest=Nuevo requerimiento
+Confirmapprovalrequest=Confirma aprobar el requerimiento
+ToTransfer=Transferir
+Requestcash=Solicitud efectivo
+Discharges=Descargos
+NewDischarge=Nuevo descargo
+Confirmsaverecordspending=Confirma guardar los registros pendientes
+Confirmapproverecharge=Confirma aprobar la recarga
+Confirmrejectrecharge=Confirma rechazar la recarga
+Changevalidationdischarge=Cambiar la validación de los descargos
+Revert validation of downloads=Revertir la validación de los descargos
+Confirmdeletespending=Confirma eliminar el descargo
+Confirmoutlaycash=Confirma desembolso efectivo
+Confirmrejectclose=Confirma rechazar el cierre
+Usertransfers=Transfiere
+To=A
+Newoutlay=Nuevo Desembolso
+Transactioncategories=Categorías por transacción
+ConfirmDeleteTransactioncategory=Confirma eliminar la categoría de transacciones
+DeleteTransactioncategory=Eliminar categoría de transacciones
+Updatesucessfull=Actualización satisfactoria
+Discharge=Descargo
+Categorie=Categoría
+
+Deletespending=Eliminar descargodo ap
+Saverecordpending=Guardar registro pendientes
+Return=Volver
+Validatesuccessfull=Validación satisfactoria
+Invalidatesuccessfull=Invalidación satisfactoria
+Updatesuccessfull=Actualización satisfactoria
+Assignuser=Asignar usuarios
+Outlay=Desembolso
+TransferForm=De
+Disburse=Desembolsar
+Disbursed=Desembolsado
+Request=Solicitudes
+Userassign=Usuario asignado
+Userapplicant=Usuario solicitante
+Transferpending=Transferencia pendiente
+Authorized=Autorizado
+Attachment=Adjunto
+Attachmentclose=Adjunto cierre/descargo
+Amountout=Movimiento efectivo
+Amountclose=Monto cierre
+Reject=Rechazar
+Torefuse=Rechazar
+Confirmclose=Confirmar cierre
+Typedocument=Tipo documento
+Receipt=Recibo
+Default provider id=ID del proveedor predeterminado
+
+Confirmacceptrequest/card=Confirma aceptar la transferencia
+Confirmrequestrecharge=Confirma solicitud de recarga
+Transfers=Transferencias
+Createnew=Crear nuevo
+Confirm validation for an amount of=Confirma la validación por un monto de
+Validaterequest=Validar solicitud
+Updatesuccessfull=Actualización satisfactoria
+Viewdischarg=Ver descargos
+Cashapproved=Solicitud aprobada
+
+Recordsave=Registro guardado
+Approveclosure=Aprobar cierre
+Rejectclose=Rechazar cierre
+The=de
+Amountapproved=Monto aprobado
+Default provider id=Codigo por defecto para proveedores no definidos
+The default free provider is not defined=No esta definido el proveedor libre por defecto
+Informs the administrator=Informe al administrador
+
+Youdonothavefundstoclose=No tiene fondos para cerrar
+Pendingcashtransfersmustbeacceptedorrejectedbeforeclosing=Antes de cerrar, debe aceptar o rechazar los traspasos de efectivo pendientes
+Requestcashtransfer=Solicitar traspaso efectivo
+Confirmrequestcashtransfer=Confirma solicitar el traspaso de efectivo
+Confirmtransfer=Confirma el traspaso
+Transferofcash=Traspaso de efectivo
+Createcashtransfer=Crear traspaso efectivo
+Confirmacceptcashtransfer=Confirma aceptar el traspaso de efectivo
+Confirmrejectcashtransfer=Confirma rechazar el traspaso de efectivo
+Satisfactorycashtransfer=Traspaso de efectivo satisfactorio
+Recordrejected=Traspaso rechazado
+
+
+Confirmapproveclosure=Confirma aprobar el cierre
+Sendrequestcashtransfer=Enviado solicitud de traspaso de fondos
+Theuser=El usuario
+Says=dice
+Recordreject=Registro rechazado
+
+Invalidate=Invalidar
+Updatesuccessfull=Actualización satisfactoria
+Rejectrechargesuccessfull=Se rechazó la recarga satisfactoriamente
+Datefacture=Fecha factura
+Nrofacture=Nro. factura
+Numaut=Nro. Autorización
+Codecontrol=Código Control
+Createfacture=Crear factura
+
+
+Recharge=Recarga 0=NO, 1=SI
+Requestrecharge=Solicitar recarga
+ModifyDischarge=Modificar descargo
+Approverecharge=Aprobar recarga
+Rejectrecharge=Rechazar recarga
+
+Torefused=Rechazado
+Approved=Aprobado
+Accept=Aceptar
+Accepted=Aceptado
+Aggregated=Agregado
+Surrender=Rendición
+Transferof=Transferido de
+Depositedto=Depositado a
+Transactionnumber=Número de transacción
+Detail=Detalle
+Withoutproject=Sin proyecto
+
+Requestcashdischarg=Reporte de descargos
+Requestcashapproved=Reporte de aprobados
+Cashapproved=Reporte de recursos aprobados
+Requestcashrecharge=Reporte de recursos recargados
+
+
+UbuntubocashNumRefModelDesc=Modelo de numeración para solicitud de efectivo CASYYMM-XXXX YY=Dos digitos del año, MM=Número del mes, XXXX número sequencial desde 1
+
+FinintNumberingModules=Modelo de numeración
+FinintModelModule=Modelo de documentos
+UbuntuborendcashNumRefModelDesc=Modelo de numeración de descargos de efectivo RENYYMM-XXXX YY=Dos digitos del año, MM=Número del mes, XXXX número sequencial desde 1
+
+It is necessary to request recharge of funds=Es necesario solicitar recarga de fondos
+Errornorecordexist=Error, no existe el registro
+Theamountinitiallyregisteredisdifferentfromtheamountoftheinvoice=El monto registrado inicialmente es diferene al monto de la factura
+Expensereport=Rendición de gastos
+RECHARGERESOURCES=Recarga de recursos

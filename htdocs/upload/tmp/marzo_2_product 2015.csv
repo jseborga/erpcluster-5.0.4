@@ -1,0 +1,86 @@
+cod_grupo;des_grupo;code_categorie;des_clase;ref;label
+02;CONFECCIONES TEXTILES                                                                               ;0201;ALFOMBRAS                                                                                           ;0201009;ALFOMBRA DE PELO COLECCION SOFT LIFE COLOR BURGANDY (2 PISOS)                                       
+;;0213;CORTINAS                                                                                            ;0213013;CORTINAS ROLLER ECLIPSE (11 PIEZAS 35.19MTS) COLOR B-109                                            
+12;SUSTANCIAS QUIMICAS                                                                                 ;1201;DILUYENTES                                                                                          ;1201002;THINNER DILUYENTE                                                                                   
+;;1206;VARIOS                                                                                              ;1206048;MASILLA PLASTICA                                                                                    
+;;;;1206082;DESTAPA CAÑO (1 LITRO)                                                                              
+;;;;1206083;FORMOLIMP (5 LITROS)                                                                                
+16;OTROS MATERIALES QUIMICOS                                                                           ;1602;PEGAMENTOS                                                                                          ;1602031;SILICONA TRANSPARENTE                                                                               
+;;;;1602034;SILICONA COLOR NEGRO                                                                                
+;;;;1602039;SILICONA ROJA                                                                                       
+19;CEMENTO CAL Y YESO                                                                                  ;1901;CAL                                                                                                 ;1901001;ESTUCO                                                                                              
+;;1902;CEMENTO                                                                                             ;1902005;CEMENTO PEGA  AZULEJOS COLOR AMARILLO                                                               
+;;;;1902006;CEMENTO PEGA  AZULEJOS COLOR BLANCO                                                                 
+20;PRODUCTOS DE MATERIALES PLASTICOS                                                                   ;2012;RAMPLUG                                                                                             ;2012002;RAMPLUG N° 6                                                                                        
+;;;;2012011;RAMPLUG PARA TORNILLO ENCARNE N°6                                                                   
+;;2023;VARIOS                                                                                              ;2023162;"CAJA PLASTICA 2 X 4"" P/SOBREPONER                                                                   "
+21;PRODUCTOS DE METAL                                                                                  ;2101;ABRAZADERAS                                                                                         ;2101016;ABRAZEDERA METALICA PARA TUBO DE 22MM2                                                              
+;;2112;CANDADOS                                                                                            ;2112014;CANDADO DE 50 MM                                                                                    
+;;2141;TORNILLOS                                                                                           ;2141036;TORNILLO DE ENCARNE N°6                                                                             
+;;;;2141037;TORNILLO DE EXPANSION CERRADO (CANCAMO)                                                             
+;;;;2141038;"TORNILLO DE ENCARNE 10 X 1""                                                                         "
+;;2142;TUBOS                                                                                               ;2142026;TUBO CONDUIT METALICO DE 16MM2 (PIEZA DE 3 METROS)                                                  
+;;;;2142027;TUBO CONDUIT METALICO DE 22MM2 (PIEZA DE TRES METROS)                                               
+;;;;2142028;TUBO METALICO DE 30 MM X 30 MM X 2MM X 6 MTS.                                                       
+;;2162;VARIOS                                                                                              ;2162164;KIT DE REPARACION A-1038-A 3,5 GPF (DIAFRAGMA DE FLUXOR O FLUXOMETRO)                               
+;;;;2162171;MALLA MILIMETRICA ELECTROSOLDADA DE COQUEADO DE 1 CM.                                               
+;;;;2162184;ELECTRODO E6013 DE 2.5 MM                                                                           
+;;2166;ANGULAR                                                                                             ;2166003;"ANGULAR METALICO DE 1 1/2"" X 1/8"" X 6 MTS.                                                          "
+;;2170;GRIFOS                                                                                              ;2170001;GRIFERIA MEZCLADORA DE MESON PARA LAVAMANOS DE PICO LARGO                                           
+25;MATERIAL DE LIMPIEZA                                                                                ;2502;DETERGENTES                                                                                         ;2502001;DETERGENTE EN POLVO                                                                                 
+28;UTILES DE ESCRITORIO Y OFICINA                                                                      ;2868;TONNERS VARIOS                                                                                      ;2868009;TONNER HP CE255X                                                                                    
+;;;;2868026;TONNER HP C4127X                                                                                    
+29;UTILES Y MATERIALES ELECTRICOS                                                                      ;2906;CABLES                                                                                              ;2906168;CABLE BIPOLAR AWG N° 16                                                                             
+;;;;2906172;CABLE MONOPOLAR DE COBRE MULTIFILAR 1X4 MM2                                                         
+;;;;2906173;CABLE MONOPOLAR DE COBRE MULTIFILAR 1X2,5 MM2                                                       
+;;2914;FOCOS                                                                                               ;2914081;FOCO CLARO INCANDECENTE E-27 DE 60 W 220 V                                                          
+;;;;2914087;FOCO DICROICO 50W - 220V                                                                            
+;;;;2914088;FOCO REFLECTOR R63/6E 60W/E27                                                                       
+;;2920;LAMPARAS                                                                                            ;2920020;LAMPARA PIN HM-70W LUZ BLANCA DOBLE CONTACTO                                                        
+;;2922;LUMINARIAS                                                                                          ;2922048;LUMINARIA LED PARA CIELO FALSO 40W 220 - 230V/LUZ BLANCA                                            
+;;;;2922049;LUMINARIA LED PARA CIELO FALSO 15W 220 - 230V/LUZ BLANCA                                            
+;;;;2922050;LUMINARIA LED PARA SISTEMA DE EMERGENCIA 90 LED/220 - 240V/50HZ                                     
+;;;;2922051;LUMINARIA DETECTOR DE BILLETES LUZ NEGRA 2X6W                                                       
+;;2924;PILAS (BATERIAS)                                                                                    ;2924018;PILAS ALCALINAS AA                                                                                  
+;;2925;REACTANCIAS                                                                                         ;2925024;REACTANCIA ELECTRONICA 1X40 W/220 - 240 V.                                                          
+;;;;2925027;REACTANCIA ELECTRONICA 2X20W/220-240V                                                               
+;;;;2925028;REACTANCIA ELECTRONICA 2X40W/220-240V                                                               
+;;;;2925029;REACTANCIA ELECTRONICA 1X40W/220-240V                                                               
+;;2933;TUBOS FLUORESCENTES                                                                                 ;2933025;TUBO FLUORESCENTE T10 O T12, 40W/220V/STANDART/LUZ BLANCA                                           
+;;;;2933026;TUBO FLUORESCENTE T10 O T12, 20W/220V/STANDART/LUZ BLANCA                                           
+;;2936;DUCHAS                                                                                              ;2936004;DUCHAS ELECTRICAS 4500 - 5500W - TENSION 220V                                                       
+;;2942;VARIOS                                                                                              ;2942085;CORTAPICO                                                                                           
+;;;;2942199;"PLACA MODULAR TOMACORRIENTE DOBLE NEMA 2X4"" 10A/250V                                                "
+;;;;2942201;"PLACA MODULAR TOMACORRIENTE SIMPLE SCHUKO 2X4"" 16A/250V                                             "
+;;;;2942202;CLAVIJA NEMA 10A/250V                                                                               
+;;;;2942211;TERMOMAGNETICO CLASE C 40A/1PO/10KA DE PODER DE CORTE  RIEL DIN                                     
+;;;;2942263;"PLACA MODULAR TOMACORRIENTE DOBLE NEMA SOBREPUESTO 2X4"" 10A/250V                                    "
+;;2944;MATERIALES ELECTRICOS PARA COMPUTADORAS                                                             ;2944006;CINTA AISLANTE 20 YDAS                                                                              
+99;MATERIALES NO CONTABILIZABLES (CTRL.FISICO)                                                         ;9943;DMMI - ALBAÑILERIA                                                                                  ;9943021;PERCIANA REPUESTO CARRITOS ARISTA                                                                   
+;;;;9943023;PERCIANA REPUESTO CONTROL IZQUIERDO                                                                 
+;;;;9943024;PERCIANA REPUESTO SEPARADOR DE HOJAS                                                                
+;;;;9943025;PERCIANA REPUESTO CONTROL DERECHO                                                                   
+;;;;9943036;RAMPLU PLASTICO #8                                                                                  
+;;9944;DMMI - PLOMERIA                                                                                     ;9944016;COPLA GALVANIZADO DE 1/2 PUL                                                                        
+;;;;9944024;GOMA DE REGISTRO PARA CAJA SIFONADA                                                                 
+;;;;9944107;JUEGO REPARACION DE TOPE DE CONTROL H-541 A                                                         
+;;;;9944165;EMPAQUETADURA ANCHOR (SELLO ANTI FUGA P/INODORO)                                                    
+;;;;9944170;CINTA TEFLON DE 3/4                                                                                 
+;;9945;DMMI - ELECTRICIDAD                                                                                 ;9945006;CABLE BAJO GOMA DE 3 X 12                                                                           
+;;;;9945008;CABLE BIPOLAR # 2 X 10                                                                              
+;;;;9945021;CLAVIJA TIPO NEMA CON TIERRA                                                                        
+;;;;9945033;FOCO CLARO INCANDECENTE DE 60 W 220 V                                                               
+;;;;9945041;FOCO PEQUEÑO DE 220 V 40 W ROSCA MUÑON                                                              
+;;;;9945062;RESISTENCIA PARA DUCHA 200 V 6400 W (6800 W)                                                        
+;;;;9945067;TERMICO 220 V 32 A MONOPOLAR                                                                        
+;;;;9945074;TUBOS FLORECENTES DE 40 W 220 V                                                                     
+;;;;9945104;LAMPARA INCANDESCENTE DE 100W                                                                       
+;;9946;DMMI - CALEFACCION                                                                                  ;9946005;ELECTRODO DELGADO PUNTO AZUL 6013 3,25                                                              
+;;;;9946013;GRASA ROJA BASE LITIO                                                                               
+;;;;9946043;MATERIAL P/FILTRO DE AIRE (ANCHO 1,3 MTS)                                                           
+;;9947;DMMI - CARPINTERIA                                                                                  ;9947009;JALADORES METALICO P/GABETERO DE 4 PUL                                                              
+;;;;9947021;TOPE DE PUERTA MAGNETICA                                                                            
+;;9948;DMMI - ELECTRONICA                                                                                  ;9948006;CABLE DE 4 HILOS PARA TELEFONO                                                                      
+;;;;9948012;CONECTORES RJ # 11                                                                                  
+;;;;9948038;ROSETA PARA TELEFONO DE 2 SALIDAS RJ 11                                                             
+;;9949;DMMI - SEGURIDAD MECANICA                                                                           ;9949040;TIRAFONDO DE 1/4 X 2 PUL                                                                            

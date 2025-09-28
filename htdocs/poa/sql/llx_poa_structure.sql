@@ -1,0 +1,22 @@
+CREATE TABLE llx_poa_structure (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  entity integer NOT NULL,
+  gestion smallint NOT NULL,
+  type tinyint DEFAULT '1' NOT NULL,
+  fk_father integer DEFAULT NULL,
+  fk_area integer DEFAULT '0' NOT NULL,
+  fk_area_ej integer DEFAULT '0' NOT NULL,
+  ref varchar(30) NOT NULL,
+  sigla varchar(30) NOT NULL,
+  label varchar(255) NOT NULL,
+  pseudonym varchar(255) DEFAULT NULL,
+  unit varchar(50) DEFAULT NULL,
+  pos tinyint NOT NULL DEFAULT '0',
+  version tinyint NOT NULL DEFAULT '1',
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  datec date NOT NULL,
+  datem date NOT NULL,
+  tms timestamp NOT NULL,
+  statut tinyint NOT NULL DEFAULT '1'
+) ENGINE=InnoDB;

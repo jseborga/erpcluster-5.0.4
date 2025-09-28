@@ -1,0 +1,91 @@
+label;description;code_parent
+01;HILADOS Y TELAS                                                                                     ;
+02;CONFECCIONES TEXTILES                                                                               ;
+05;PAPEL DE ESCRITORIO                                                                                 ;
+06;PRODUCTOS DE ARTES GRAFICAS                                                                         ;
+07;PRODUCTOS DE PAPEL Y CARTON                                                                         ;
+12;SUSTANCIAS QUIMICAS                                                                                 ;
+14;TINTAS PINTURAS Y COLORANTES                                                                        ;
+16;OTROS MATERIALES QUIMICOS                                                                           ;
+20;PRODUCTOS DE MATERIALES PLASTICOS                                                                   ;
+21;PRODUCTOS DE METAL                                                                                  ;
+24;HERRAMIENTOS MENORES                                                                                ;
+25;MATERIAL DE LIMPIEZA                                                                                ;
+28;UTILES DE ESCRITORIO Y OFICINA                                                                      ;
+29;UTILES Y MATERIALES ELECTRICOS                                                                      ;
+31;OTROS MATERIALES Y SUMINISTROS                                                                      ;
+32;OTROS REPUESTOS Y ACCESORIOS                                                                        ;
+34;PRODUCTOS DE ARCILLA                                                                                ;
+99;MATERIALES NO CONTABILIZABLES (CTRL.FISICO)                                                         ;
+0101;HILADOS                                                                                             ;01
+0213;CORTINAS                                                                                            ;02
+0503;PAPEL DE ESCRITORIO                                                                                 ;05
+0606;PAPEL CARBONICO Y OTROS                                                                             ;06
+0706;CARTULINAS                                                                                          ;07
+1206;VARIOS                                                                                              ;12
+1207;VARIOS - MANTENIMIENTO                                                                              ;12
+1409;TINTES PARA COMBINAR COLORES                                                                        ;14
+1602;PEGAMENTOS                                                                                          ;16
+1605;OTROS                                                                                               ;16
+1616;FERTILIZANTE                                                                                        ;16
+2012;RAMPLUG                                                                                             ;20
+2023;VARIOS                                                                                              ;20
+2101;ABRAZADERAS                                                                                         ;21
+2104;ANILLAS                                                                                             ;21
+2109;BISAGRAS                                                                                            ;21
+2110;BROCAS                                                                                              ;21
+2112;CANDADOS                                                                                            ;21
+2114;CHAPAS                                                                                              ;21
+2116;BRAZO HIDRAULICO                                                                                    ;21
+2118;CODOS                                                                                               ;21
+2124;HIERRO "T"                                                                                          ;21
+2126;LLAVES DE PASO                                                                                      ;21
+2128;PERNOS                                                                                              ;21
+2139;TAPONES                                                                                             ;21
+2142;TUBOS                                                                                               ;21
+2146;FIERRO "Y"                                                                                          ;21
+2153;CHICOTILLOS METALICOS                                                                               ;21
+2159;LLAVES                                                                                              ;21
+2162;VARIOS                                                                                              ;21
+2168;VARIOS                                                                                              ;21
+2169;TUERCAS                                                                                             ;21
+2401;CEPILLOS                                                                                            ;24
+2414;VARIOS                                                                                              ;24
+2502;DETERGENTES                                                                                         ;25
+2805;BOLIGRAFOS                                                                                          ;28
+2810;CINTAS                                                                                              ;28
+2812;ACCESORIOS DE ESCRITORIO                                                                            ;28
+2822;ESTILETES - CUCHILLAS                                                                               ;28
+2824;FIBROGRAFOS                                                                                         ;28
+2826;FOLDERS                                                                                             ;28
+2848;REGLAS                                                                                              ;28
+2863;SUJETA PAPELES                                                                                      ;28
+2868;TONNERS VARIOS                                                                                      ;28
+2903;ARRANCADORES                                                                                        ;29
+2906;CABLES                                                                                              ;29
+2907;CONECTORES                                                                                          ;29
+2913;ENCHUFES                                                                                            ;29
+2914;FOCOS                                                                                               ;29
+2919;INTERRUPTORES                                                                                       ;29
+2922;LUMINARIAS                                                                                          ;29
+2924;PILAS (BATERIAS)                                                                                    ;29
+2925;REACTANCIAS                                                                                         ;29
+2933;TUBOS FLUORESCENTES                                                                                 ;29
+2934;ZOCALOS                                                                                             ;29
+2936;DUCHAS                                                                                              ;29
+2940;SOQUETS                                                                                             ;29
+2942;VARIOS                                                                                              ;29
+2946;DUCTOS                                                                                              ;29
+3131;VARIOS                                                                                              ;31
+3137;OTROS                                                                                               ;31
+3201;REPUESTOS VARIOS                                                                                    ;32
+3207;REPUESTOS PARA ASCENSORES                                                                           ;32
+3208;ACCESORIOS                                                                                          ;32
+3403;CERAMICAS                                                                                           ;34
+9943;DMMI - ALBAILERIA                                                                                  ;99
+9944;DMMI - PLOMERIA                                                                                     ;99
+9945;DMMI - ELECTRICIDAD                                                                                 ;99
+9946;DMMI - CALEFACCION                                                                                  ;99
+9947;DMMI - CARPINTERIA                                                                                  ;99
+9948;DMMI - ELECTRONICA                                                                                  ;99
+9949;DMMI - SEGURIDAD MECANICA                                                                           ;99

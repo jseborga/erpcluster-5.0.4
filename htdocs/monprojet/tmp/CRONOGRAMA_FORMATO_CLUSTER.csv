@@ -1,0 +1,39 @@
+ref|label|hilo|item|login|fechaini|fechafin|detail|group|type|typename|unitprogram|unit|price
+A|Definicion de proceso a seguir en el sistema|||jmariaca|12/12/2016|20/12/2016||1|||0||0
+1|Reunion de lanzamiento de proyecto, mapeo de procesos existentes con base en los modulos contratados|A||jmariaca|12/12/2016|12/12/2016||0|||4|H|0
+2|Reunion de definicion de cada proceso: Compras, almacenes, activo fijo|A||jmariaca|13/12/2016|13/12/2016||0|||2|H|0
+3|Relevamiento de reportes clave existentes y deseados|A||jmariaca|13/12/2016|13/12/2016||0|||2|H|0
+4|Reunion de definicion de procesos de proyectos(eventos)|A||jmariaca|14/12/2016|14/12/2016||0|||2|H|0
+5|Relevamiento de reportes clave existentes y deseados|A||jmariaca|14/12/2016|14/12/2016||0|||2|H|0
+6|Reunion de aclaracion de procesos relevados|A||jmariaca|15/12/2016|15/12/2016||0|||2|H|0
+7|Relevamiento de reportes gerenciales|A||jmariaca|15/12/2016|15/12/2016||0|||2|H|0
+8|Envio de documentacion relevada vs procesos de CLUSTER ERP con analisis de adherencia al sistema|A||jmariaca|20/12/2016|20/12/2016||0|||2|H|0
+9|Revision de documentacion y aceptacion de procesos a seguir|A||jmariaca|21/12/2016|23/12/2016||0|||24|H|0
+B|Desarrollo de especificos y personalizacion del sistema (COMPONENTE DE DESARROLLO)|||jmariaca|23/12/2016|06/01/2017||1|||0||0
+10|Desarrollo de especificos y personalizaciones menores|B||jmariaca|23/12/2016|29/12/2016||0|||16|H|0
+11|Desarrollo de reportes clave|B||jmariaca|29/12/2016|30/12/2016||0|||16|H|0
+12|Revision, pruebas internas(fractal) y ajustesde desarrollos |B||jmariaca|03/01/2017|03/01/2017||0|||8|H|0
+13|Aprobacion de formatos y conformidad preliminar de desarrollos|B||jmariaca|04/01/2017|06/01/2017||0|||32|H|0
+C|Taller de capacitación con usuarios definidos|||jmariaca|04/01/2017|10/01/2017||1|||0||0
+14|Capacitacion de usuarios modulos de compras|C||jmariaca|04/01/2017|04/01/2017||0|||4|H|0
+15|Capacitacion de usuarios modulos de almacenes|C||jmariaca|05/01/2017|05/01/2017||0|||4|H|0
+16|Capacitacion de usuarios modulos de proyectos|C||jmariaca|06/01/2017|06/01/2017||0|||4|H|0
+17|Capacitacion de usuarios modulos de proyectos|C||jmariaca|09/01/2017|09/01/2017||0|||4|H|0
+18|Capacitacion de usuarios modulos de facturacion|C||jmariaca|10/01/2017|10/01/2017||0|||4|H|0
+D|Entrega de manuales estandar de Cluster ERP|||jmariaca|11/01/2017|16/01/2017||1|||0||0
+19|Elaboracion de manuales de usuario personalizados para uso de Visual.com considerando procesos acordados y desarrollos|D||jmariaca|11/01/2017|13/01/2017||0|||24|H|0
+20|Revision y conformidad de manuales de usuario|D||jmariaca|16/01/2017|16/01/2017||0|||8|H|0
+E|Carga de saldos iniciales (materiales, equipos, cuentas bancarias)|||jmariaca|11/01/2017|18/01/2017||1|||0||0
+21|Envio de formatos / plantillas estandarizadas CLUSTER para carga de informacion|E||jmariaca|11/01/2017|11/01/2017||0|||4|H|0
+22|Consolidacion de informacion, preparacion y envio a Fractal |E||jmariaca|11/01/2017|17/01/2017||0|||40|H|0
+23|Ajustes y traspaso a ambiente de produccion|E||jmariaca|18/01/2017|18/01/2017||0|||8|H|0
+F|Salida en Produccion|||jmariaca|19/01/2017|27/01/2017||1|||0||0
+24|Reunion de revision de configuracion: usuarios, permisos, accesos|F||jmariaca|19/01/2017|19/01/2017||0|||4|H|0
+25|Reunion de revision de datos maestros y otros ajustes menores|F||jmariaca|20/01/2017|20/01/2017||0|||4|H|0
+26|Salida en Produccion modulo de Proyectos|F||jmariaca|23/01/2017|24/01/2017||0|||8|H|0
+27|Salida en Produccion modulo de Compras|F||jmariaca|25/01/2017|25/01/2017||0|||4|H|0
+28|Salida en Produccion modulo de Almacenes|F||jmariaca|26/01/2017|26/01/2017||0|||4|H|0
+29|Salida en Produccion modulo de Activo Fijo|F||jmariaca|27/01/2017|27/01/2017||0|||4|H|0
+G|Acompanhamiento post salida en produccion|||jmariaca|30/01/2017|03/02/2017||1|||0||0
+30|Atencion de consultas o aclaracion de dudas|G||jmariaca|30/01/2017|03/02/2017||0|||20|H|0
+31|Ajustes de configuracion menores|G||jmariaca|30/01/2017|03/02/2017||0|||20|H|0

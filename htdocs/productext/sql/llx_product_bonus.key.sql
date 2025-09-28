@@ -1,0 +1,1 @@
+ALTER TABLE llx_product_bonus UNIQUE KEY uk_unique(fk_product,ref);

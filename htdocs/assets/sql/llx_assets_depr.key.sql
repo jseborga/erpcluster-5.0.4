@@ -1,0 +1,2 @@
+ALTER TABLE llx_assets_depr ADD UNIQUE uk_unique (fk_asset, period_month, period_year);
+ALTER TABLE llx_assets_depr ADD CONSTRAINT idk_assetsdepr_fk_asset FOREIGN KEY (fk_asset) REFERENCES llx_assets(rowid) ON DELETE RESTRICT ON UPDATE RESTRICT;

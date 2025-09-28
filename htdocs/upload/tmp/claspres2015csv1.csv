@@ -1,0 +1,423 @@
+gestion;code;label;active
+2015;10000;SERVICIOS PERSONALES;1
+2015;11000;Empleados Permanentes;1
+2015;11100;Haberes Básicos;1
+2015;11200;Bono de Antiguedad;1
+2015;11210;Categorías Magisterio 11220 Bono de Antiguedad;1
+2015;11300;Bonificaciones;1
+2015;11310;Bono de Frontera;1
+2015;11320;Remuneraciones Colaterales Médicas y de Trabajadores en Salud;1
+2015;11321;Categorías Médicas;1
+2015;11322;Escalafón Médico;1
+2015;11323;Escalafón de los Trabajadores en Salud;1
+2015;11324;Otras Remuneraciones;1
+2015;11330;Otras Bonificaciones;1
+2015;11400;Aguinaldos;1
+2015;11500;Primas y Bono de Producción;1
+2015;11510;Primas;1
+2015;11520;Bono de Producción;1
+2015;11600;Asignaciones Familiares;1
+2015;11700;Sueldos;1
+2015;11800;Dietas;1
+2015;11810;Dietas de Directorio;1
+2015;11820;Otras Dietas;1
+2015;11900;Otros Servicios Personales;1
+2015;11910;Horas Extraordinarias 11920 Vacaciones no Utilizadas 11930 Incentivos Económicos 11940 Suplencias;1
+2015;12000;Empleados No Permanentes;1
+2015;12100;Personal Eventual;1
+2015;13000;Previsión Social;1
+2015;11100;Haberes Básicos.;1
+2015;11200;Bono de Antiguedad.;1
+2015;11300;Bonificaciones.;1
+2015;11700;Sueldos;1
+2015;11900;Otros Servicios Personales;1
+2015;12100;Personal Eventual;1
+2015;13100;Aporte Patronal al Seguro Social;1
+2015;13110;Régimen de Corto Plazo (Salud);1
+2015;13120;Prima de Riesgo Profesional Régimen de Largo Plazo 13130 Aporte Patronal Solidario Régimen de Largo Plazo;1
+2015;13131;Aporte Patronal Solidario 3%;1
+2015;13132;Aporte Patronal Minero Solidario 2%;1
+2015;13200;Aporte Patronal para Vivienda;1
+2015;14000;Otros;1
+2015;14100;Otros;1
+2015;15000;Previsiones para Incremento de Gastos en Servicios Personales;1
+2015;15100;Incremento Salarial;1
+2015;15200;Crecimiento Vegetativo;1
+2015;15300;Creación de Ítemes;1
+2015;15400;Otras Previsiones;1
+2015;20000;SERVICIOS NO PERSONALES;1
+2015;21000;Servicios Básicos;1
+2015;21100;Comunicaciones;1
+2015;21200;Energía Eléctrica;1
+2015;21300;Agua;1
+2015;21400;Telefonía;1
+2015;21500;Gas Domiciliario;1
+2015;21600;Internet y Otros;1
+2015;22000;Servicios de Transporte y Seguros;1
+2015;22100;Pasajes;1
+2015;22110;Pasajes al Interior del País;1
+2015;22120;Pasajes al Exterior del País;1
+2015;22200;Viáticos;1
+2015;22210;Viáticos por Viajes al Interior del País. 22220 Viáticos por Viajes al Exterior del País.;1
+2015;22300;Fletes y Almacenamiento;1
+2015;22400;Gastos de Instalación y Retorno;1
+2015;22500;Seguros;1
+2015;22600;Transporte de Personal;1
+2015;23000;Alquileres;1
+2015;23100;Alquiler de Edificios;1
+2015;23200;Alquiler de Equipos y Maquinarias;1
+2015;23300;Alquiler de Tierras y Terrenos;1
+2015;23400;Otros Alquileres;1
+2015;24000;Instalación, Mantenimiento y Reparaciones;1
+2015;24100;Mantenimiento y Reparación de Inmuebles y Equipos;1
+2015;24110;Mantenimiento y Reparación de Inmuebles;1
+2015;24120;Mantenimiento y Reparación de Vehículos, Maquinaria y Equipos 24130 Mantenimiento y Reparación de Muebles y Enseres;1
+2015;24200;Mantenimiento y Reparación de Vías de Comunicación;1
+2015;24300;Otros Gastos por Concepto de Instalación, Mantenimiento y Reparación;1
+2015;25000;Servicios Profesionales y Comerciales;1
+2015;25100;Médicos, Sanitarios y Sociales;1
+2015;25120;Gastos Especializados por Atención Médica y Otros;1
+2015;25130;Gastos por Afiliación de Estudiantes Universitarios al Seguro Social;1
+2015;25200;Estudios, Investigaciones, Auditorías Externas y Revalorizaciones;1
+2015;25210;Consultorías por Producto;1
+2015;25220;Consultores Individuales de Línea;1
+2015;25230;Auditorías Externas;1
+2015;25300;Comisiones y Gastos Bancarios;1
+2015;25400;Lavandería, Limpieza e Higiene;1
+2015;25500;Publicidad;1
+2015;25600;Servicios de Imprenta, Fotocopiado y Fotográficos;1
+2015;25700;Capacitación del Personal;1
+2015;25800;Estudios e Investigaciones para Proyectos de Inversión No Capitalizables;1
+2015;25810;Consultorías por Producto;1
+2015;25820;Consultores Individuales de Línea;1
+2015;25900;Servicios Manuales;1
+2015;26000;Otros Servicios No Personales;1
+2015;26200;Gastos Judiciales;1
+2015;26300;Derechos sobre Bienes Intangibles;1
+2015;26500;Conjueces y Jueces Ciudadanos;1
+2015;26600;Servicio de Seguridad de los Batallones de Seguridad Física de la Policía Nacional y Vigilancia Privada;1
+2015;26610;Servicios Públicos;1
+2015;26620;Servicios Privados;1
+2015;26630;Servicios por Traslado de Valores;1
+2015;26900;Otros Servicios No Personales;1
+2015;26910;Gastos de Representación;1
+2015;26920;Fallas de Caja;1
+2015;26930;Pago por Trabajos Dirigidos y Pasantías;1
+2015;26940;Compensación Costo de Vida;1
+2015;26990;Otros;1
+2015;27000;Gastos por Servicios Especializados por la Actividad Extractiva de Recursos Naturales del Estado Plurinacional;1
+2015;27100;Servicios por la Extracción, Transformación y Conversión de los Recursos Naturales de Propiedad del Estado Plurinacional.;1
+2015;27110;Pago por Costos Incurridos;1
+2015;27120;Pago por Utilidades;1
+2015;30000;MATERIALES Y SUMINISTROS;1
+2015;31000;Alimentos y Productos Agroforestales;1
+2015;31100;Alimentos y Bebidas para Personas, Desayuno Escolar y Otros;1
+2015;31110;Gastos por Refrigerios al personal permanente, eventual y consultores individuales de línea de las Instituciones Públicas;1
+2015;31120;Gastos por Alimentación y Otros Similares;1
+2015;31130;Desayuno Escolar;1
+2015;31140;Alimentación Hospitalaria, Penitenciaria, Aeronaves y Otras Específicas 31150 Alimentos y Bebidas para la atención de emergencias y desastres naturales.;1
+2015;31200;Alimentos para Animales;1
+2015;31300;Productos Agrícolas, Pecuarios y Forestales;1
+2015;32000;Productos de Papel, Cartón e Impresos;1
+2015;32100;Papel;1
+2015;32200;Productos de Artes Gráficas;1
+2015;32300;Libros, Manuales y Revistas;1
+2015;32400;Textos de Enseñanza;1
+2015;32500;Periódicos y Boletines;1
+2015;33000;Textiles y Vestuario;1
+2015;33100;Hilados y Telas;1
+2015;33200;Confecciones Textiles;1
+2015;33300;Prendas de Vestir;1
+2015;33400;Calzados;1
+2015;34000;Combustibles, Productos Químicos, Farmacéuticos y Otras Fuentes de Energía;1
+2015;34100;Combustibles, Lubricantes, Derivados y otras Fuentes de Energía;1
+2015;34110;Combustibles, Lubricantes y Derivados para consumo;1
+2015;34120;Combustibles, Lubricantes y Derivados para comercialización 34130 Energía Eléctrica para Comercialización;1
+2015;34200;Productos Químicos y Farmacéuticos;1
+2015;34300;Llantas y Neumáticos;1
+2015;34400;Productos de Cuero y Caucho;1
+2015;34500;Productos de Minerales no Metálicos y Plásticos;1
+2015;34600;Productos Metálicos;1
+2015;34700;Minerales;1
+2015;34800;Herramientas Menores;1
+2015;34900;Material y Equipo Militar;1
+2015;39000;Productos Varios;1
+2015;39100;Material de Limpieza;1
+2015;39200;Material Deportivo y Recreativo;1
+2015;39300;Utensilios de Cocina y Comedor;1
+2015;39400;Instrumental Menor Médico-Quirúrgico;1
+2015;39500;Útiles de Escritorio y Oficina;1
+2015;39600;Útiles Educacionales, Culturales y de Capacitación;1
+2015;39700;Útiles y Materiales Eléctricos;1
+2015;39800;Otros Repuestos y Accesorios;1
+2015;39900;Otros Materiales y Suministros;1
+2015;39910;Acuñación de Monedas e Impresión de Billetes;1
+2015;39911;Acuñación de monedas 39912 Impresión de billetes;1
+2015;39990;Otros Materiales y Suministros;1
+2015;40000;ACTIVOS REALES;1
+2015;41000;Inmobiliarios;1
+2015;41100;Edificios;1
+2015;41200;Tierras y Terrenos;1
+2015;41300;Otras Adquisiciones;1
+2015;42000;Construcciones;1
+2015;42200;Construcciones y Mejoras de Bienes Públicos Nacionales de Dominio Privado;1
+2015;42210;Construcciones y Mejoras de Viviendas;1
+2015;42220;Construcciones y Mejoras para Defensa y Seguridad;1
+2015;42230;Otras Construcciones y Mejoras de Bienes Públicos de Dominio Privado;1
+2015;42240;Supervisión de Construcciones y Mejoras de Bienes Públicos de Dominio Privado Gastos realizados en la contratación de terceros para la supervisión de construcciones y mejoras de bienes públicos de dominio privado. Estos gastos se realizan durante la ejecución física de las obras y serán aplicados integralmente al costo total del activo institucional.;1
+2015;42300;Construcciones y Mejoras de Bienes Nacionales de Dominio Público;1
+2015;42310;Construcciones y Mejoras de Bienes de Dominio Público;1
+2015;42320;Supervisión de Construcciones y Mejoras de Bienes de Dominio Público;1
+2015;43000;Maquinaria y Equipo;1
+2015;43100;Equipo de Oficina y Muebles;1
+2015;43110;Equipo de Oficina y Muebles;1
+2015;43120;Equipo de Computación;1
+2015;43200;Maquinaria y Equipo de Producción;1
+2015;43300;Equipo de Transporte, Tracción y Elevación;1
+2015;43310;Vehículos Livianos para Funciones Administrativas;1
+2015;43320;Vehículos Livianos para Proyectos de Inversión Pública;1
+2015;43330;Maquinaria y Equipo de Transporte;1
+2015;43340;Equipo de Elevación;1
+2015;43400;Equipo Médico y de Laboratorio;1
+2015;43500;Equipo de Comunicación;1
+2015;43600;Equipo Educacional y Recreativo;1
+2015;43700;Otra Maquinaria y Equipo;1
+2015;46000;Estudios y Proyectos para Inversión;1
+2015;46100;Para Construcciones de Bienes Públicos de Dominio Privado;1
+2015;46110;Consultoría por Producto para Construcciones de Bienes Públicos de Dominio Privado;1
+2015;46120;Consultoría de Línea para Construcciones de Bienes Públicos de Dominio Privado;1
+2015;46200;Para Construcciones de Bienes de Dominio Público;1
+2015;46210;Consultoría por Producto para Construcciones de Bienes Públicos de Dominio Público;1
+2015;46220;Consultoría de Línea para Construcciones de Bienes Públicos de Dominio Público;1
+2015;46300;Consultoría para capacitación, transferencia de tecnología y organización para procesos productivos, en proyectos de Inversión específicos.;1
+2015;46310;Consultoría por Producto 46320 Consultoría de Línea;1
+2015;49000;Otros Activos;1
+2015;49100;Activos Intangibles;1
+2015;49300;Semovientes y Otros Animales;1
+2015;49400;Activos Museológicos y Culturales;1
+2015;49900;Otros;1
+2015;50000;ACTIVOS FINANCIEROS;1
+2015;51000;Compra de Acciones, Participaciones de Capital e Inversiones;1
+2015;51100;Acciones y Participaciones de Capital en Empresas Privadas Nacionales;1
+2015;51200;Acciones y Participaciones de Capital en Empresas Públicas Nacionales;1
+2015;51300;Acciones y Participaciones de Capital en Empresas Públicas Territoriales;1
+2015;51310;Del Gobierno Autónomo Departamental 51320 Del Gobierno Autónomo Municipal;1
+2015;51330;Del Gobierno Indígena Originario Campesino;1
+2015;51500;Acciones y Participaciones de Capital en Instituciones Públicas Financieras No Bancarias Gastos destinados a la adquisición de acciones y participaciones de capital en Instituciones Públicas Financieras no Bancarias.;1
+2015;51600;Acciones y Participaciones de Capital en Instituciones Públicas Financieras Bancarias Gastos destinados a la adquisición de acciones y participaciones de capital en Instituciones Financieras Bancarias.;1
+2015;51700;Acciones y Participaciones de Capital en Organismos Internacionales;1
+2015;51800;Otras Acciones y Participaciones de Capital en el Exterior;1
+2015;51900;Inversiones en el Exterior;1
+2015;52000;Concesión de Préstamos a Corto Plazo al Sector Público No Financiero Préstamos directos a corto plazo concedidos al Sector Público No Financiero.;1
+2015;52100;Concesión de Préstamos a Corto Plazo a los órganos del Estado Plurinacional 52200 Concesión de Préstamos a Corto Plazo a Instituciones Públicas Descentralizadas 52400 Concesión de Préstamos a Corto Plazo a Entidades Territoriales Autónomas;1
+2015;52410;Gobierno Autónomo Departamental;1
+2015;52420;Gobierno Autónomo Municipal;1
+2015;52430;Gobierno Indígena Originario Campesino;1
+2015;52600;Concesión de Préstamos a Corto Plazo a Instituciones de Seguridad Social 52700 Concesión de Préstamos a Corto Plazo a Empresas Públicas Nacionales 52800 Concesión de Préstamos a Corto Plazo a Empresas Públicas Territoriales;1
+2015;52810;Del Gobierno Autónomo Departamental;1
+2015;52820;Del Gobierno Autónomo Municipal;1
+2015;52830;Del Gobierno Indígena Originario Campesino;1
+2015;53000;Concesión de Préstamos a Largo Plazo al Sector Público No Financiero Préstamos directos a largo plazo concedidos al Sector Público No Financiero.;1
+2015;53100;Concesión de Préstamos a Largo Plazo a los órganos del Estado Plurinacional 53200 Concesión de Préstamos a Largo Plazo a Instituciones Públicas Descentralizadas 53400 Concesión de Préstamos a Largo Plazo a Entidades Territoriales Autónomas;1
+2015;53410;Gobierno Autónomo Departamental;1
+2015;53420;Gobierno Autónomo Municipal;1
+2015;53430;Gobierno Indígena Originario Campesino;1
+2015;53600;Concesión de Préstamos a Largo Plazo a Instituciones de Seguridad Social 53700 Concesión de Préstamos a Largo Plazo a Empresas Públicas Nacionales 53800 Concesión de Préstamos a Largo Plazo a Empresas Públicas Territoriales;1
+2015;53810;Del Gobierno Autónomo Departamental;1
+2015;53820;Del Gobierno Autónomo Municipal;1
+2015;53830;Del Gobierno Indígena Originario Campesino;1
+2015;54000;Concesión de Préstamos al Sector Público Financiero y a los Sectores Privado y del Exterior Préstamos directos que se conceden al Sector Público Financiero y a los sectores privado y externo.;1
+2015;54100;Concesión de Préstamos a Corto Plazo a Instituciones Públicas Financieras No Bancarias 54200 Concesión de Préstamos a Corto Plazo a Instituciones Públicas Financieras Bancarias 54300 Concesión de Préstamos a Corto Plazo al Sector Privado;1
+2015;54400;Concesión de Préstamos a Corto Plazo al Exterior;1
+2015;54600;Concesión de Préstamos a Largo Plazo a Instituciones Públicas Financieras No Bancarias 54700 Concesión de Préstamos a Largo Plazo a Instituciones Públicas Financieras Bancarias 54800 Concesión de Préstamos a Largo Plazo al Sector Privado;1
+2015;54900;Concesión de Préstamos a Largo Plazo al Exterior;1
+2015;55000;Compra de Títulos y Valores;1
+2015;55100;Títulos y Valores a Corto Plazo;1
+2015;55110;Letras del Tesoro 55120 Bonos del Tesoro;1
+2015;55130;Otros;1
+2015;55200;Títulos y Valores a Largo Plazo;1
+2015;55210;Letras del Tesoro 55220 Bonos del Tesoro 55230 Otros;1
+2015;56000;Constitución de Fideicomisos y Servicios Financieros;1
+2015;56100;Colocación de Fondos en Fideicomiso;1
+2015;56200;Concesiones de Recursos de Fideicomisos 56300 Colocación de Fondos por Servicios Financieros;1
+2015;57000;Incremento de Disponibilidades;1
+2015;57100;Incremento de Caja y Bancos;1
+2015;57200;Incremento de Inversiones Temporales;1
+2015;58000;Incremento de Cuentas y Documentos por Cobrar y Otros Activos Financieros;1
+2015;58100;Incremento de Cuentas por Cobrar a Corto Plazo;1
+2015;58200;Incremento de Documentos por Cobrar y Otros Activos Financieros a Corto Plazo Aplicaciones financieras que se originan en el incremento neto de saldos de documentos;1
+2015;58210;Incremento de Documentos por Cobrar a Corto Plazo 58220 Incremento de Otros Activos Financieros a Corto Plazo;1
+2015;58300;Incremento de Cuentas por Cobrar a Largo Plazo;1
+2015;58400;Incremento de Documentos por Cobrar y Otros Activos Financieros a Largo Plazo Aplicaciones financieras que se originan en el incremento neto de saldos de documentos y efectos por cobrar y otros activos financieros a largo plazo. Incluye las variaciones de saldos de anticipos financieros, activos diferidos y débitos por apertura de cartas de crédito a largo plazo.;1
+2015;58410;Incremento de Documentos por Cobrar a Largo Plazo 58420 Incremento de Otros Activos Financieros a largo Plazo;1
+2015;59000;Afectaciones al Tesoro General de la Nación;1
+2015;59100;Afectaciones al Tesoro General de la Nación;1
+2015;60000;SERVICIO DE LA DEUDA PUBLICA Y DISMINUCION DE OTROS PASIVOS;1
+2015;61000;Servicio de la Deuda Pública Interna;1
+2015;61100;Amortización de la Deuda Pública Interna a Corto Plazo 61200 Intereses de la Deuda Pública Interna a Corto Plazo;1
+2015;61300;Comisiones y Otros Gastos de la Deuda Pública Interna a Corto Plazo 61400 Intereses por Mora y Multas de la Deuda Pública Interna a Corto Plazo 61600 Amortización de la Deuda Pública Interna a Largo Plazo;1
+2015;61700;Intereses de la Deuda Pública Interna a Largo Plazo;1
+2015;61800;Comisiones y Otros Gastos de la Deuda Pública Interna a Largo Plazo 61900 Intereses por Mora y Multas de la Deuda Pública Interna a Largo Plazo;1
+2015;62000;Servicio de la Deuda Pública Externa;1
+2015;62100;Amortización de la Deuda Pública Externa a Corto Plazo 62200 Intereses de la Deuda Pública Externa a Corto Plazo;1
+2015;62300;Comisiones y Otros Gastos de la Deuda Pública Externa a Corto Plazo 62400 Intereses por Mora y Multas de la Deuda Pública Externa a Corto Plazo 62600 Amortización de la Deuda Pública Externa a Largo Plazo;1
+2015;62700;Intereses de la Deuda Pública Externa a Largo Plazo;1
+2015;62800;Comisiones y Otros Gastos de la Deuda Pública Externa a Largo Plazo 62900 Intereses por Mora y Multas de la Deuda Pública Externa a Largo Plazo;1
+2015;63000;Disminución de Cuentas por Pagar a Corto Plazo;1
+2015;63100;Disminución de Cuentas por Pagar a Corto Plazo por Deudas Comerciales con Proveedores 63200 Disminución de Cuentas por Pagar a Corto Plazo con Contratistas 63300 Disminución de Cuentas por Pagar a Corto Plazo por Sueldos y Jornales 63400 Disminución de Cuentas por Pagar a Corto Plazo por Aportes Patronales 63500 Disminución de Cuentas por Pagar a Corto Plazo por Retenciones 63600 Disminución de Cuentas por Pagar a Corto Plazo por Impuestos, Regalías y Tasas 63700 Disminución de Cuentas por;1
+2015;63900;Disminución de Otros Pasivos y Otras Cuentas por Pagar a Corto Plazo;1
+2015;64000;Disminución de Cuentas por Pagar a Largo Plazo;1
+2015;64100;Disminución de Cuentas por Pagar a Largo Plazo por Deudas Comerciales;1
+2015;64200;Disminución de Otras Cuentas por Pagar a Largo Plazo;1
+2015;65000;Gastos Devengados No Pagados – TGN;1
+2015;65100;Gastos Devengados No Pagados por Servicios Personales;1
+2015;65200;Gastos Devengados No Pagados por Servicios No Personales, Materiales y Suministros, Activos Reales y Financieros y Servicio de la Deuda;1
+2015;65300;Gastos Devengados No Pagados por Transferencias;1
+2015;65400;Gastos Devengados No Pagados por Retenciones;1
+2015;65500;Gastos Devengados No Pagados por Intereses Deuda Pública Interna;1
+2015;65600;Gastos Devengados No Pagados por Intereses Deuda Pública Externa;1
+2015;65700;Gastos Devengados No Pagados por Comisiones Deuda Pública Interna;1
+2015;65800;Gastos Devengados No Pagados por Comisiones Deuda Pública Externa;1
+2015;65900;Otros Gastos Devengados No Pagados;1
+2015;66000;Gastos Devengados No Pagados – Otras Fuentes;1
+2015;66100;Gastos Devengados No Pagados por Servicios Personales;1
+2015;66200;Gastos Devengados No Pagados por Servicios No Personales, Materiales y Suministros, Activos Reales y Financieros y Servicio de la Deuda.;1
+2015;66300;Gastos Devengados No Pagados por Transferencias;1
+2015;66400;Gastos Devengados No pagados por Retenciones;1
+2015;66900;Otros Gastos No Pagados;1
+2015;67000;Obligaciones por Afectaciones al Tesoro General de la Nación;1
+2015;67100;Obligaciones por Afectaciones al Tesoro General de la Nación;1
+2015;68000;Disminución de Otros Pasivos;1
+2015;68200;Pago de Beneficios Sociales;1
+2015;69000;Devolución de Fondos - Fideicomisos;1
+2015;69100;Devolución de Fondos - Fideicomiso de Corto Plazo;1
+2015;69200;Devolución de Fondos - Fideicomiso de Largo Plazo;1
+2015;70000;TRANSFERENCIAS;1
+2015;71000;Transferencias Corrientes al Sector Privado;1
+2015;71100;Pensiones y Jubilaciones;1
+2015;71200;Becas;1
+2015;71210;Becas de Estudios Otorgadas a los Servidores Públicos;1
+2015;71220;Becas de Estudios Otorgadas a los Estudiantes Universitarios;1
+2015;71230;Becas de Estudios Otorgadas a Particulares;1
+2015;71300;Donaciones, Ayudas Sociales y Premios a Personas;1
+2015;71600;Subsidios y Donaciones a Personas e Instituciones Privadas sin Fines de Lucro Subvenciones destinadas a Instituciones privadas sin fines de lucro, a efectos de auxiliar y estimular la actividad que éstas realizan, y otros de acuerdo a normativa vigente.;1
+2015;71610;A Personas e Instituciones Privadas sin Fines de Lucro 71630 Otros de Carácter Social Establecidos por Norma Legal;1
+2015;71700;Subvenciones Económicas a Empresas;1
+2015;71800;Pensiones Vitalicias;1
+2015;71900;Transferencias por las Compras de Control del Servicio de Impuestos Nacionales (SIN) Transferencias que se otorgan al sector privado, por concepto de la ejecución de operativos de control, a través de la modalidad de Compras de Control, que por su naturaleza no pueden ser devueltos a los sujetos pasivos o terceros, los mismos que son transferidos a entidades de beneficencia o asistencia social, conforme a reglamentación expresa del SIN.;1
+2015;72000;Transferencias Corrientes al Sector Público No Financiero por Participación en Tributos Transferencias corrientes a entidades públicas por participación de recaudaciones tributarias, según el sistema tributario vigente.;1
+2015;72200;Transferencias Corrientes a Instituciones Públicas Descentralizadas, Universidades Públicas por Participación en Tributos;1
+2015;72400;Transferencias Corrientes al Gobierno Autónomo Departamental por Participación en Tributos;1
+2015;72410;Para Educación 72420 Otras;1
+2015;72500;Transferencias Corrientes a los Gobiernos Autónomos Municipales e Indígena Originario Campesino por Subsidios o Subvenciones;1
+2015;72510;Para Salud 72520 Otras;1
+2015;72520;Otras;1
+2015;73000;Transferencias Corrientes al Sector Público No Financiero por Subsidios o Subvenciones Transferencias corrientes al Sector Público No Financiero por concepto de subsidios y subvenciones, de acuerdo a disposiciones legales específicas o por acto administrativo del gobierno, destinadas a financiar sus actividades corrientes. Incluye asignaciones para programas y gastos específicos no contemplados en la categoría proyectos.;1
+2015;73100;Transferencias Corrientes al órgano Ejecutivo del Estado Plurinacional por Subsidios o Subvenciones;1
+2015;73200;Transferencias Corrientes a los órganos Legislativo, Judicial y Electoral del Estado Plurinacional, Instituciones Públicas Descentralizadas, Entidades de Control y Defensa del Estado, Universidades Públicas por Subsidios o Subvenciones;1
+2015;73300;Transferencias Corrientes del Fondo Solidario Nacional;1
+2015;73400;Transferencias Corrientes a Entidades Territoriales Autónomas por Subsidios o Subvenciones;1
+2015;73410;Gobierno Autónomo Departamental 73420 Gobierno Autónomo Municipal;1
+2015;73430;Gobierno Indígena Originario Campesino 73440 Gobierno Autónomo Regional;1
+2015;73600;Transferencias Corrientes a Instituciones de Seguridad Social por Subsidios o Subvenciones;1
+2015;73700;Transferencias Corrientes a Empresas Públicas Nacionales por Subsidios o Subvenciones;1
+2015;73800;Transferencias Corrientes a Empresas Públicas de las Entidades Territoriales Autónomas por Subsidios o Subvenciones;1
+2015;73810;Empresas Públicas Departamentales;1
+2015;73820;Empresas Públicas Municipales;1
+2015;73830;Empresas Públicas Indígenas Originarias Campesinas;1
+2015;74000;Transferencias Corrientes al Sector Público Financiero;1
+2015;74100;Transferencias Corrientes a Instituciones Públicas Financieras No Bancarias 74200 Transferencias Corrientes a Instituciones Públicas Financieras Bancarias;1
+2015;75000;Transferencias de Capital al Sector Privado;1
+2015;75100;Transferencias de Capital a Personas;1
+2015;75200;Transferencias de Capital a Instituciones Privadas sin Fines de Lucro;1
+2015;75210;A Instituciones Privadas sin Fines de Lucro 75220 Otras de carácter económico – productivo;1
+2015;75300;Transferencias de Capital a Empresas Privadas;1
+2015;77000;Transferencias de Capital al Sector Público No Financiero por Subsidios o Subvenciones Subsidios o subvenciones a entidades del Sector Público No Financiero, para financiar gastos de capital.;1
+2015;77100;Transferencias de Capital al órgano Ejecutivo del Estado Plurinacional por Subsidios o Subvenciones;1
+2015;77200;Transferencias de Capital a los órganos Legislativo, Judicial y Electoral del Estado Plurinacional, Instituciones Públicas Descentralizadas, Entidades de Control y Defensa del Estado, Universidades Públicas por Subsidios o Subvenciones;1
+2015;77400;Transferencias de Capital a las Entidades Territoriales Autónomas por Subsidios o Subvenciones;1
+2015;77410;Al Gobierno Autónomo Departamental;1
+2015;77440;Al Gobierno Autónomo Regional;1
+2015;77500;Transferencias de Capital a los Gobiernos Autónomos Municipales e Indígena Originario;1
+2015;72 Cl;asificador por Objeto del Gasto;1
+2015;77511;Para Salud;1
+2015;77512;Para Educación;1
+2015;77513;Para Infraestructura;1
+2015;77520;Por Patentes Petroleras;1
+2015;77530;Otras;1
+2015;77600;Transferencias de Capital a Instituciones de Seguridad Social por Subsidios o Subvenciones 77700 Transferencias de Capital a Empresas Públicas Nacionales por Subsidios o Subvenciones;1
+2015;77800;Transferencias de Capital a Empresas Públicas de las Entidades Territoriales Autónomas por Subsidios o Subvenciones;1
+2015;77810;A Empresas Públicas Departamentales;1
+2015;77820;A Empresas Públicas Municipales;1
+2015;77830;A Empresas Públicas Indígenas Originarias y Campesinas;1
+2015;78000;Transferencias de Capital al Sector Público Financiero;1
+2015;78100;Transferencias de Capital a Instituciones Públicas Financieras No Bancarias 78200 Transferencias de Capital a Instituciones Públicas Financieras Bancarias;1
+2015;79000;Transferencias al Exterior;1
+2015;79100;Transferencias Corrientes a Gobiernos Extranjeros y Organismos Internacionales por Cuotas Regulares;1
+2015;79200;Transferencias Corrientes a Gobiernos Extranjeros y Organismos Internacionales por Cuotas Extraordinarias;1
+2015;79300;Otras Transferencias Corrientes al Exterior;1
+2015;79310;Transferencias al Exterior en Efectivo 79320 Transferencias al Exterior en Especie;1
+2015;79400;Transferencias de Capital al Exterior;1
+2015;80000;IMPUESTOS, REGALIAS Y TASAS;1
+2015;81000;Renta Interna;1
+2015;81100;Impuesto sobre las Utilidades de las Empresas;1
+2015;81200;Impuesto a las Transacciones;1
+2015;81300;Impuesto al Valor Agregado Mercado Interno;1
+2015;81400;Impuesto al Valor Agregado Importaciones;1
+2015;81500;Impuesto a los Consumos Específicos en el Mercado Interno;1
+2015;81600;Impuesto a los Consumos Específicos Importaciones;1
+2015;81700;Impuesto Especial a los Hidrocarburos y sus Derivados Mercado Interno;1
+2015;81800;Impuesto Especial a los Hidrocarburos y sus Derivados Importación;1
+2015;81900;Otros Impuestos;1
+2015;81910;Impuesto a las Salidas Aéreas al Exterior;1
+2015;81920;Régimen Tributario Simplificado- RTS;1
+2015;81930;Régimen Tributario Integrado- STI;1
+2015;81950;Impuesto a la Transmisión Gratuita de Bienes- ITGB 81960 Impuesto a las Transacciones Financieras – ITF 81990 Otros;1
+2015;82000;Renta Aduanera;1
+2015;82100;Gravamen Arancelario;1
+2015;83000;Impuestos Municipales;1
+2015;83100;Impuesto a la Propiedad de Bienes;1
+2015;83110;Bienes Inmuebles 83120 Vehículos Automotores;1
+2015;83200;Impuesto a las Transferencias onerosas de bienes inmuebles y vehículos automotores Créditos destinados al pago del impuesto que grava a la transferencia de bienes inmuebles y vehículos automotores, de acuerdo a normativa vigente.;1
+2015;83210;Bienes Inmuebles 83220 Vehículos Automotores;1
+2015;84000;Regalías;1
+2015;84100;Regalías Mineras;1
+2015;84200;Regalías por Hidrocarburos;1
+2015;84230;6% Participación TGN;1
+2015;84240;11% Sobre Producción por Regalías Departamentales;1
+2015;84250;1% Sobre Producción para Regalías Compensatoria Departamental;1
+2015;84300;Regalías Agropecuarias;1
+2015;84900;Otras Regalías;1
+2015;85000;Tasas, Multas y Otros;1
+2015;85100;Tasas;1
+2015;85200;Derechos;1
+2015;85300;Contribuciones por Mejoras;1
+2015;85400;Multas;1
+2015;85500;Intereses Penales;1
+2015;85900;Otros;1
+2015;86000;Patentes;1
+2015;86100;Patentes;1
+2015;90000;OTROS GASTOS;1
+2015;91000;Intereses de Instituciones Financieras;1
+2015;91100;Intereses de Instituciones Públicas Financieras no Bancarias;1
+2015;91200;Intereses de Instituciones Públicas Financieras Bancarias;1
+2015;94000;Beneficios Sociales y Otros;1
+2015;94100;Indemnización;1
+2015;94200;Desahucio;1
+2015;94300;Otros Beneficios Sociales;1
+2015;95000;Contingencias Judiciales;1
+2015;95100;Contingencias Judiciales;1
+2015;96000;Otras Pérdidas y Devoluciones;1
+2015;96100;Pérdidas en Operaciones Cambiarias;1
+2015;96200;Devoluciones;1
+2015;96900;Otras Pérdidas;1
+2015;97000;Comisiones y Bonificaciones;1
+2015;97100;Comisiones por Ventas;1
+2015;97200;Bonificaciones por Ventas;1
+2015;98000;Retiros de Capital;1
+2015;98100;Del Sector Público;1
+2015;98200;Del Sector Privado;1
+2015;98300;Pago de Dividendos;1
+2015;99000;Provisiones para Gastos Corrientes y de Capital;1
+2015;99100;Provisiones para Gastos de Capital;1
+2015;99200;Provisiones para Gastos Corrientes;1

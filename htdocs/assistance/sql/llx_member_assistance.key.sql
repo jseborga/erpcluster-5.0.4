@@ -1,0 +1,1 @@
+ALTER TABLE llx_member_assistance ADD UNIQUE KEY uk_unique (fk_member,dater);

@@ -1,0 +1,21 @@
+CREATE TABLE llx_parameter (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  entity integer NOT NULL,
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  fk_city integer NOT NULL,
+  social_benefit double NOT NULL DEFAULT '0',
+  tax_labor double NOT NULL DEFAULT '0',
+  tools double NOT NULL DEFAULT '0',
+  overhead double NOT NULL DEFAULT '0',
+  utility double NOT NULL DEFAULT '0',
+  tax_transaction double NOT NULL DEFAULT '0',
+  exchange_rate double NOT NULL DEFAULT '0',
+  decimal_number integer NOT NULL DEFAULT '0',
+  global_item varchar(30) NOT NULL DEFAULT 'Salario',
+  date_create date NOT NULL,
+  date_delete date NULL,
+  tms timestamp,
+  by_default varchar(1) NOT NULL DEFAULT '0',
+  statut tinyint NOT NULL DEFAULT '1'
+) ENGINE=InnoDB;

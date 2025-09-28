@@ -1,0 +1,10 @@
+ALTER TABLE llx_p_charge CHANGE ref ref VARCHAR( 30 )NOT NULL ;
+ALTER TABLE llx_p_charge CHANGE detail label text NULL;
+ALTER TABLE llx_p_charge CHANGE skills detail text NULL;
+ALTER TABLE llx_p_charge ADD fk_user_create INTEGER NOT NULL;
+ALTER TABLE llx_p_charge ADD fk_user_mod INTEGER NOT NULL;
+ALTER TABLE llx_p_charge ADD datec DATE NOT NULL;
+ALTER TABLE llx_p_charge ADD datem DATE NOT NULL;
+ALTER TABLE llx_p_charge ADD tms TIMESTAMP NOT NULL;
+ALTER TABLE llx_p_charge ADD active TINYINT NOT NULL;
+ALTER TABLE llx_p_charge ADD amount DOUBLE NULL DEFAULT '0' AFTER detail;

@@ -1,0 +1,1 @@
+ALTER TABLE llx_c_sectors ADD UNIQUE KEY uk_unique (entity, period_year, ref);

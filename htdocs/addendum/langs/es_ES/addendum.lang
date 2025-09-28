@@ -1,0 +1,22 @@
+Datecontract=Fecha Contrato
+Timelimit=Plazo
+Typetimelimit=Tipo Plazo
+Time limit=Tipo Plazo
+Notepublic=Nota publica
+Noteprivate=Nota privada
+Addendum to contract=Adendas al contrato
+Addendum=Adendas
+Newaddendum=Nueva adenda
+Createnew=Crear nuevo
+Amountcontract=Monto contrato
+Total contract=Total contrato
+Hostcontrat=Contrato principal
+Bindingcontract=Enlazar contrato
+Contratfather=Contrato padre
+Linktocontractfhater=Vincular a contrato padre
+NewAddendum=Nueva adenda
+Approved=Aprobado
+Linkaddendum=Vincular contrato
+Reffather=Contrato principal
+
+Errorcontratfatherisrequired=Error, contrato padre es requerido

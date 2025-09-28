@@ -1,0 +1,21 @@
+CREATE TABLE llx_paiementfourn_advance (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  ref varchar(30) DEFAULT NULL,
+  entity integer DEFAULT NULL,
+  tms timestamp NOT NULL,
+  datec datetime DEFAULT NULL,
+  datep datetime DEFAULT NULL,
+  amount double DEFAULT '0',
+  fk_user_author integer DEFAULT NULL,
+  fk_soc integer NOT NULL,
+  fk_facture integer DEFAULT '0' NULL,
+  origin varchar(50) NOT NULL,
+  originid integer NOT NULL,
+  fk_paiement integer NOT NULL,
+  num_paiement varchar(50) DEFAULT NULL,
+  note text,
+  fk_bank integer NOT NULL,
+  model_pdf varchar(50) NULL,
+  statut smallint(6) NOT NULL DEFAULT '0',
+  multicurrency_amount double(24,8) DEFAULT '0.00000000'
+) ENGINE=InnoDB;

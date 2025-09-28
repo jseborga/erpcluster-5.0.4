@@ -1,0 +1,49 @@
+ref|label|hilo|item|login|fechaini|fechafin|detail|group|type|typename|unitprogram|unit|price
+HLV001|INSTALACION DE FAENAS|||pseborga|||Instalacion de Faenas, incluye demolicion, Almacenes, demolicion de cerco perimetral, etc|1|||||
+HLV001-1|Demolicion de Vivienda|HLV001||pseborga|18/7/2016|18/10/2016||0|||1|GLB|3631.5
+HLV001-2|Demolicion Muros|HLV001||pseborga|18/7/2016|18/10/2016|Demolicion de Muros Hacia la Calle Canada Stronguest|0|||1|GLB|3631.5
+HLV001-3|Instalacion de faenas basicas|HLV001||pseborga|18/7/2016|18/10/2016|Instalacion de Faenas Basicas|0|||1|GLB|16331.85
+HLV002|EXCAVACIONES Y RELLENOS|||pseborga|||Actividades de Excavaciones|1|||||
+HLV002-1|Excavacion con maquinaria|HLV002||pseborga|25/7/2016|25/9/2016|Excavacion con Maquinaria|0|||1365.1|M3|69.04
+HLV002-2|Excavacion manual|HLV002||pseborga|25/9/2016|3/10/2016|Excavacion Manual y Perfilacion|0|||460|M3|86.24
+HLV002-3|Relleno y Compactado|HLV002||pseborga|25/9/2016|3/10/2016|Relleno y compactado de parqueos|0|||48|M3|56.95
+HLV003|NIVEL 0 PARQUEO|||pseborga||||1|||||
+HLV003-1|Fundacion de Hormigon Armado|HLV003||pseborga|18/8/2016|10/10/2016|Fundacion de Hormigon Aramado, incluye losas, vigas de hormigon armado, rampa, muros de contencion.|0|||292.85|M2|1.615.731.565
+HLV003-2|Carpeta de Hormigon|HLV003||pseborga|18/12/2016|18/1/2017|Carpeta de Nivelacion en Parqueos|0|||425|M2|83.84
+HLV003-3|Soladura de Piedra y Hormigon|HLV003||pseborga|18/12/2016|18/1/2017|Soladura de Piedra y Nivelacion en Parqueos|0|||160|M2|141.04
+HLV003-4|Tabique|HLV003||pseborga|18/12/2016|18/3/2017|Tabiques de Nivel de Referencia|0|||75.24|M2|0.1
+HLV003-5|Escaleras|HLV003||pseborga|18/8/2016|10/10/2016|Escaleras hasta nivel de referencia|0|||2.8|M3|0.1
+HLV004|NIVEL 1 INGRESO Y PLANTA BAJA|||pseborga||||1|||||
+HLV004-1|Columnas|HLV004||pseborga|8/8/2016|14/11/2016|Columnas Hasta Nivel de Referencia|0|||100|PER|0.1
+HLV004-2|Losas y Vigas|HLV004||pseborga|8/8/2016|14/11/2016|Losas y Vigas De hormigon Armado|0|||418.19|M2|1.615.731.565
+HLV004-3|Muro de Asensor|HLV004||pseborga|8/8/2016|14/11/2016|Muros estructurales hasta nivel de referencia|0|||100|PER|0.1
+HLV004-4|Tabique|HLV004||pseborga|18/12/2016|18/3/2017|Tabiques de Nivel de Referencia|0|||283.31|M2|0.1
+HLV004-5|Escaleras|HLV004||pseborga|8/8/2016|14/11/2016|Escaleras hasta nivel de referencia|0|||3.61|M3|0.1
+HLV005|NIVEL 2 SALONES|||pseborga||||1|||||
+HLV005-1|Columnas|HLV005||pseborga|29/8/2016|12/12/2016|Columnas Hasta Nivel de Referencia|0|||100|PER|0.1
+HLV005-2|Losas y Vigas|HLV005||pseborga|29/8/2016|12/12/2016|Losas y Vigas De hormigon Armado|0|||322.46|M2|1.615.731.565
+HLV005-3|Muro de Asensor|HLV005||pseborga|29/8/2016|12/12/2016|Muros estructurales hasta nivel de referencia|0|||100|PER|0.1
+HLV005-4|Tabique|HLV005||pseborga|18/12/2016|18/3/2017|Tabiques de Nivel de Referencia|0|||352.73|M2|0.1
+HLV005-5|Escaleras|HLV005||pseborga|29/8/2016|29/8/2016|Escaleras hasta nivel de referencia|0|||2.26|M3|0.1
+HLV006|NIVEL 3 OFICINAS 01|||pseborga||||1|||||
+HLV006-1|Columnas|HLV006||pseborga|26/9/2016|9/1/2017|Columnas Hasta Nivel de Referencia|0|||100|PER|0.1
+HLV006-2|Losas y Vigas|HLV006||pseborga|26/9/2016|9/1/2017|Losas y Vigas De hormigon Armado|0|||249.33|M2|1.615.731.565
+HLV006-3|Muro de Asensor|HLV006||pseborga|26/9/2016|9/1/2017|Muros estructurales hasta nivel de referencia|0|||100|PER|0.1
+HLV006-4|Tabique|HLV006||pseborga|18/12/2016|18/3/2017|Tabiques de Nivel de Referencia|0|||331.32|M2|0.1
+HLV006-5|Escaleras|HLV006||pseborga|26/9/2016|9/1/2017|Escaleras hasta nivel de referencia|0|||2.12|M3|0.1
+HLV007|NIVEL 4 OFICINAS 02|||pseborga||||1|||||
+HLV007-1|Columnas|HLV007||pseborga|17/10/2016|30/1/2017|Columnas Hasta Nivel de Referencia|0|||100|PER|0.1
+HLV007-2|Losas y Vigas|HLV007||pseborga|17/10/2016|30/1/2017|Losas y Vigas De hormigon Armado|0|||249.33|M2|1.615.731.565
+HLV007-3|Muro de Asensor|HLV007||pseborga|17/10/2016|30/1/2017|Muros estructurales hasta nivel de referencia|0|||100|PER|0.1
+HLV007-4|Tabique|HLV007||pseborga|18/12/2016|18/3/2017|Tabiques de Nivel de Referencia|0|||302.45|M2|0.1
+HLV007-5|Escaleras|HLV007||pseborga|17/10/2016|30/1/2017|Escaleras hasta nivel de referencia|0|||2.12|M3|0.1
+HLV008|NIVEL 5 HABITACIONES 01|||pseborga||||1|||||
+HLV008-1|Columnas|HLV008||pseborga|7/11/2016|19/12/2016|Columnas Hasta Nivel de Referencia|0|||100|PER|0.1
+HLV008-2|Losas y Vigas|HLV008||pseborga|7/11/2016|19/12/2016|Losas y Vigas De hormigon Armado|0|||249.33|M2|1.615.731.565
+HLV008-3|Muro de Asensor|HLV008||pseborga|7/11/2016|19/12/2016|Muros estructurales hasta nivel de referencia|0|||100|PER|0.1
+HLV008-4|Tabique|HLV008||pseborga|18/12/2016|18/3/2017|Tabiques de Nivel de Referencia|0|||402.56|M2|0.1
+HLV008-5|Escaleras|HLV008||pseborga|7/11/2016|19/12/2016|Escaleras hasta nivel de referencia|0|||2.15|M3|0.1
+HLV009|NIVEL 6 HABITACIONES 02 (SOLO LOSA)|||pseborga||||1|||||
+HLV009-1|Columnas|HLV009||pseborga|28/11/2016|20/2/2017|Columnas Hasta Nivel de Referencia|0|||100|PER|0.1
+HLV009-2|Losas y Vigas|HLV009||pseborga|28/11/2016|20/2/2017|Losas y Vigas De hormigon Armado|0|||249.33|M2|1.615.731.565
+HLV009-3|Muro de Asensor|HLV009||pseborga|28/11/2016|20/2/2017|Muros estructurales hasta nivel de referencia|0|||100|PER|0.1

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Enviar formulario sin recargar</title>
+<script language="javascript" src="jquery-1.3.min.js"></script>
+<script language="javascript">
+$(document).ready(function() {
+    $().ajaxStart(function() {
+        $('#loading').show();
+        $('#result').hide();
+    }).ajaxStop(function() {
+        $('#loading').hide();
+        $('#result').fadeIn('slow');
+    });
+    $('#form, #fat, #fo3').submit(function() {
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(data) {
+                $('#result').html(data);
+
+            }
+        })
+        
+        return false;
+    }); 
+})  
+</script>
+<style type="text/css">
+<!--
+body,td,th {
+	color: #333333;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+fieldset {
+	width:380px;
+	margin:auto;
+}
+#result {
+	width:280px;
+	padding:10px;
+	border:1px solid #bfcddb;
+	margin:auto;
+	margin-top:10px;
+	text-align:center;
+}
+-->
+</style></head>
+
+<body>
+<form method="post" action="envio.php" id="fo3" name="fo3" >
+      <fieldset>
+      	<legend>Perfil</legend>
+        <ol>
+        	<li><label>Nombres:</label><input type="text" size="30" name="fnombres" /></li>
+            <li><label>Apellidos:</label><input type="text" size="30" name="fapellidos" /></li>
+            <li><label>Correo:</label><input type="text" size="30" name="fcorreo" /></li>
+        </ol>
+        <input type="submit"   name="mysubmit" value="Enviar" />
+      </fieldset>
+</div>
+</form>
+<div id="result"></div>
+</body>
+</html>

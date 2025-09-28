@@ -1,0 +1,21 @@
+CREATE TABLE llx_assistance (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  entity integer NOT NULL,
+  fk_soc integer DEFAULT '0' NULL,
+  fk_contact integer DEFAULT '0' NULL,
+  fk_member integer NOT NULL,
+  fk_licence integer NULL,
+  marking_number tinyint NOT NULL,
+  date_ass datetime NOT NULL,
+  backwardness integer DEFAULT NULL,
+  abandonment integer DEFAULT NULL,
+  images varchar(150) NULL,
+  active tinyint DEFAULT '1' NOT NULL,
+  manual_reg tinyint DEFAULT NULL,
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  datec date NOT NULL,
+  datem date NOT NULL,
+  tms timestamp,
+  statut tinyint NOT NULL
+) ENGINE=InnoDB;

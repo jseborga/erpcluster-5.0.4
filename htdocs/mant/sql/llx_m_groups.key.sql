@@ -1,0 +1,1 @@
+ALTER TABLE llx_m_groups ADD UNIQUE uk_unique (entity, ref);

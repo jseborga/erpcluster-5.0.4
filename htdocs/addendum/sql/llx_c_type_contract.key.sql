@@ -1,0 +1,1 @@
+ALTER TABLE llx_c_type_contract ADD UNIQUE uk_unique(code);

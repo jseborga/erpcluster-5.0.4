@@ -1,0 +1,62 @@
+for ($col = 'A'; $col != 'J'; $col++) {
+  $objPHPExcel->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+ }
+
+$objPHPExcel->getProperties()->setCreator("HOO")
+->setLastModifiedBy("HOO")
+->setTitle("Jobs History")
+->setSubject("PHPExcel Test Document")
+->setDescription("Test document for PHPExcel, generated using PHP classes.")
+->setKeywords("office PHPExcel php")
+->setCategory("Test result file");
+
+$objPHPExcel->setActiveSheetIndex(0)->mergeCells('A1:I1');
+$objPHPExcel->getActiveSheet()->setCellValue('A1', $this->lang->line('history_excel_title'));
+$objPHPExcel->getActiveSheet()->getStyle("A1")->getFont()->setBold(true);
+
+$objPHPExcel->getActiveSheet()->getStyle('A2:I2')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+$objPHPExcel->getActiveSheet()->getStyle('A2:I2')->getFill()->getStartColor()->setARGB('29bb04');
+// Add some data
+$objPHPExcel->getActiveSheet()->getStyle("A2:I2")->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A2:I2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+
+
+//echo date('H:i:s') , " Add some data" , EOL;
+$objPHPExcel->setActiveSheetIndex(0)
+->setCellValue('A2', $this->lang->line('global_no'))
+->setCellValue('B2', $this->lang->line('history_name'))
+->setCellValue('C2', $this->lang->line('history_type_emp'))
+->setCellValue('D2', $this->lang->line('history_job_title'))
+->setCellValue('E2', $this->lang->line('history_emp_date'))
+->setCellValue('F2', $this->lang->line('history_emp_duration'))
+->setCellValue('G2', $this->lang->line('history_duty'))
+->setCellValue('H2', $this->lang->line('history_contact_duty'))
+->setCellValue('I2', $this->lang->line('history_salary'));
+
+$objPHPExcel->getActiveSheet()->getRowDimension(1)->setRowHeight(-1);
+
+$i =3;
+foreach($details->result() AS $item)
+{
+  $objPHPExcel->getActiveSheet()->getStyle('A'.$i.'')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+  $objPHPExcel->getActiveSheet()->getStyle('B'.$i.'')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+  $objPHPExcel->getActiveSheet()->getStyle('C'.$i.'')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+  $objPHPExcel->getActiveSheet()->getStyle('D'.$i.'')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+  $objPHPExcel->getActiveSheet()->getStyle('E'.$i.'')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+  $objPHPExcel->getActiveSheet()->getStyle('F'.$i.'')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+  $objPHPExcel->getActiveSheet()->getStyle('G'.$i.'')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+  $objPHPExcel->getActiveSheet()->getStyle('H'.$i.'')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+  $objPHPExcel->getActiveSheet()->getStyle('I'.$i.'')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+  // Miscellaneous glyphs, UTF-8
+  $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('A'.$i, $i-2)
+    ->setCellValue('B'.$i, $item->employer_office)
+    ->setCellValue('C'.$i, $item->job_type)
+    ->setCellValue('D'.$i, $item->job_title)
+    ->setCellValue('E'.$i, $item->job_appointment_date)
+    ->setCellValue('F'.$i, $item->job_duration)
+    ->setCellValue('G'.$i, $item->job_place)
+    ->setCellValue('H'.$i, $item->type_of_relation)
+    ->setCellValue('I'.$i, $item->monthly_salary);
+  $i++;
+}

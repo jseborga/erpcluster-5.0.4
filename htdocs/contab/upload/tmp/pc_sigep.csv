@@ -1,0 +1,373 @@
+fk_pcg_version|pcg_type|pcg_subtype|account_parent|fk_accounting_category|account_number|label|cta_normal|cta_clase|TIPO,C,1|AUX,C,1|NIVEL,N,2,0|NOTABG,C,10|NOTAER,C,10|AUX_BASE,C,13
+PC_SIGEP|ACTIVO|X|||10000|ACTIVO|S||N|N|1|||
+PC_SIGEP|ACTIVO|X|||11000|Activo Corriente|S||N|N|2|||
+PC_SIGEP|ACTIVO|X|||11100|Disponible|S||N|N|3|||
+PC_SIGEP|ACTIVO|X|||11110|Caja|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||11120|Bancos|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||11121|Cuenta Unica del Tesoro (1)|A||S|S|5|||BAN
+PC_SIGEP|ACTIVO|X|||11122|Cuentas Fiscales en el BCB M/N|A||S|S|5|||BAN
+PC_SIGEP|ACTIVO|X|||11123|Cuentas Fiscales en el BCB M/E|A||S|S|5|||BAN
+PC_SIGEP|ACTIVO|X|||11124|Cuentas Fiscales y Otras en la Banca Privada M/N|A||S|S|5|||BAN
+PC_SIGEP|ACTIVO|X|||11125|Cuentas Fiscales y Otras en la Banca Privada M/E|A||S|S|5|||BAN
+PC_SIGEP|ACTIVO|X|||11126|Cuentas en el Exterior del PaÝs|A||S|S|5|||BAN
+PC_SIGEP|ACTIVO|X|||11127|Fondos en Custodia y Garantia|A||S|S|5|||BAN
+PC_SIGEP|ACTIVO|X|||11128|Fondos en la CUT (2)|A||S|S|5|||BAN
+PC_SIGEP|ACTIVO|X|||11129|Otras Cuentas|A||S|S|5|||BAN
+PC_SIGEP|ACTIVO|X|||11130|Fondos Rotativos|A||S|S|4|||BEN
+PC_SIGEP|ACTIVO|X|||11200|Inversiones Financieras a Corto Plazo|S||N|N|3|||
+PC_SIGEP|ACTIVO|X|||11210|Inversiones Temporales|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||11211|Dep¾sitos a Plazo Fijo|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||11212|Fondos en Fideicomiso|A||S|S|5|||BAN
+PC_SIGEP|ACTIVO|X|||11213|Otras Inversiones Temporales|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||11220|TÝtulos y Valores a Corto Plazo|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||11221|Letras del Tesoro a Corto Plazo|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11222|Bonos del Tesoro a Corto Plazo|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11223|Otros TÝtulos y Valores a Corto Plazo|S||S|N|5|||BEN
+PC_SIGEP|ACTIVO|X|||11230|(Previsi¾n por PÚrdidas en Inversiones Financieras a Corto Plazo)|S||S|N|4|||
+PC_SIGEP|ACTIVO|X|||11300|Exigible a Corto Plazo|S||N|N|3|||
+PC_SIGEP|ACTIVO|X|||11310|Cuentas a Cobrar a Corto Plazo|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||11320|Otras Cuentas a Cobrar a Corto Plazo|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||11321|Cuentas a Cobrar de Gestiones Anteriores|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||11322|Otras Cuentas a Cobrar a Corto Plazo|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||11330|Documentos y Efectos a Cobrar a Corto Plazo|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||11331|Documentos y Efectos a Cobrar a Corto Plazo|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||11332|Documentos y Efectos a Cobrar Morosos a Corto Plazo|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||11340|Otros Documentos y Efectos a Cobrar a Corto Plazo|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||11350|Concesi¾n de PrÚstamos a Corto Plazo al Sector P·blico No Financiero|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||11351|A Organismos de la Administraci¾n Central (Ërgano Ejecutivo)|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11352|A Instituciones P·blicas Descentralizadas|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11353|A Gobiernos Aut¾nomos Departamentales|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11354|A Gobiernos Aut¾nomos Municipales|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11355|A Instituciones de Seguridad Social|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11356|A Empresas P·blicas No Financieras Nacionales|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11357|A Empresas P·blicas No Financieras Regionales|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11358|A Empresas P·blicas No Financieras Municipales|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11360|Concesi¾n de PrÚstamos a Corto Plazo al Sector P·blico Financiero y a los Sectores Privado y Externo|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||11361|A Instituciones P·blicas Financieras No Bancarias|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11362|A Instituciones P·blicas Financieras Bancarias|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11363|Al Sector Privado|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11364|Al Sector Externo|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||11370|Anticipos a Corto Plazo|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||11380|Fondos en Dep¾sito por GarantÝas y Otros|A||S|N|4|||BEN
+PC_SIGEP|ACTIVO|X|||11390|Fondos en Avance|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||11400|(Previsi¾n para Incobrables a Corto Plazo)|S||S|N|3|||
+PC_SIGEP|ACTIVO|X|||11500|Bienes de Consumo|S||N|N|3|||
+PC_SIGEP|ACTIVO|X|||11510|Inventarios de Materias Primas, Materiales y Suministros|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||11520|Inventarios de Productos|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||11530|Existencia de Productos EstratÚgicos|S||S|N|4|||
+PC_SIGEP|ACTIVO|X|||11540|(Previsi¾n para PÚrdidas de Inventarios)|S||S|N|4|||
+PC_SIGEP|ACTIVO|X|||11600|Otros Activos Corrientes|S||N|N|3|||
+PC_SIGEP|ACTIVO|X|||11610|Activos Diferidos a Corto Plazo|A||S|N|4|||
+PC_SIGEP|ACTIVO|X|||11620|Bienes en Trßnsito|A||S|N|4|||
+PC_SIGEP|ACTIVO|X|||11630|Otros Activos a Corto Plazo|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12000|Activo No Corriente|S||N|N|2|||
+PC_SIGEP|ACTIVO|X|||12100|Exigible a Largo Plazo|S||N|N|3|||
+PC_SIGEP|ACTIVO|X|||12110|Cuentas a Cobrar a Largo Plazo|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12120|Otras Cuentas a Cobrar a Largo Plazo|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12130|Documentos y Efectos a Cobrar a Largo Plazo|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12140|Otros Documentos y Efectos a Cobrar a Largo Plazo|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12150|Concesi¾n de PrÚstamos a Largo Plazo al Sector P·blico No Financiero|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||12151|A Organismos de la Administraci¾n Central (Ërgano Ejecutivo)|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12152|A Instituciones P·blicas Descentralizadas|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12153|A Gobiernos Aut¾nomos Departamentales|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12154|A Gobiernos Aut¾nomos Municipales|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12155|A Instituciones de Seguridad Social|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12156|A Empresas P·blicas No Financieras Nacionales|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12157|A Empresas P·blicas No Financieras Regionales|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12158|A Empresas P·blicas No Financieras Municipales|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12160|Concesi¾n de PrÚstamos a Largo Plazo al Sector P·blico Financiero y a los Sectores Privado y Externo|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||12161|A Instituciones P·blicas Financieras No Bancarias|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12162|A Instituciones P·blicas Financieras Bancarias|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12163|Al Sector Privado|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12164|Al Sector Externo|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12170|Anticipos a Largo Plazo|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12180|(Previsi¾n para Incobrables a Largo Plazo)|S||S|N|4|||
+PC_SIGEP|ACTIVO|X|||12200|Inversiones Financieras a Largo Plazo|S||N|N|3|||
+PC_SIGEP|ACTIVO|X|||12210|Acciones y Participaciones de Capital|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||12211|En Empresas Privadas Nacionales|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12212|En Empresas P·blicas no Financieras|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12213|En Instituciones P·blicas Financieras|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12214|En Organismos Internacionales|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12215|En Otras del Sector Externo|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12220|TÝtulos y Valores a Largo Plazo|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||12221|Letras del Tesoro a Largo Plazo|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12222|Bonos del Tesoro a Largo Plazo|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12223|Otros TÝtulos y Valores a Largo Plazo|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12230|Fondos en Fideicomiso (*)|S||S|N|4|||
+PC_SIGEP|ACTIVO|X|||12240|Patrimonio Neto de Instituciones Descentralizadas y Empresas (*)|S||S|N|4|||
+PC_SIGEP|ACTIVO|X|||12250|(Previsi¾n por PÚrdidas en Inversiones Financieras a Largo Plazo)|S||S|N|4|||
+PC_SIGEP|ACTIVO|X|||12300|Activo Fijo (Bienes de Uso)|S||N|N|3|||
+PC_SIGEP|ACTIVO|X|||12310|Activo Fijo en Operaci¾n|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||12311|Edificios|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12312|Equipo de Oficina y Muebles|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12313|Maquinaria y Equipo de Producci¾n|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12314|Equipo de Transporte, Tracci¾n y Elevaci¾n|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12315|Equipo MÚdico y de Laboratorio|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12316|Equipo de Comunicaciones|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12317|Equipo Educacional y Recreativo|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12318|Otra Maquinaria y Equipo|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12320|Tierras y Terrenos|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12330|Semovientes|S||S|N|4|||
+PC_SIGEP|ACTIVO|X|||12340|Otros Activos Fijos|A||S|N|4|||
+PC_SIGEP|ACTIVO|X|||12350|Construcciones en Proceso de Bienes de Dominio Privado|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||12351|Construcciones y Mejoras de Viviendas|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12352|Construcciones y Mejoras para Defensa y Seguridad|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12353|Construcciones y Mejoras de Otros Bienes de Dominio Privado|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12354|Supervisi¾n de Construcciones y Mejoras de Bienes de Dominio Privado|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12360|Construcciones en Proceso de Bienes de Dominio P·blico|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||12361|Construcciones en Proceso de Bienes de Dominio P·blico|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12362|Supervisi¾n de Construcciones y Mejoras de Bienes de Dominio P·blico|S||S|N|5|||
+PC_SIGEP|ACTIVO|X|||12370|Estudios y Proyectos para Construcci¾n de Bienes Nacionales|S||N|N|4|||
+PC_SIGEP|ACTIVO|X|||12371|De Dominio Privado|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12372|De Dominio P·blico|A||S|S|5|||
+PC_SIGEP|ACTIVO|X|||12380|Construcciones en Proceso por Administraci¾n Propia|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12400|(Depreciaci¾n Acumulada del Activo Fijo)|S||N|N|3|||
+PC_SIGEP|ACTIVO|X|||12410|(Edificios)|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12420|(Equipo de Oficina y Muebles)|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12430|(Maquinaria y Equipo de Producci¾n)|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12440|(Equipo de Transporte, Tracci¾n y Elevaci¾n)|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12450|(Equipo MÚdico y de Laboratorio)|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12460|(Equipo de Comunicaciones)|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12470|(Equipo Educacional y Recreativo)|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12480|(Otra Maquinaria y Equipo)|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12490|(Semovientes)|A||S|S|4|||
+PC_SIGEP|ACTIVO|X|||12500|Activo Intangible|A||S|N|3|||
+PC_SIGEP|ACTIVO|X|||12600|(Amortizaci¾n Acumulada del Activo Intangible)|A||S|N|3|||
+PC_SIGEP|ACTIVO|X|||12700|Activos Diferidos a Largo Plazo|S||S|N|3|||
+PC_SIGEP|PASIVO|X|||20000|PASIVO|S||N|N|1|||
+PC_SIGEP|PASIVO|X|||21000|Pasivo Corriente|S||N|N|2|||
+PC_SIGEP|PASIVO|X|||21100|Obligaciones a Corto Plazo|S||N|N|3|||
+PC_SIGEP|PASIVO|X|||21110|Cuentas a Pagar a Corto Plazo|A||S|S|4|||BEN
+PC_SIGEP|PASIVO|X|||21120|Contratistas a Pagar a Corto Plazo|A||S|S|4|||BEN
+PC_SIGEP|PASIVO|X|||21130|Sueldos y Salarios a Pagar a Corto Plazo|A||S|N|4|||BEN
+PC_SIGEP|PASIVO|X|||21140|Aportes y Retenciones a Pagar a Corto Plazo|S||N|N|4|||
+PC_SIGEP|PASIVO|X|||21141|Aportes Patronales a Pagar a Corto Plazo|A||S|S|5|||BEN
+PC_SIGEP|PASIVO|X|||21142|Retenciones a Pagar a Corto Plazo|A||S|S|5|||
+PC_SIGEP|PASIVO|X|||21143|Aportes Patronales a Pagar de Entidades Descentralizadas a Corto Plazo (*)|A||S|S|5|||
+PC_SIGEP|PASIVO|X|||21144|Retenciones a Pagar de Entidades Descentralizadas a Corto Plazo (*)|A||S|S|5|||BEN
+PC_SIGEP|PASIVO|X|||21150|Pensiones y Jubilaciones a Pagar a Corto Plazo|A||S|S|4|||
+PC_SIGEP|PASIVO|X|||21160|Impuestos y Otros Derechos Obligatorios a Pagar a Corto Plazo|S||N|N|4|||
+PC_SIGEP|PASIVO|X|||21161|Impuestos a Pagar a Corto Plazo|A||S|S|5|||
+PC_SIGEP|PASIVO|X|||21162|RegalÝas a Pagar a Corto Plazo|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21163|Tasas, Multas y Otros Derechos Obligatorios a Pagar a Corto Plazo|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21170|Amortizaci¾n, Intereses y Comisiones de la Deuda P·blica a Pagar|S||N|N|4|||
+PC_SIGEP|PASIVO|X|||21171|Amortizaci¾n de la Deuda P·blica Interna|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21172|Amortizaci¾n de la Deuda P·blica Externa|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21173|Intereses Deuda Interna|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21174|Intereses Deuda Externa|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21175|Comisiones y Otros Gastos de la Deuda P·blica Interna|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21176|Comisiones y Otros Gastos de la Deuda P·blica Externa|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21177|Intereses por Mora y Multas de la Deuda P·blica Interna|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21178|Intereses por Mora y Multas de la Deuda P·blica Externa|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21180|Transferencias a Pagar|S||N|N|4|||
+PC_SIGEP|PASIVO|X|||21181|A Organismos de la Administraci¾n Central (Ërgano Ejecutivo)|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21182|A Instituciones P·blicas Descentralizadas|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21183|A Gobierno Aut¾nomos Departamentales|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21184|A Gobiernos Aut¾nomos Municipales|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21185|A Instituciones de Seguridad Social|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21186|A Empresas P·blicas|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21187|A Instituciones Financieras Bancarias y no Bancarias|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21188|Al Sector Privado|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21189|Al Sector Externo|S||S|N|5|||
+PC_SIGEP|PASIVO|X|||21190|Otras Cuentas a Pagar a Corto Plazo|A||S|S|4|||BEN
+PC_SIGEP|PASIVO|X|||21200|Deuda Documentada a Pagar a Corto Plazo|S||N|N|3|||
+PC_SIGEP|PASIVO|X|||21210|Documentos a Pagar a Corto Plazo|A||S|S|4|||BEN
+PC_SIGEP|PASIVO|X|||21220|Otros Documentos a Pagar a Corto Plazo|S||S|N|4|||BEN
+PC_SIGEP|PASIVO|X|||21230|PrÚstamos Internos a Pagar a Corto Plazo|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||21240|PrÚstamos Externos a Pagar a Corto Plazo|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||21300|Pasivos Diferidos a Corto Plazo|A||S|S|3|||
+PC_SIGEP|PASIVO|X|||21400|Previsiones y Reservas TÚcnicas de Corto Plazo|S||N|N|3|||
+PC_SIGEP|PASIVO|X|||21410|Previsiones para Beneficios Sociales a Corto Plazo|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||21420|Reservas TÚcnicas a Corto Plazo|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||21430|Otras Previsiones a Corto Plazo|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||21500|Fondos Recibidos en Custodia y en GarantÝa|S||N|N|3|||
+PC_SIGEP|PASIVO|X|||21510|Fondos Recibidos en Custodia|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||21520|Fondos Recibidos en GarantÝa|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||21530|Fondos de Terceros Recibidos en la CUT|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||21540|Fondos Recibidos en Fideicomiso a Corto Plazo|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||21600|Otros Pasivos de Corto Plazo|S||S|N|3|||
+PC_SIGEP|PASIVO|X|||21700|Deuda Administrativa de Ejercicios Anteriores|S||S|N|3|||BEN
+PC_SIGEP|PASIVO|X|||22000|Pasivo No Corriente|S||N|N|2|||
+PC_SIGEP|PASIVO|X|||22100|Obligaciones a Largo Plazo|S||N|N|3|||
+PC_SIGEP|PASIVO|X|||22110|Cuentas a Pagar a Largo Plazo|A||S|S|4|||BEN
+PC_SIGEP|PASIVO|X|||22120|Otras Cuentas a Pagar a Largo Plazo|A||S|S|4|||BEN
+PC_SIGEP|PASIVO|X|||22200|Deuda Documentada a Pagar a Largo Plazo|S||N|N|3|||
+PC_SIGEP|PASIVO|X|||22210|Documentos a Pagar a Largo Plazo|A||S|S|4|||BEN
+PC_SIGEP|PASIVO|X|||22220|Otros Documentos y Efectos a Pagar a Largo Plazo|A||S|S|4|||BEN
+PC_SIGEP|PASIVO|X|||22300|Deuda P·blica|S||N|N|3|||
+PC_SIGEP|PASIVO|X|||22310|Deuda P·blica Interna (*)|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||22320|Deuda P·blica Externa (*)|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||22400|Pasivos Diferidos a Largo Plazo|S||S|N|3|||BEN
+PC_SIGEP|PASIVO|X|||22500|Previsiones y Reservas TÚcnicas a Largo Plazo|S||N|N|3|||
+PC_SIGEP|PASIVO|X|||22510|Previsiones para Beneficios Sociales a Largo Plazo|A||S|S|4|||
+PC_SIGEP|PASIVO|X|||22520|Reservas TÚcnicas a Largo Plazo|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||22530|Otras Previsiones a Largo Plazo|S||S|N|4|||
+PC_SIGEP|PASIVO|X|||22600|Fondos Recibidos en Fideicomiso a Largo Plazo|S||S|N|3|||BAN
+PC_SIGEP|PATRIMONIO|X|||30000|PATRIMONIO|S||N|N|1|||
+PC_SIGEP|PATRIMONIO|X|||31000|Patrimonio Institucional|S||N|N|2|||
+PC_SIGEP|PATRIMONIO|X|||31100|Capital|S||N|N|3|||
+PC_SIGEP|PATRIMONIO|X|||31110|Capital Institucional|S||S|N|4|||
+PC_SIGEP|PATRIMONIO|X|||31120|Aportes de Capital|S||S|N|4|||
+PC_SIGEP|PATRIMONIO|X|||31130|Transferencias y Donaciones de Capital|S||S|N|4|||
+PC_SIGEP|PATRIMONIO|X|||31140|Afectaciones Patrimoniales|S||S|N|4|||
+PC_SIGEP|PATRIMONIO|X|||31200|Reservas|S||S|N|3|||
+PC_SIGEP|PATRIMONIO|X|||31300|Reservas por Reval·os TÚcnicos de Activos Fijos|S||S|N|3|||
+PC_SIGEP|PATRIMONIO|X|||31400|Ajuste Global del Patrimonio|S||S|N|3|||
+PC_SIGEP|PATRIMONIO|X|||31500|Resultados|S||N|N|3|||
+PC_SIGEP|PATRIMONIO|X|||31510|Resultados Acumulados de Ejercicios Anteriores|A||S|N|4|||
+PC_SIGEP|PATRIMONIO|X|||31520|(Resultados Afectados a Construcciones de Bienes de Dominio P·blico)|A||S|N|4|||
+PC_SIGEP|PATRIMONIO|X|||31530|Resultado del Ejercicio|S||S|N|4|||
+PC_SIGEP|PATRIMONIO|X|||31540|Resultados Afectados por Inversiones no Capitalizables|S||S|N|4|||
+PC_SIGEP|PATRIMONIO|X|||31600|Ajuste de Capital|A||S|N|3|||
+PC_SIGEP|PATRIMONIO|X|||31700|Ajuste de Reservas Patrimoniales|A||S|N|3|||
+PC_SIGEP|PATRIMONIO|X|||32000|Patrimonio P·blico|S||S|N|2|||
+PC_SIGEP|RESULTADOSEXP|X|||40000|RESULTADOS POR EXPOSICION A LA INFLACION|S||N|N|1|||
+PC_SIGEP|RESULTADOSEXP|X|||41000|Resultados por Exposicion a la inflacion|S||S|N|2|||
+PC_SIGEP|RESULTADOSEXP|X|||42000|Ajuste por Inflacion y Tenencia de Bienes|A||S|N|2|||
+PC_SIGEP|INGRESOS|X|||50000|RECURSOS CORRIENTES|S||N|N|1|||
+PC_SIGEP|INGRESOS|X|||51000|Ingresos Tributarios|S||N|N|2|||
+PC_SIGEP|INGRESOS|X|||51100|Renta Interna|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||51200|Renta Aduanera|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||51300|Impuestos Municipales|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||52000|Venta de Bienes y Servicios|S||N|N|2|||
+PC_SIGEP|INGRESOS|X|||52100|Venta de Bienes|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||52200|Venta de Servicios|A||S|N|3|||
+PC_SIGEP|INGRESOS|X|||53000|RegalÝas|S||N|N|2|||
+PC_SIGEP|INGRESOS|X|||53100|RegalÝas Mineras|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||53200|RegalÝas de Hidrocarburos|S||N|N|3|||
+PC_SIGEP|INGRESOS|X|||53210|RegalÝas Nacionales|S||S|N|4|||
+PC_SIGEP|INGRESOS|X|||53220|RegalÝas Departamentales|S||S|N|4|||
+PC_SIGEP|INGRESOS|X|||53300|RegalÝas Agropecuarias|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||53400|Otras RegalÝas|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||54000|Otros Ingresos|S||N|N|2|||
+PC_SIGEP|INGRESOS|X|||54100|Tasas|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||54200|Derechos|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||54300|Patentes y Concesiones|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||54400|Contribuciones por Mejoras|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||54500|Multas|A||S|N|3|||
+PC_SIGEP|INGRESOS|X|||54600|Intereses Penales|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||54700|Ganancias en Operaciones Cambiarias|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||54800|Renta Consular|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||54900|Otros|A||S|N|3|||
+PC_SIGEP|INGRESOS|X|||55000|Intereses y Otras Rentas de la Propiedad|S||N|N|2|||
+PC_SIGEP|INGRESOS|X|||55100|Intereses por Dep¾sitos|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||55200|Intereses por Valores|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||55300|Otros Intereses|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||55400|Dividendos|A||S|N|3|||
+PC_SIGEP|INGRESOS|X|||55500|Alquiler de Tierras y Terrenos|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||55600|Derechos sobre Bienes Intangibles|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||55700|Alquiler de Edificios y/o Equipos|A||S|N|3|||
+PC_SIGEP|INGRESOS|X|||55800|Ingresos Financieros|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||56000|Contribuciones a la Seguridad Social|S||N|N|2|||
+PC_SIGEP|INGRESOS|X|||56100|Contribuciones Obligatorias|S||N|N|3|||
+PC_SIGEP|INGRESOS|X|||56110|Contribuciones Obligatorias Patronales|S||S|N|4|||
+PC_SIGEP|INGRESOS|X|||56120|Contribuciones Obligatorias Laborales|S||S|N|4|||
+PC_SIGEP|INGRESOS|X|||56200|Contribuciones Voluntarias|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||57000|Transferencias Corrientes Recibidas|S||N|N|2|||
+PC_SIGEP|INGRESOS|X|||57100|Del Sector Privado|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||57200|Del Sector P·blico No Financiero|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||57300|Del Sector P·blico Financiero|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||57400|Del Sector Externo|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||58000|Donaciones Corrientes Recibidas|S||N|N|2|||
+PC_SIGEP|INGRESOS|X|||58100|Donaciones Internas|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||58200|Donaciones Externas|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||59000|Ingresos por Clasificar|S||N|N|2|||
+PC_SIGEP|INGRESOS|X|||59100|Ingresos de Impuestos Internos por Clasificar|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||59200|Renta Aduanera por Clasificar|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||59300|Otros Ingresos por Clasificar|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||59400|Ingresos de CrÚdito Interno por Clasificar|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||59500|Recuperaci¾n de Deuda Interna por Clasificar|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||59600|Ingresos de Hidrocarburos por Clasificar|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||59700|TGN Otros por Clasificar|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||59800|Recursos EspecÝficos por Clasificar|S||S|N|3|||
+PC_SIGEP|INGRESOS|X|||59900|Ingresos de Donaci¾n Externa por Clasificar|S||S|N|3|||
+PC_SIGEP|GASTOS|X|||60000|GASTOS CORRIENTES|S||N|N|1|||
+PC_SIGEP|GASTOS|X|||61000|Gastos de Consumo|S||N|N|2|||
+PC_SIGEP|GASTOS|X|||61100|Sueldos y Salarios|A||S|N|3|||
+PC_SIGEP|GASTOS|X|||61200|Aportes Patronales|S||N|N|3|||
+PC_SIGEP|GASTOS|X|||61210|Aportes Patronales al Seguro Social|A||S|N|4|||
+PC_SIGEP|GASTOS|X|||61220|Aportes Patronales para Vivienda|A||S|N|4|||
+PC_SIGEP|GASTOS|X|||61230|Otros Aportes Patronales|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||61300|Beneficios Sociales|S||N|N|3|||
+PC_SIGEP|GASTOS|X|||61310|Indemnizaciones|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||61320|Desahucio|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||61330|Otros Beneficios Sociales|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||61400|Costo de Bienes y Servicios|S||N|N|3|||
+PC_SIGEP|GASTOS|X|||61410|Costo de Servicios no Personales|A||S|N|4|||
+PC_SIGEP|GASTOS|X|||61420|Costo de Materiales y Suministros|A||S|N|4|||
+PC_SIGEP|GASTOS|X|||61500|Impuestos|S||N|N|3|||
+PC_SIGEP|GASTOS|X|||61510|Impuestos Renta Interna|A||S|N|4|||
+PC_SIGEP|GASTOS|X|||61520|Renta Aduanera|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||61530|Impuestos Municipales|A||S|N|4|||
+PC_SIGEP|GASTOS|X|||61600|RegalÝas, Patentes, Tasas, Multas y Otros|S||N|N|3|||
+PC_SIGEP|GASTOS|X|||61610|RegalÝas|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||61620|Patentes|A||S|N|4|||
+PC_SIGEP|GASTOS|X|||61630|Tasas, Multas y Otros|A||S|N|4|||
+PC_SIGEP|GASTOS|X|||61700|Depreciaci¾n y Amortizaci¾n|S||N|N|3|||
+PC_SIGEP|GASTOS|X|||61710|Depreciaci¾n Activo Fijo|A||S|N|4|||
+PC_SIGEP|GASTOS|X|||61720|Amortizaci¾n Activo Intangible|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||62000|Intereses y Otras Rentas de la Propiedad|S||N|N|2|||
+PC_SIGEP|GASTOS|X|||62100|Intereses, Comisiones y Otros Gastos|S||N|N|3|||
+PC_SIGEP|GASTOS|X|||62110|Intereses Deuda Interna|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||62120|Comisiones y Otros Gastos Deuda Interna|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||62130|Intereses Deuda Externa|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||62140|Comisiones y Otros Gastos Deuda Externa|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||62150|Otros Intereses|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||62200|Alquileres|S||N|N|3|||
+PC_SIGEP|GASTOS|X|||62210|Alquiler de Tierras y Terrenos|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||62220|Otros Alquileres|A||S|N|4|||
+PC_SIGEP|GASTOS|X|||62300|Derechos sobre Bienes Intangibles|S||S|N|3|||
+PC_SIGEP|GASTOS|X|||63000|Prestaciones de la Seguridad Social|S||S|N|2|||
+PC_SIGEP|GASTOS|X|||64000|Previsiones y PÚrdidas en Operaciones Cambiarias|S||N|N|2|||
+PC_SIGEP|GASTOS|X|||64100|Previsiones y Reservas TÚcnicas|S||N|N|3|||
+PC_SIGEP|GASTOS|X|||64110|Previsiones para PÚrdidas por Cuentas Incobrables|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||64120|Previsiones para PÚrdidas de Inventario|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||64130|Previsiones de Reservas TÚcnicas|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||64140|Previsiones para PÚrdidas en Inversiones Financieras|S||S|N|4|||
+PC_SIGEP|GASTOS|X|||64200|PÚrdidas en Operaciones Cambiarias|S||S|N|3|||
+PC_SIGEP|GASTOS|X|||65000|Transferencias Otorgadas|S||N|N|2|||
+PC_SIGEP|GASTOS|X|||65100|Al Sector Privado|S||S|N|3|||
+PC_SIGEP|GASTOS|X|||65200|Al Sector P·blico No Financiero|A||S|N|3|||
+PC_SIGEP|GASTOS|X|||65300|Al Sector P·blico Financiero|S||S|N|3|||
+PC_SIGEP|GASTOS|X|||65400|Al Sector Externo|S||S|N|3|||
+PC_SIGEP|GASTOS|X|||66000|Comisiones, Bonificaciones y Otros sobre Ventas|S||N|N|2|||
+PC_SIGEP|GASTOS|X|||66100|Comisiones sobre Ventas|S||S|N|3|||
+PC_SIGEP|GASTOS|X|||66200|Bonificaciones sobre Ventas|S||S|N|3|||
+PC_SIGEP|GASTOS|X|||67000|Otros Gastos|S||S|N|2|||
+PC_SIGEP|CIERRE|X|||70000|CUENTAS DE CIERRE|S||N|N|1|||
+PC_SIGEP|CIERRE|X|||71000|Resumen de Ingresos y Gastos|S||S|N|2|||
+PC_SIGEP|ORDEN|X|||80000|CUENTAS DE ORDEN|S||N|N|1|||
+PC_SIGEP|ORDEN|X|||81000|Cuentas de Orden - Deudoras|S||N|N|2|||
+PC_SIGEP|ORDEN|X|||81100|GarantÝas y Avales|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||81200|PrÚstamos y Convenios Contratados por Desembolsar|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||81300|TÝtulos y Valores Recibidos|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||81400|Valores Fiscales e Impresos en Dep¾sito|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||81500|TÝtulos y Valores Entregados|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||81600|Valores Fiscales e Impresos Entregados|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||81700|Bienes Recibidos en Dep¾sito|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||81800|Deudores de Gastos a Rendir|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||81900|Otras Cuentas de Orden Deudoras|S||N|N|3|||
+PC_SIGEP|ORDEN|X|||81910|Convenios de Contraparte por Ejecutar|S||S|N|4|||
+PC_SIGEP|ORDEN|X|||81920|Reembolsos por Ejecutar|S||S|N|4|||
+PC_SIGEP|ORDEN|X|||81930|Obras Concluidas|A||S|S|4|||
+PC_SIGEP|ORDEN|X|||81940|Acciones Telef¾nicas - Proyectos de Inversi¾n|A||S|S|4|||
+PC_SIGEP|ORDEN|X|||81950|Activo Fijo - Proyectos de Inversi¾n|A||S|S|4|||
+PC_SIGEP|ORDEN|X|||81960|Activo Intangible - Proyectos de Inversi¾n|A||S|S|4|||
+PC_SIGEP|ORDEN|X|||81990|Otras Cuentas Deudoras|S||S|N|4|||
+PC_SIGEP|ORDEN|X|||82000|Cuentas de Orden - Acreedoras|S||N|N|2|||
+PC_SIGEP|ORDEN|X|||82100|Contingencia por GarantÝas y Avales|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||82200|Recursos de PrÚstamos y Convenios Contratados por Ejecutar|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||82300|Responsabilidad por TÝtulos y Valores Recibidos|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||82400|Responsabilidad por Valores Fiscales e Impresos en Dep¾sito|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||82500|Contingencia por TÝtulos y Valores Entregados|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||82600|Contingencia por Valores Fiscales e Impresos Entregados|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||82700|Responsabilidad por Bienes Recibidos en Dep¾sito|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||82800|Responsabilidad por Deudores de Gastos a Rendir|S||S|N|3|||
+PC_SIGEP|ORDEN|X|||82900|Otras Cuentas de Orden Acreedoras|S||N|N|3|||
+PC_SIGEP|ORDEN|X|||82910|Convenios de Contraparte Suscritos|S||S|N|4|||
+PC_SIGEP|ORDEN|X|||82920|Reembolsos Pendientes|S||S|N|4|||
+PC_SIGEP|ORDEN|X|||82930|Mantenimiento de Obras Concluidas|A||S|S|4|||
+PC_SIGEP|ORDEN|X|||82940|Responsabilidad por Acciones Telef¾nicas - Proyectos de Inversi¾n|A||S|S|4|||
+PC_SIGEP|ORDEN|X|||82950|Responsabilidad por Activo Fijo - Proyectos de Inversi¾n|A||S|S|4|||
+PC_SIGEP|ORDEN|X|||82960|Responsabilidad por Activo Intangible - Proyectos de Inversi¾n|A||S|S|4|||
+PC_SIGEP|ORDEN|X|||82990|Otras Cuentas Acreedoras|S||S|N|4|||

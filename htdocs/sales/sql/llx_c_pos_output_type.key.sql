@@ -1,0 +1,1 @@
+ALTER TABLE llx_c_pos_output_type ADD UNIQUE KEY uk_c_unique (entity,code);

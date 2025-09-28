@@ -1,0 +1,1 @@
+ALTER TABLE llx_product_alternative ADD UNIQUE KEY uk_product_alternative_product_productalt (fk_product,fk_product_alt);

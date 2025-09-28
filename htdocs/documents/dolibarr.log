@@ -1,0 +1,93 @@
+2023-10-04 11:49:31 DEBUG   131.0.197.132   Removed file /home/demoerp/public_html/htdocs/documents/dolibarr.log
+2023-10-04 11:49:31 INFO    131.0.197.132   --- End access to /htdocs/admin/tools/purge.php
+2023-10-04 11:49:31 INFO    131.0.197.132   --- Access to /htdocs/productext/css/productext.css.php
+2023-10-04 11:49:31 DEBUG   131.0.197.132   sql=SELECT transkey, transvalue FROM llx_overwrite_trans where lang='es_ES'
+2023-10-04 11:49:31 DEBUG   131.0.197.132   Menubase::menuLoad mymainmenu=home myleftmenu=admintools type_user=0 menu_handler=eldy tabMenu size=0
+2023-10-04 11:49:31 DEBUG   131.0.197.132   sql=SELECT m.rowid, m.type, m.module, m.fk_menu, m.fk_mainmenu, m.fk_leftmenu, m.url, m.titre, m.langs, m.perms, m.enabled, m.target, m.mainmenu, m.leftmenu, m.position FROM llx_menu as m WHERE m.entity IN (0,1) AND m.menu_handler IN ('eldy','all') AND m.usertype IN (0,2) ORDER BY m.position, m.rowid
+2023-10-04 11:49:31 INFO    131.0.197.132   --- End access to /htdocs/productext/css/productext.css.php
+2023-10-04 11:49:36 DEBUG   131.0.197.132   This is an already logged session. _SESSION['dol_login']=jseborga _SESSION['dol_entity']=1
+2023-10-04 11:49:36 DEBUG   131.0.197.132   User::fetch
+2023-10-04 11:49:36 DEBUG   131.0.197.132   sql=SELECT u.rowid, u.lastname, u.firstname, u.employee, u.gender, u.email, u.job, u.skype, u.signature, u.office_phone, u.office_fax, u.user_mobile, u.address, u.zip, u.town, u.fk_state as state_id, u.fk_country as country_id, u.admin, u.login, u.note, u.pass, u.pass_crypted, u.pass_temp, u.api_key, u.fk_soc, u.fk_socpeople, u.fk_member, u.fk_user, u.ldap_sid, u.statut, u.lang, u.entity, u.datec as datec, u.tms as datem, u.datelastlogin as datel, u.datepreviouslogin as datep, u.photo as photo, u.openid as openid, u.accountancy_code, u.thm, u.tjm, u.salary, u.salaryextra, u.weeklyhours, u.color, u.dateemployment, u.ref_int, u.ref_ext, c.code as country_code, c.label as country, d.code_departement as state_code, d.nom as state FROM llx_user as u LEFT JOIN llx_c_country as c ON u.fk_country = c.rowid LEFT JOIN llx_c_departements as d ON u.fk_state = d.rowid WHERE u.entity IN (0, 1) AND u.login = 'jseborga'
+2023-10-04 11:49:36 DEBUG   131.0.197.132   ExtraFields::fetch_name_optionals_label
+2023-10-04 11:49:36 DEBUG   131.0.197.132   sql=SELECT rowid,name,label,type,size,elementtype,fieldunique,fieldrequired,param,pos,alwayseditable,perms,list,ishidden FROM llx_extrafields WHERE entity IN (0,1) AND elementtype = 'user' ORDER BY pos
+2023-10-04 11:49:36 DEBUG   131.0.197.132   sql=SELECT param, value FROM llx_user_param WHERE fk_user = 2 AND entity = 1
+2023-10-04 11:49:36 DEBUG   131.0.197.132   User::getrights
+2023-10-04 11:49:36 DEBUG   131.0.197.132   sql=SELECT r.module, r.perms, r.subperms FROM llx_user_rights as ur, llx_rights_def as r WHERE r.id = ur.fk_id AND r.entity IN (0,1) AND ur.fk_user= 2 AND r.perms IS NOT NULL
+2023-10-04 11:49:36 DEBUG   131.0.197.132   User::getrights
+2023-10-04 11:49:36 DEBUG   131.0.197.132   sql=SELECT r.module, r.perms, r.subperms FROM llx_usergroup_rights as gr, llx_usergroup_user as gu, llx_rights_def as r WHERE r.id = gr.fk_id AND r.entity = 1 AND gr.fk_usergroup = gu.fk_usergroup AND gu.fk_user = 2 AND r.perms IS NOT NULL
+2023-10-04 11:49:36 INFO    131.0.197.132   --- Access to /htdocs/admin/tools/purge.php
+2023-10-04 11:49:36 DEBUG   131.0.197.132   sql=SELECT transkey, transvalue FROM llx_overwrite_trans where lang='es_ES'
+2023-10-04 11:49:36 DEBUG   131.0.197.132   Menubase::menuLoad mymainmenu=home myleftmenu=admintools type_user=0 menu_handler=eldy tabMenu size=0
+2023-10-04 11:49:36 DEBUG   131.0.197.132   sql=SELECT m.rowid, m.type, m.module, m.fk_menu, m.fk_mainmenu, m.fk_leftmenu, m.url, m.titre, m.langs, m.perms, m.enabled, m.target, m.mainmenu, m.leftmenu, m.position FROM llx_menu as m WHERE m.entity IN (0,1) AND m.menu_handler IN ('eldy','all') AND m.usertype IN (0,2) ORDER BY m.position, m.rowid
+2023-10-04 11:49:36 DEBUG   131.0.197.132   Utils::purgeFiles choice=tempfiles
+2023-10-04 11:49:36 INFO    131.0.197.132   files.lib.php::dol_dir_list path=/home/demoerp/public_html/htdocs/documents types=directories recursive=1 filter=^temp$ excludefilter=""
+2023-10-04 11:49:36 INFO    131.0.197.132   --- End access to /htdocs/admin/tools/purge.php
+2023-10-04 11:49:36 INFO    131.0.197.132   --- Access to /htdocs/productext/css/productext.css.php
+2023-10-04 11:49:36 DEBUG   131.0.197.132   sql=SELECT transkey, transvalue FROM llx_overwrite_trans where lang='es_ES'
+2023-10-04 11:49:36 DEBUG   131.0.197.132   Menubase::menuLoad mymainmenu=home myleftmenu=admintools type_user=0 menu_handler=eldy tabMenu size=0
+2023-10-04 11:49:36 DEBUG   131.0.197.132   sql=SELECT m.rowid, m.type, m.module, m.fk_menu, m.fk_mainmenu, m.fk_leftmenu, m.url, m.titre, m.langs, m.perms, m.enabled, m.target, m.mainmenu, m.leftmenu, m.position FROM llx_menu as m WHERE m.entity IN (0,1) AND m.menu_handler IN ('eldy','all') AND m.usertype IN (0,2) ORDER BY m.position, m.rowid
+2023-10-04 11:49:36 INFO    131.0.197.132   --- End access to /htdocs/productext/css/productext.css.php
+2023-10-04 11:49:38 DEBUG   131.0.197.132   This is an already logged session. _SESSION['dol_login']=jseborga _SESSION['dol_entity']=1
+2023-10-04 11:49:38 DEBUG   131.0.197.132   User::fetch
+2023-10-04 11:49:38 DEBUG   131.0.197.132   sql=SELECT u.rowid, u.lastname, u.firstname, u.employee, u.gender, u.email, u.job, u.skype, u.signature, u.office_phone, u.office_fax, u.user_mobile, u.address, u.zip, u.town, u.fk_state as state_id, u.fk_country as country_id, u.admin, u.login, u.note, u.pass, u.pass_crypted, u.pass_temp, u.api_key, u.fk_soc, u.fk_socpeople, u.fk_member, u.fk_user, u.ldap_sid, u.statut, u.lang, u.entity, u.datec as datec, u.tms as datem, u.datelastlogin as datel, u.datepreviouslogin as datep, u.photo as photo, u.openid as openid, u.accountancy_code, u.thm, u.tjm, u.salary, u.salaryextra, u.weeklyhours, u.color, u.dateemployment, u.ref_int, u.ref_ext, c.code as country_code, c.label as country, d.code_departement as state_code, d.nom as state FROM llx_user as u LEFT JOIN llx_c_country as c ON u.fk_country = c.rowid LEFT JOIN llx_c_departements as d ON u.fk_state = d.rowid WHERE u.entity IN (0, 1) AND u.login = 'jseborga'
+2023-10-04 11:49:38 DEBUG   131.0.197.132   ExtraFields::fetch_name_optionals_label
+2023-10-04 11:49:38 DEBUG   131.0.197.132   sql=SELECT rowid,name,label,type,size,elementtype,fieldunique,fieldrequired,param,pos,alwayseditable,perms,list,ishidden FROM llx_extrafields WHERE entity IN (0,1) AND elementtype = 'user' ORDER BY pos
+2023-10-04 11:49:38 DEBUG   131.0.197.132   sql=SELECT param, value FROM llx_user_param WHERE fk_user = 2 AND entity = 1
+2023-10-04 11:49:38 DEBUG   131.0.197.132   User::getrights
+2023-10-04 11:49:38 DEBUG   131.0.197.132   sql=SELECT r.module, r.perms, r.subperms FROM llx_user_rights as ur, llx_rights_def as r WHERE r.id = ur.fk_id AND r.entity IN (0,1) AND ur.fk_user= 2 AND r.perms IS NOT NULL
+2023-10-04 11:49:38 DEBUG   131.0.197.132   User::getrights
+2023-10-04 11:49:38 DEBUG   131.0.197.132   sql=SELECT r.module, r.perms, r.subperms FROM llx_usergroup_rights as gr, llx_usergroup_user as gu, llx_rights_def as r WHERE r.id = gr.fk_id AND r.entity = 1 AND gr.fk_usergroup = gu.fk_usergroup AND gu.fk_user = 2 AND r.perms IS NOT NULL
+2023-10-04 11:49:38 INFO    131.0.197.132   --- Access to /htdocs/admin/tools/purge.php
+2023-10-04 11:49:38 DEBUG   131.0.197.132   sql=SELECT transkey, transvalue FROM llx_overwrite_trans where lang='es_ES'
+2023-10-04 11:49:38 DEBUG   131.0.197.132   Menubase::menuLoad mymainmenu=home myleftmenu=admintools type_user=0 menu_handler=eldy tabMenu size=0
+2023-10-04 11:49:38 DEBUG   131.0.197.132   sql=SELECT m.rowid, m.type, m.module, m.fk_menu, m.fk_mainmenu, m.fk_leftmenu, m.url, m.titre, m.langs, m.perms, m.enabled, m.target, m.mainmenu, m.leftmenu, m.position FROM llx_menu as m WHERE m.entity IN (0,1) AND m.menu_handler IN ('eldy','all') AND m.usertype IN (0,2) ORDER BY m.position, m.rowid
+2023-10-04 11:49:38 DEBUG   131.0.197.132   Utils::purgeFiles choice=tempfiles
+2023-10-04 11:49:38 INFO    131.0.197.132   files.lib.php::dol_dir_list path=/home/demoerp/public_html/htdocs/documents types=directories recursive=1 filter=^temp$ excludefilter=""
+2023-10-04 11:49:38 INFO    131.0.197.132   --- End access to /htdocs/admin/tools/purge.php
+2023-10-04 11:49:39 INFO    131.0.197.132   --- Access to /htdocs/productext/css/productext.css.php
+2023-10-04 11:49:39 DEBUG   131.0.197.132   sql=SELECT transkey, transvalue FROM llx_overwrite_trans where lang='es_ES'
+2023-10-04 11:49:39 DEBUG   131.0.197.132   Menubase::menuLoad mymainmenu=home myleftmenu=admintools type_user=0 menu_handler=eldy tabMenu size=0
+2023-10-04 11:49:39 DEBUG   131.0.197.132   sql=SELECT m.rowid, m.type, m.module, m.fk_menu, m.fk_mainmenu, m.fk_leftmenu, m.url, m.titre, m.langs, m.perms, m.enabled, m.target, m.mainmenu, m.leftmenu, m.position FROM llx_menu as m WHERE m.entity IN (0,1) AND m.menu_handler IN ('eldy','all') AND m.usertype IN (0,2) ORDER BY m.position, m.rowid
+2023-10-04 11:49:39 INFO    131.0.197.132   --- End access to /htdocs/productext/css/productext.css.php
+2023-10-04 11:49:41 DEBUG   131.0.197.132   This is an already logged session. _SESSION['dol_login']=jseborga _SESSION['dol_entity']=1
+2023-10-04 11:49:41 DEBUG   131.0.197.132   User::fetch
+2023-10-04 11:49:41 DEBUG   131.0.197.132   sql=SELECT u.rowid, u.lastname, u.firstname, u.employee, u.gender, u.email, u.job, u.skype, u.signature, u.office_phone, u.office_fax, u.user_mobile, u.address, u.zip, u.town, u.fk_state as state_id, u.fk_country as country_id, u.admin, u.login, u.note, u.pass, u.pass_crypted, u.pass_temp, u.api_key, u.fk_soc, u.fk_socpeople, u.fk_member, u.fk_user, u.ldap_sid, u.statut, u.lang, u.entity, u.datec as datec, u.tms as datem, u.datelastlogin as datel, u.datepreviouslogin as datep, u.photo as photo, u.openid as openid, u.accountancy_code, u.thm, u.tjm, u.salary, u.salaryextra, u.weeklyhours, u.color, u.dateemployment, u.ref_int, u.ref_ext, c.code as country_code, c.label as country, d.code_departement as state_code, d.nom as state FROM llx_user as u LEFT JOIN llx_c_country as c ON u.fk_country = c.rowid LEFT JOIN llx_c_departements as d ON u.fk_state = d.rowid WHERE u.entity IN (0, 1) AND u.login = 'jseborga'
+2023-10-04 11:49:41 DEBUG   131.0.197.132   ExtraFields::fetch_name_optionals_label
+2023-10-04 11:49:41 DEBUG   131.0.197.132   sql=SELECT rowid,name,label,type,size,elementtype,fieldunique,fieldrequired,param,pos,alwayseditable,perms,list,ishidden FROM llx_extrafields WHERE entity IN (0,1) AND elementtype = 'user' ORDER BY pos
+2023-10-04 11:49:41 DEBUG   131.0.197.132   sql=SELECT param, value FROM llx_user_param WHERE fk_user = 2 AND entity = 1
+2023-10-04 11:49:41 DEBUG   131.0.197.132   User::getrights
+2023-10-04 11:49:41 DEBUG   131.0.197.132   sql=SELECT r.module, r.perms, r.subperms FROM llx_user_rights as ur, llx_rights_def as r WHERE r.id = ur.fk_id AND r.entity IN (0,1) AND ur.fk_user= 2 AND r.perms IS NOT NULL
+2023-10-04 11:49:41 DEBUG   131.0.197.132   User::getrights
+2023-10-04 11:49:41 DEBUG   131.0.197.132   sql=SELECT r.module, r.perms, r.subperms FROM llx_usergroup_rights as gr, llx_usergroup_user as gu, llx_rights_def as r WHERE r.id = gr.fk_id AND r.entity = 1 AND gr.fk_usergroup = gu.fk_usergroup AND gu.fk_user = 2 AND r.perms IS NOT NULL
+2023-10-04 11:49:41 INFO    131.0.197.132   --- Access to /htdocs/admin/tools/dolibarr_import.php
+2023-10-04 11:49:41 DEBUG   131.0.197.132   sql=SELECT transkey, transvalue FROM llx_overwrite_trans where lang='es_ES'
+2023-10-04 11:49:41 DEBUG   131.0.197.132   Menubase::menuLoad mymainmenu=home myleftmenu=admintools type_user=0 menu_handler=eldy tabMenu size=0
+2023-10-04 11:49:41 DEBUG   131.0.197.132   sql=SELECT m.rowid, m.type, m.module, m.fk_menu, m.fk_mainmenu, m.fk_leftmenu, m.url, m.titre, m.langs, m.perms, m.enabled, m.target, m.mainmenu, m.leftmenu, m.position FROM llx_menu as m WHERE m.entity IN (0,1) AND m.menu_handler IN ('eldy','all') AND m.usertype IN (0,2) ORDER BY m.position, m.rowid
+2023-10-04 11:49:41 DEBUG   131.0.197.132   sql=SHOW VARIABLES LIKE 'basedir'
+2023-10-04 11:49:41 INFO    131.0.197.132   --- End access to /htdocs/admin/tools/dolibarr_import.php
+2023-10-04 11:49:42 INFO    131.0.197.132   --- Access to /htdocs/productext/css/productext.css.php
+2023-10-04 11:49:42 DEBUG   131.0.197.132   sql=SELECT transkey, transvalue FROM llx_overwrite_trans where lang='es_ES'
+2023-10-04 11:49:42 DEBUG   131.0.197.132   Menubase::menuLoad mymainmenu=home myleftmenu=admintools type_user=0 menu_handler=eldy tabMenu size=0
+2023-10-04 11:49:42 DEBUG   131.0.197.132   sql=SELECT m.rowid, m.type, m.module, m.fk_menu, m.fk_mainmenu, m.fk_leftmenu, m.url, m.titre, m.langs, m.perms, m.enabled, m.target, m.mainmenu, m.leftmenu, m.position FROM llx_menu as m WHERE m.entity IN (0,1) AND m.menu_handler IN ('eldy','all') AND m.usertype IN (0,2) ORDER BY m.position, m.rowid
+2023-10-04 11:49:42 INFO    131.0.197.132   --- End access to /htdocs/productext/css/productext.css.php
+2023-10-04 11:49:46 DEBUG   131.0.197.132   This is an already logged session. _SESSION['dol_login']=jseborga _SESSION['dol_entity']=1
+2023-10-04 11:49:46 DEBUG   131.0.197.132   User::fetch
+2023-10-04 11:49:46 DEBUG   131.0.197.132   sql=SELECT u.rowid, u.lastname, u.firstname, u.employee, u.gender, u.email, u.job, u.skype, u.signature, u.office_phone, u.office_fax, u.user_mobile, u.address, u.zip, u.town, u.fk_state as state_id, u.fk_country as country_id, u.admin, u.login, u.note, u.pass, u.pass_crypted, u.pass_temp, u.api_key, u.fk_soc, u.fk_socpeople, u.fk_member, u.fk_user, u.ldap_sid, u.statut, u.lang, u.entity, u.datec as datec, u.tms as datem, u.datelastlogin as datel, u.datepreviouslogin as datep, u.photo as photo, u.openid as openid, u.accountancy_code, u.thm, u.tjm, u.salary, u.salaryextra, u.weeklyhours, u.color, u.dateemployment, u.ref_int, u.ref_ext, c.code as country_code, c.label as country, d.code_departement as state_code, d.nom as state FROM llx_user as u LEFT JOIN llx_c_country as c ON u.fk_country = c.rowid LEFT JOIN llx_c_departements as d ON u.fk_state = d.rowid WHERE u.entity IN (0, 1) AND u.login = 'jseborga'
+2023-10-04 11:49:46 DEBUG   131.0.197.132   ExtraFields::fetch_name_optionals_label
+2023-10-04 11:49:46 DEBUG   131.0.197.132   sql=SELECT rowid,name,label,type,size,elementtype,fieldunique,fieldrequired,param,pos,alwayseditable,perms,list,ishidden FROM llx_extrafields WHERE entity IN (0,1) AND elementtype = 'user' ORDER BY pos
+2023-10-04 11:49:46 DEBUG   131.0.197.132   sql=SELECT param, value FROM llx_user_param WHERE fk_user = 2 AND entity = 1
+2023-10-04 11:49:46 DEBUG   131.0.197.132   User::getrights
+2023-10-04 11:49:46 DEBUG   131.0.197.132   sql=SELECT r.module, r.perms, r.subperms FROM llx_user_rights as ur, llx_rights_def as r WHERE r.id = ur.fk_id AND r.entity IN (0,1) AND ur.fk_user= 2 AND r.perms IS NOT NULL
+2023-10-04 11:49:46 DEBUG   131.0.197.132   User::getrights
+2023-10-04 11:49:46 DEBUG   131.0.197.132   sql=SELECT r.module, r.perms, r.subperms FROM llx_usergroup_rights as gr, llx_usergroup_user as gu, llx_rights_def as r WHERE r.id = gr.fk_id AND r.entity = 1 AND gr.fk_usergroup = gu.fk_usergroup AND gu.fk_user = 2 AND r.perms IS NOT NULL
+2023-10-04 11:49:46 INFO    131.0.197.132   --- Access to /htdocs/admin/tools/dolibarr_export.php
+2023-10-04 11:49:46 DEBUG   131.0.197.132   sql=SELECT transkey, transvalue FROM llx_overwrite_trans where lang='es_ES'
+2023-10-04 11:49:46 DEBUG   131.0.197.132   Menubase::menuLoad mymainmenu=home myleftmenu=admintools type_user=0 menu_handler=eldy tabMenu size=0
+2023-10-04 11:49:46 DEBUG   131.0.197.132   sql=SELECT m.rowid, m.type, m.module, m.fk_menu, m.fk_mainmenu, m.fk_leftmenu, m.url, m.titre, m.langs, m.perms, m.enabled, m.target, m.mainmenu, m.leftmenu, m.position FROM llx_menu as m WHERE m.entity IN (0,1) AND m.menu_handler IN ('eldy','all') AND m.usertype IN (0,2) ORDER BY m.position, m.rowid
+2023-10-04 11:49:46 INFO    131.0.197.132   files.lib.php::dol_dir_list path=/home/demoerp/public_html/htdocs/documents/admin/backup types=files recursive=0 filter= excludefilter=""
+2023-10-04 11:49:46 INFO    131.0.197.132   --- End access to /htdocs/admin/tools/dolibarr_export.php
+2023-10-04 11:49:46 INFO    131.0.197.132   --- Access to /htdocs/productext/css/productext.css.php
+2023-10-04 11:49:46 DEBUG   131.0.197.132   sql=SELECT transkey, transvalue FROM llx_overwrite_trans where lang='es_ES'
+2023-10-04 11:49:46 DEBUG   131.0.197.132   Menubase::menuLoad mymainmenu=home myleftmenu=admintools type_user=0 menu_handler=eldy tabMenu size=0
+2023-10-04 11:49:46 DEBUG   131.0.197.132   sql=SELECT m.rowid, m.type, m.module, m.fk_menu, m.fk_mainmenu, m.fk_leftmenu, m.url, m.titre, m.langs, m.perms, m.enabled, m.target, m.mainmenu, m.leftmenu, m.position FROM llx_menu as m WHERE m.entity IN (0,1) AND m.menu_handler IN ('eldy','all') AND m.usertype IN (0,2) ORDER BY m.position, m.rowid
+2023-10-04 11:49:46 INFO    131.0.197.132   --- End access to /htdocs/productext/css/productext.css.php

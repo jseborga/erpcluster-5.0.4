@@ -1,0 +1,23 @@
+CREATE TABLE llx_supplier_proposaldet_add (
+  rowid integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  fk_supplier_proposaldet integer NOT NULL,
+  fk_object integer DEFAULT NULL,
+  object varchar(255) DEFAULT NULL,
+  fk_fabrication integer DEFAULT NULL,
+  fk_fabricationdet integer DEFAULT NULL,
+  fk_projet integer DEFAULT NULL,
+  fk_projet_task integer DEFAULT NULL,
+  fk_jobs integer DEFAULT NULL,
+  fk_jobsdet integer DEFAULT NULL,
+  fk_structure integer DEFAULT NULL,
+  fk_poa integer DEFAULT '0' NULL,
+  partida varchar(10) DEFAULT NULL,
+  amount_ice double DEFAULT '0',
+  discount double DEFAULT '0',
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  datec date NOT NULL,
+  datem date NOT NULL,
+  tms timestamp NOT NULL,
+  status tinyint(4) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB;

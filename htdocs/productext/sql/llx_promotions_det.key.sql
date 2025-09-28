@@ -1,0 +1,1 @@
+ALTER TABLE llx_promotions_det ADD UNIQUE uk_unique (fk_promotions, fk_product);

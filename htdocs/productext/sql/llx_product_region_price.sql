@@ -1,0 +1,23 @@
+CREATE TABLE llx_product_region_price (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  entity integer NOT NULL DEFAULT '1',
+  fk_region_geographic integer NOT NULL,
+  fk_soc integer NOT NULL,
+  fk_supplier_proposal_det integer NULL,
+  date_create datetime NOT NULL,
+  datec datetime DEFAULT NULL,
+  tms timestamp NOT NULL,
+  fk_product integer DEFAULT NULL,
+  price double(24,8) DEFAULT '0.00000000',
+  quantity double DEFAULT NULL,
+  remise_percent double DEFAULT '0',
+  remise double DEFAULT '0',
+  tva_tx double(6,3) NOT NULL,
+  default_vat_code varchar(10) DEFAULT NULL,
+  info_bits integer NOT NULL DEFAULT '0',
+  fk_user integer DEFAULT NULL,
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  datem date NOT NULL,
+  import_key varchar(14) DEFAULT NULL
+) ENGINE=InnoDB;

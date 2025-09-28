@@ -1,0 +1,10 @@
+ALTER TABLE llx_poa_partida_pre_det ADD fk_poa_partida_com INTEGER NULL AFTER fk_contrat;
+ALTER TABLE llx_poa_partida_pre_det ADD amount_base DOUBLE NOT NULL DEFAULT '0' AFTER quant;
+ALTER TABLE llx_poa_partida_pre_det ADD fk_contrato DOUBLE NOT NULL DEFAULT '0' AFTER fk_contrat;
+ALTER TABLE llx_poa_partida_pre_det ADD origin VARCHAR(150) NULL AFTER fk_poa_partida_com;
+ALTER TABLE llx_poa_partida_pre_det ADD originid INTEGER NULL DEFAULT '0' AFTER origin;
+ALTER TABLE llx_poa_prev ADD fk_user_create INTEGER NOT NULL AFTER amount;
+ALTER TABLE llx_poa_prev ADD fk_user_mod INTEGER NOT NULL AFTER fk_user_create;
+ALTER TABLE llx_poa_prev ADD datec date NOT NULL AFTER fk_user_mod;
+ALTER TABLE llx_poa_prev ADD datem date NOT NULL AFTER datec;
+ALTER TABLE llx_poa_prev ADD tms timestamp NOT NULL AFTER datem;

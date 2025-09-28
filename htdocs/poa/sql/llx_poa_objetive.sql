@@ -1,0 +1,21 @@
+CREATE TABLE llx_poa_objetive (
+  rowid integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  fk_poa_strategic integer NOT NULL,
+  fk_father integer DEFAULT NULL,
+  fk_area integer NOT NULL,
+  ref varchar(30) NOT NULL,
+  sigla varchar(30) NOT NULL,
+  period_year mediumint(9) NOT NULL,
+  label varchar(255) NOT NULL,
+  pseudonym varchar(255) DEFAULT NULL,
+  expected_result text NULL,
+  unit varchar(50) DEFAULT NULL,
+  pos tinyint NOT NULL DEFAULT '0',
+  level tinyint NOT NULL DEFAULT '0',
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  datec date NOT NULL,
+  datem date NOT NULL,
+  tms timestamp NOT NULL,
+  status tinyint NOT NULL DEFAULT '1'
+) ENGINE=InnoDB;

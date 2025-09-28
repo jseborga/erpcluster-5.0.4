@@ -1,0 +1,1215 @@
+<?php
+/* Copyright (C) 2014-2014 Ramiro Queso        <ramiro@ubuntu-bo.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *	\file       htdocs/poa/process/fiche.php
+ *	\ingroup    Process
+ *	\brief      Page fiche poa process
+ */
+
+require("../../main.inc.php");
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formorder.class.php';
+
+require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
+
+require_once DOL_DOCUMENT_ROOT.'/poa/workflow/class/poaworkflow.class.php';
+require_once DOL_DOCUMENT_ROOT.'/poa/workflow/class/poaworkflowdet.class.php';
+require_once DOL_DOCUMENT_ROOT.'/poa/workflow/class/poaworkflowuser.class.php';
+require_once DOL_DOCUMENT_ROOT.'/poa/flowmodels/class/cflowmodels.class.php';
+require_once DOL_DOCUMENT_ROOT.'/poa/poa/class/poapoa.class.php';
+require_once DOL_DOCUMENT_ROOT.'/poa/area/class/poaarea.class.php';
+require_once DOL_DOCUMENT_ROOT.'/poa/area/class/poaareauser.class.php';
+require_once DOL_DOCUMENT_ROOT.'/poa/execution/class/poaprev.class.php';
+require_once DOL_DOCUMENT_ROOT.'/poa/pac/class/poapac.class.php';
+
+require_once DOL_DOCUMENT_ROOT.'/poa/lib/poa.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/poa/lib/poagraf.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/poa/lib/areauser.lib.php';
+
+require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
+
+
+$langs->load("other");
+$langs->load("poa@poa");
+
+$action=GETPOST('action');
+
+$id        = GETPOST("id");
+$idu       = GETPOST("idu");
+$idw       = GETPOST("idw");
+$gestion   = GETPOST("gestion");
+$fk_poa_prev = GETPOST("fk_poa_prev");
+$gestion = $_SESSION['gestion'];
+if (empty($gestion)) $gestion = date('Y');
+$idArea = 3; //generar funcion para recuperar por usuario
+
+$mesg = '';
+
+$object  = new Poaworkflow($db);
+$objworkd= new Poaworkflowdet($db);
+$objworku= new Poaworkflowuser($db);
+$objpoa  = new Poapoa($db);
+$objarea = new Poaarea($db);
+$objareau= new Poaareauser($db);
+$objuser = new User($db);
+$objprev = new Poaprev($db);
+$objpac  = new Poapac($db);
+$objnew  = new Poaworkflowdet($db);
+$objflow = new Cflowmodels($db);
+
+if ($action == 'search')
+  $action = 'createedit';
+
+/*
+ * Actions
+ */
+
+// Add
+if ($action == 'add' && $user->rights->poa->work->crear)
+  {
+    $error = 0;
+    if ($objprev->fetch($fk_poa_prev)>0)
+      {
+	$object->date_workflow = $objprev->date_preventive;
+	$object->fk_poa_prev = $fk_poa_prev;
+	$object->contrat = GETPOST('contrat');
+	$object->deadlines = GETPOST('deadlines');
+	$object->fk_user_create = $user->id;
+	$object->tms = dol_now();
+	$object->statut = 1;
+
+	if ($object->contrat < 0)
+	  {
+	    $error++;
+	    $mesg.='<div class="error">'.$langs->trans("Errorcontratisrequired").'</div>';
+	  }
+
+	if (empty($error)) 
+	  {
+	    $db->begin();
+	    $id = $object->create($user);
+	    if ($id > 0)
+	      {
+		//crear el primer hito
+		$objarea->fetch($objprev->fk_area);
+		$objworkd->initAsSpecimen();
+		$objworkd->fk_poa_workflow = $id;
+		$objworkd->code_area_last = $objarea->ref;
+		$objworkd->code_area_next = $objarea->ref;
+		$objworkd->code_procedure = 'PREVENTIVE';
+		$objworkd->date_tracking = $objprev->date_preventive;
+		$objworkd->detail = $langs->trans('Preventive created');
+		$objworkd->sequen = 1;
+		$objworkd->fk_user_create = $user->id;
+		$objworkd->tms = dol_now();
+		$objworkd->statut = 1;
+		$result = $objworkd->create($user);
+		if ($result > 0)
+		  {
+		    $db->commit();
+		    header("Location: ".$SERVER['PHP_SELF']."?id=".$id);
+		    exit;
+		  }
+		else
+		  {
+		    $db->rollback();
+		    $mesg='<div class="error">'.$objworkd->error.'</div>';
+		  }
+	      }
+	    else
+	      $db->rollback();
+	    $action = 'create';
+	    $mesg='<div class="error">'.$object->error.'</div>';
+	  }
+	else
+	  $action="create";   // Force retour sur page creation
+      }
+  }
+
+// Adddet
+if ($action == 'confirm_adddet' && $user->rights->poa->work->tra && $_REQUEST['confirm'] == 'yes')
+  {
+    $error = 0;
+    if ($object->fetch($id)>0)
+      {
+	//se recupera el preventivo
+	$objprev->fetch($object->fk_poa_prev);
+	if ($user->admin)
+	  $date_tracking = dol_mktime(1, 0, 0, GETPOST('dt_month'),GETPOST('dt_day'),GETPOST('dt_year'));
+	else
+	  $date_tracking = dol_now();
+	//valores nuevos
+	$objworkd->fk_poa_workflow = $id;
+	$objworkd->code_area_last = GETPOST('code_area_last');
+	$objworkd->code_area_next = GETPOST('code_area_next');
+	$objworkd->code_procedure = GETPOST('code_procedure');
+	$objworkd->date_tracking = $date_tracking;
+	$objworkd->detail = GETPOST('detail');
+	$objworkd->sequen = GETPOST('sequen');
+	$objworkd->fk_user_create = $user->id;
+	$objworkd->tms = dol_now();
+	$objworkd->statut = 1;
+	if ($objworkd->code_area_next <= 0)
+	  {
+	    $error++;
+	    $mesg.='<div class="error">'.$langs->trans("Errortoareaisrequired").'</div>';
+	  }
+	else
+	  {
+	    //cambiamos el id por el ref del area
+	    if ($objarea->fetch($objworkd->code_area_next)>0)
+	      $objworkd->code_area_next = $objarea->ref;
+	  }
+	if (empty($error)) 
+	  {
+	    //cambiamos estado todos los anteriores al nuevo hito
+	    $db->begin();
+	    $objworkdet = new Poaworkflowdet($db);
+	    $res = $objworkdet->update_statut($id,2); //cambiamos de estado
+	    if ($res > 0)
+	      {
+		//crear el siguiente hito
+		$idr = $objworkd->create($user);
+		if ($idr > 0)
+		  {
+		    //enviamos correo al administrador de cada area
+		    if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')
+		      $url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['REMOTE_ADDR'].DOL_URL_ROOT;
+		    else
+		      $url = 'http://190.129.175.66/dolibcb';
+
+		    // para que asigne a usuarios
+		    //recuperamos los usuarios destinatarios
+		    if ($objarea->fetch('',$objworkd->code_area_next) > 0)
+		      {
+			$aUseremail = area_user_email($objarea->id,1);
+			foreach((array) $aUseremail AS $fk_user => $aemail)
+			  {
+			    if (!empty($email)) $email.=',';
+			    if (!empty($nameto)) $nameto.=', ';
+
+			    $email  .= $aemail['email'];
+			    $nameto .= $aemail['nameto'];
+			  }
+			$procedure = select_typeprocedure($objworkd->code_procedure,'code_procedure','',0,1,'code');
+			$emailsend = $email;
+			//provisional hasta que se defina 
+			$emailcc='';
+			if ($objworkd->code_area_next != 'DMMI')
+			  $emailsend = 'rqc7000@gmail.com';
+			else
+			  {
+			    $objuser->fetch($objprev->fk_user_create);
+			    if ($objuser->id == $objprev->fk_user_create)
+			      {
+				$emailcc = $email;
+				$emailsend = $objuser->email;
+				$nameto = $objuser->lastname.' '.$objuser->firstname;
+			      }
+			  }
+			$subjet = email_subject($objarea->ref,$procedure);
+			$body = email_body($objprev,$id,$idr,$procedure,
+					   $objworkd->detail,$url,$nameto);
+			// echo '<hr>send '.$emailsend.' cc ' .$emailcc;
+			// echo $subjet. ' '.$body;
+			// exit;
+			$resemail = 1;
+			
+			//list($resemail,$mesgerror) = send_email($emailsend,$user->email,$emailcc,$subjet,$body);
+
+			if ($resemail <=0)
+			  {
+			    $error++;
+			    $mesg.= $mesgerror;
+			  }
+			
+			if (empty($error))
+			  {
+			    $db->commit();
+			    header("Location: ".$SERVER['PHP_SELF']."?id=".$id);
+			    exit;
+			  }
+			$db->rollback();
+			$action = 'createtransf';
+		      }
+
+		  }
+		else
+		  {
+		    $db->rollback();
+		    $action = 'createtransf';
+		    $mesg='<div class="error">'.$objworkd->error.'</div>';
+		  }
+	      }
+	    else
+	      {
+		$db->rollback();
+		$action = 'createtransf';
+		$mesg='<div class="error">'.$objworkdet->error.'</div>';
+	      }
+	  }
+	else
+	  {
+	    $objnew = $objworkd;
+	    $action="createtransf";   // Force retour sur page creation transfer
+	  }
+      }
+  }
+
+// Adddet
+if ($action == 'updatelin' && $user->rights->poa->work->mod)
+  {
+    $error = 0;
+    if ($object->fetch($id)>0)
+      {
+	if ($objworkd->fetch($idw)>0)
+	  {
+	    if ($objworkd->id == $idw)
+	      {
+		if ($user->admin)
+		  $date_tracking = dol_mktime(1, 0, 0, GETPOST('dt_month'),GETPOST('dt_day'),GETPOST('dt_year'));
+		else
+		  $date_tracking = dol_now();
+
+		$objworkd->code_area_last = GETPOST('code_area_last');
+		$objworkd->code_area_next = GETPOST('code_area_next');
+		$objworkd->code_procedure = GETPOST('code_procedure');
+		$objworkd->date_tracking = $date_tracking;
+		$objworkd->detail = GETPOST('detail');
+		$objworkd->sequen = GETPOST('sequen');
+		$objworkd->tms = dol_now();
+		$objworkd->statut = 1;
+		if ($objworkd->code_area_next <= 0)
+		  {
+		    $error++;
+		    $mesg.='<div class="error">'.$langs->trans("Errortoareaisrequired").'</div>';
+		  }
+		else
+		  {
+		    //cambiamos el id por el ref del area
+		    if ($objarea->fetch($objworkd->code_area_next)>0)
+		      $objworkd->code_area_next = $objarea->ref;
+		  }
+
+		if (empty($error)) 
+		  {
+		    //cambiamos estado todos los anteriores al nuevo hito
+		    $db->begin();
+		    //actualizamos
+		    $res = $objworkd->update($user);
+		    if ($res > 0)
+		      {
+			$db->commit();
+			header("Location: ".$SERVER['PHP_SELF']."?id=".$id);
+			exit;
+		      }
+		    $db->rollback();
+		    $action = 'editwd';
+		  }
+	      }
+	  }
+      }
+  }
+
+// Addassign
+if ($action == 'addassign' && $user->rights->poa->work->tra)
+  {
+    $error = 0;
+    if ($object->fetch($id)>0)
+      {
+	$objworku->fk_poa_workflow = $id;
+	$objworku->code_area = GETPOST('code_area');
+	$objworku->fk_user = GETPOST('fk_user');
+	$objworku->date_assign = dol_now();
+	$objworku->fk_user_create = $user->id;
+	$objworku->tms = dol_now();
+	$objworku->statut = 1;
+
+	if ($objworku->fk_user <= 0)
+	  {
+	    $error++;
+	    $mesg.='<div class="error">'.$langs->trans("Erroruserisrequired").'</div>';
+	  }
+
+	if (empty($error)) 
+	  {
+	    $idwu = $objworku->create($user);
+	    if ($idwu > 0)
+	      {
+		header("Location: ".$SERVER['PHP_SELF']."?id=".$id);
+		exit;
+	      }
+	    else
+	      {
+		$action = 'createassign';
+		$mesg='<div class="error">'.$objworkd->error.'</div>';
+	      }
+	  }
+	$action="createassign";   // Force retour sur page creation
+      }
+    else
+      {
+	$action="createassign";   // Force retour sur page creation
+	$mesg='<div class="error">'.$object->error.'</div>';
+      }
+  }
+
+// Delete process
+if ($action == 'confirm_delete' && $_REQUEST["confirm"] == 'yes' && $user->rights->poa->work->del)
+{
+  $object->fetch($_REQUEST["id"]);
+  $result=$object->delete($user);
+  if ($result > 0)
+    {
+      header("Location: ".DOL_URL_ROOT.'/poa/execution/liste.php');
+      exit;
+    }
+  else
+    {
+      $mesg='<div class="error">'.$object->error.'</div>';
+      $action='';
+    }
+ }
+
+// confirm_end
+if ($action == 'confirm_end' && $_REQUEST["confirm"] == 'yes' && $user->rights->poa->work->fin)
+  {
+    $error = 0;
+    if ($object->fetch($id)>0)
+      {
+	//se recupera el preventivo
+	$objprev->fetch($object->fk_poa_prev);
+	//valores nuevos
+	$objworkd->fk_poa_workflow = $id;
+	$objworkd->code_area_last = GETPOST('codearea');
+	$objworkd->code_area_next = GETPOST('codearea');
+	$objworkd->code_procedure = 'ENDED';
+	$objworkd->date_tracking = dol_now();
+	$objworkd->detail = $langs->trans('Processcompleted');
+	$objworkd->sequen = GETPOST('sequen');
+	$objworkd->fk_user_create = $user->id;
+	$objworkd->tms = dol_now();
+	$objworkd->statut = 1;
+	if (empty($objworkd->code_area_next))
+	  {
+	    $error++;
+	    $mesg.='<div class="error">'.$langs->trans("Errortoareaisrequired").'</div>';
+	  }
+	if (empty($error)) 
+	  {
+	    //cambiamos estado todos los anteriores al nuevo hito
+	    $db->begin();
+	    $objworkdet = new Poaworkflowdet($db);
+	    $res = $objworkdet->update_statut($id,2); //cambiamos de estado
+	    if ($res > 0)
+	      {
+		//crear el siguiente hito
+		$idr = $objworkd->create($user);
+		if ($idr > 0)
+		  {
+		    //cerramos el workflow
+		    $object->statut = 2;
+		    $resw = $object->update($user);
+		    if ($resw <=0)
+			$error++;
+		    //enviamos correo al administrador de cada area
+		    if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')
+		      $url = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['REMOTE_ADDR'].DOL_URL_ROOT;
+		    else
+		      $url = 'http://190.129.175.66/dolibcb';
+
+		    // para que asigne a usuarios
+		    //recuperamos los usuarios destinatarios
+		    if ($objarea->fetch('',$objworkd->code_area_next) > 0)
+		      {
+			$aUseremail = area_user_email($objarea->id,1);
+			foreach((array) $aUseremail AS $fk_user => $aemail)
+			  {
+			    if (!empty($email)) $email.=',';
+			    if (!empty($nameto)) $nameto.=', ';
+
+			    $email = $aemail['email'];
+			    $nameto = $aemail['nameto'];
+			  }
+			$procedure = select_typeprocedure($objworkd->code_procedure,'code_procedure','',0,1,'code');
+			$subjet = email_subject($objarea->ref,
+						$procedure);
+			$body = email_body($objprev,$id,$idr,$procedure,$objworkd->detail,$url,$nameto);
+			$emailsend = $email;
+			//provisional hasta que se defina 
+			$emailcc='';
+			if ($objworkd->code_area_next != 'DMMI')
+			  $emailsend = 'rqc7000@gmail.com';
+			else
+			  {
+			    $objuser->fetch($objprev->fk_user_create);
+			    if ($objuser->id == $objprev->fk_user_create)
+			      $emailcc = $objuser->email;
+			  }
+			
+			//			list($resemail,$mesgerror) = send_email($emailsend,$user->email,$emailcc,$subjet,$body);
+			$resemail = 1;
+			if ($resemail <=0)
+			  {
+			    $error++;
+			    $mesg.= $mesgerror;
+			  }
+			
+			if (empty($error))
+			  {
+			    $db->commit();
+			    header("Location: ".$SERVER['PHP_SELF']."?id=".$id);
+			    exit;
+			  }
+			$db->rollback();
+			$action = '';
+		      }
+		  }
+		else
+		  {
+		    $db->rollback();
+		    $action = '';
+		    $mesg='<div class="error">'.$objworkd->error.'</div>';
+		  }
+	      }
+	    else
+	      {
+		$db->rollback();
+		$action = '';
+		$mesg='<div class="error">'.$objworkdet->error.'</div>';
+	      }
+	  }
+	else
+	  {
+	    $objnew = $objworkd;
+	    $action="";   // Force retour sur page creation transfer
+	  }
+      }
+  }
+
+// Delete process
+if ($action == 'confirm_delete_user' && $_REQUEST["confirm"] == 'yes' && $user->rights->poa->work->tra)
+  {
+    if ($object->fetch($_REQUEST["id"])>0)
+      {
+	if ($objworku->fetch($_REQUEST['idu'])>0)
+	  {
+	    $result = $objworku->delete($user);
+	    if ($result > 0)
+	      {
+		header("Location:fiche.php?id=".$id);
+		exit;
+	      }
+	    else
+	      {
+		$mesg='<div class="error">'.$objworku->error.'</div>';
+		$action='';
+	      }
+	  }
+	$mesg='<div class="error">'.$objworku->error.'</div>';
+	$action='';
+      }
+    $mesg='<div class="error">'.$object->error.'</div>';
+    $action='';
+  }
+
+
+// Modification
+if ($action == 'update' && $_POST["cancel"] <> $langs->trans("Cancel"))
+  {
+    if ($object->fetch($_POST["id"]))
+      {
+	$error = 0;
+	$object->contrat   = GETPOST('contrat');
+	$object->deadlines = GETPOST('deadlines');
+	
+	$object->tms = date('YmdHis');
+	if ($object->contrat <= 0)
+	  {
+	    $error++;
+	    $mesg.='<div class="error">'.$langs->trans("Errorcontratisrequired").'</div>';
+	  }
+	if (empty($error))
+	  {
+	    if ( $object->update($_POST["id"], $user) > 0)
+	      {
+		$action = '';
+		$_GET["id"] = $_POST["id"];
+		//$mesg = '<div class="ok">Fiche mise a jour</div>';
+	      }
+	    else
+	      {
+		$action = 'edit';
+		$_GET["id"] = $_POST["id"];
+		$mesg = '<div class="error">'.$object->error.'</div>';
+	      }
+	  }
+	else
+	  {
+	    $action = 'edit';
+	    $_GET["id"] = $_POST["id"];
+	  }   
+      }
+    else
+      {
+	$action = 'edit';
+	$_GET["id"] = $_POST["id"];
+	$mesg = '<div class="error">'.$object->error.'</div>';
+      }
+  }
+
+// update link
+if ($action == 'updatelink' && 
+    $_POST["cancel"] <> $langs->trans("Cancel"))
+  {
+    if ($object->fetch($_POST["id"]))
+      {
+	$error = 0;
+	$object->doclink   = GETPOST('doclink');	
+	$object->tms = date('YmdHis');
+	$object->statut = 1;
+	if (empty($object->doclink))
+	  {
+	    $error++;
+	    $mesg.='<div class="error">'.$langs->trans("Errordoclinkisrequired").'</div>';
+	  }
+	if (empty($error))
+	  {
+	    if ( $object->update($_POST["id"], $user) > 0)
+	      {
+		$action = '';
+		$_GET["id"] = $_POST["id"];
+		//$mesg = '<div class="ok">Fiche mise a jour</div>';
+	      }
+	    else
+	      {
+		$action = 'editlink';
+		$_GET["id"] = $_POST["id"];
+		$mesg = '<div class="error">'.$object->error.'</div>';
+	      }
+	  }
+	else
+	  {
+	    $action = 'editlink';
+	    $_GET["id"] = $_POST["id"];
+	  }   
+      }
+    else
+      {
+	$action = 'editlink';
+	$_GET["id"] = $_POST["id"];
+	$mesg = '<div class="error">'.$object->error.'</div>';
+      }
+  }
+
+if ($_POST["cancel"] == $langs->trans("Cancel"))
+  {
+    $action = '';
+    $_GET["id"] = $_POST["id"];
+  }
+
+
+/*
+ * View
+ */
+
+$form=new Form($db);
+
+$aArrcss= array('poa/css/style.css');
+$help_url='EN:Module_Poa_En|FR:Module_Poa|ES:M&oacute;dulo_Poa';
+llxHeader("",$langs->trans("POA"),$help_url,'','','','',$aArrcss);
+//verificando a que areas pertenece el usuario
+$aArea = $objareau->getuserarea($user->id);
+$aUserArea     = array();
+$aUserAreaId   = array();
+$aAreaUserId   = array();
+$aUserAreaSel  = array();
+$aUserAreaPerm = array();
+foreach ((array) $aArea AS $j => $objArea)
+{
+  $aUserArea[$objArea->ref] = $objArea->ref;
+  $aUserAreaId[$objArea->id] = $objArea->id;
+  $aUserAreaPerm[$objArea->ref] = $objArea->privilege;
+  $aUserAreaSel[$objArea->rowid] = $objArea->label;
+} 
+//verificando usuarios del area seleccionado
+
+foreach ((array) $aUserArea AS $cref)
+{
+  $objarea->fetch('',$cref);
+  $objareau->getlist($objarea->id);
+  if (count($objareau->array) > 0)
+    {
+      foreach((array) $objareau->array AS $i => $objau)
+	{
+	  $aAreaUserId[$objau->fk_user] = $objau->fk_user;
+	}
+    }
+}
+if ($action == 'create' && $user->rights->poa->work->crear)
+  {
+    if ($fk_poa_prev)
+      $objprev->fetch($fk_poa_prev);
+    else
+      {
+	print $mesg = '';
+	exit;
+      }
+    print_fiche_titre($langs->trans("Newworkflow"));
+
+    dol_htmloutput_mesg($mesg);
+
+    //search
+    print '<form  action="fiche.php" method="post">';
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<input type="hidden" name="action" value="add">';
+    print '<input type="hidden" name="fk_poa_prev" value="'.$fk_poa_prev.'">';
+    
+    print '<table class="border" width="100%">';
+    // preventive
+    print '<tr><td width="12%" class="fieldrequired">'.$langs->trans('Preventive').'</td><td>';
+    print $objprev->nro_preventive.' '.$objprev->label;
+    print '</td>';
+    print '</tr>';
+    print '<tr><td width="12%" class="fieldrequired">'.$langs->trans('Date').'</td><td>';
+    print dol_print_date($objprev->date_preventive,'day');
+    print '</td>';
+    print '</tr>';
+
+    //flowmodels
+    //analizamos el monto del preventivo para saber que modalidad es
+    $groups = search_tables_amount('05',$objprev->amount); //05=tabla de tipo de contrataciones
+    
+    print '<tr><td width="12%">'.$langs->trans('Typemodality').'</td><td>';
+    print $objflow->select_flow_models($groups,$object->fk_type_modality,'fk_type_modality','',1,'deadlines');
+    print '</td>';
+    print '</tr>';
+
+    //seleccionar si es contrato o no
+    print '<tr><td width="12%" class="fieldrequired">'.$langs->trans('Contractisrequired').'</td><td>';
+    print $form->selectyesno('contrat',($object->contrat?$object->contrat:0),1);
+    print '</td>';
+    print '</tr>';
+
+
+    print '</table>';
+
+    if (!empty($fk_poa_prev))
+      print '<center><br><input type="submit" class="button" value="'.$langs->trans("Create").'"></center>';
+    print '</form>';
+    
+    print '</div>';
+
+  }
+ else
+   {
+     if ($id || $_GET['id'])
+       {
+	 //dol_htmloutput_mesg($mesg);
+	 if (empty($id)) $id = $_GET['id'];
+	 $object = new Poaworkflow($db);
+	 $result = $object->fetch($id);
+	 if ($result < 0)
+	   {
+	     dol_print_error($db);
+	   }
+	 $fk_poa_prev = $object->fk_poa_prev;
+	 dol_htmloutput_mesg($mesg);
+
+	 /*
+	  * Affichage fiche
+	  */
+	 if ($action <> 'edit' && $action <> 're-edit')
+	   {
+	     //$head = fabrication_prepare_head($object);
+	     
+	     dol_fiche_head($head, 'card', $langs->trans("Workflow"), 0, DOL_URL_ROOT.'/poa/img/workflows.png',1);
+	     
+	     /*
+	      * Confirmation de la validation
+	      */
+	     if ($action == 'validate')
+	       {
+		 $object->fetch(GETPOST('id'));
+		 //cambiando a validado
+		 $db->begin();
+		 //cambiando el preventivo a statut 1
+		 if ($objprev->fetch($object->fk_poa_prev))
+		   {
+		     $objprev->active = 2;
+		     $objprev->update($db);
+		   }
+		 //update
+		 if ($object->ref == 0)
+		   {
+		     $objectproces = new Poaprocess($db);
+		     $objectproces->get_maxref($object->gestion);
+		     $object->ref   = $objectproces->maximo;
+		   }
+		 $object->statut = 1;
+		 $object->update($user);
+		 //creando la relacion de preventivo y proceso
+		 $objpp = new Poaprevprocess($db);
+		 $objpp->fk_poa_prev = $object->fk_poa_prev;
+		 $objpp->fk_poa_process = $object->id;
+		 $objpp->date_create = $object->date_process;
+		 $objpp->tms = date('YmdHis');
+		 $objpp->fk_user_create = $user->id;
+		 $objpp->statut = 1;
+		 $idpp = $objpp->create($user);
+		 if ($idpp > 0)
+		   $db->commit();
+		 else
+		   $db->rollback();
+		 $action = '';
+		 //header("Location: fiche.php?id=".$_GET['id']);
+		 
+	       }
+	     
+	     // Confirm delete third party
+	     if ($action == 'delete')
+	       {
+		 $form = new Form($db);
+		 $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id,$langs->trans("Deleteprocess"),$langs->trans("Confirmdeleteprocess",$object->ref.' '.$object->detail),"confirm_delete",'',0,2);
+		 if ($ret == 'html') print '<br>';
+	       }
+
+	     // Confirm finalize
+	     if ($action == 'createfin')
+	       {
+		 $form = new Form($db);
+		 $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id.'&codearea='.GETPOST('codearea').'&sequen='.GETPOST('sequen'),$langs->trans("Endprocess"),$langs->trans("Confirmendprocess",$object->ref.' '.$object->detail),"confirm_end",'',0,2);
+		 if ($ret == 'html') print '<br>';
+	       }
+
+	     // Confirm delete third party
+	     if ($action == 'deluser')
+	       {
+		 $form = new Form($db);
+		 $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id.'&idu='.$idu,$langs->trans("Deleteassignuser"),$langs->trans("Confirmdeleteassignuser",$object->ref.' '.$object->detail),"confirm_delete_user",'',0,2);
+		 if ($ret == 'html') print '<br>';
+	       }
+	     
+	     print '<table class="border" style="min-width=1000px" width="100%">';
+
+	     // Confirm cancel proces
+	     if ($action == 'anulate')
+	       {
+		 $form = new Form($db);
+		 $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id,$langs->trans("Cancelprocess"),$langs->trans("Confirmcancelprocess",$object->ref.' '.$object->detail),"confirm_cancel",'',0,2);
+		 if ($ret == 'html') print '<br>';
+	       }
+
+	     // Confirm transfer
+	     if ($action == 'adddetconfirm')
+	       {
+		 $form = new Form($db);
+		 $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id.'&sequen='.GETPOST('sequen').'&code_area_last='.GETPOST('code_area_last').'&code_area_next='.GETPOST('code_area_next').'&code_procedure='.GETPOST('code_procedure').'&detail='.GETPOST('detail').'&dt_month='.GETPOST('dt_month').'&dt_day='.GETPOST('dt_day').'&dt_year='.GETPOST('dt_year'),$langs->trans("Confirmshipping"),$langs->trans("Confirmsendingworkflow",$object->fk_poa_prev),"confirm_adddet",'',0,2);
+		 if ($ret == 'html') print '<br>';
+	       }
+
+	     $objprev->fetch($object->fk_poa_prev);
+	     // preventive
+	     print '<tr><td width="20%">'.$langs->trans('Preventive').'</td><td colspan="7">';
+	     print $objprev->nro_preventive.' '.$objprev->label;
+	     print '</td>';
+	     print '</tr>';
+	     print '<tr><td>'.$langs->trans('Date').'</td><td colspan="7">';
+	     print dol_print_date($objprev->date_preventive,'day');
+	     print '</td>';
+	     print '</tr>';
+
+	     print '<tr><td>'.$langs->trans('Deadlines').'</td><td colspan="7">';
+	     print $object->deadlines;
+	     print '&nbsp; '.$langs->trans('Days');
+	     print '</td>';
+	     print '</tr>';
+
+	     print '<tr><td>'.$langs->trans('Contractisrequired').'</td><td colspan="7">';
+	     print ($object->contrat?$langs->trans('Yes'):$langs->trans('Not'));
+	     print '</td>';
+	     print '</tr>';
+	     print '<tr><td>';
+	     if ($action != 'editlink')
+	       {
+		 print '<table class="nobordernopadding" width="100%"';
+		 print '<tbody>';
+		 print '<tr><td>';
+		 print $langs->trans('Doclink');
+		 print '</td>';
+		 print '<td align="right">';
+		 if ($user->rights->poa->work->mod)
+		   print "<a href=\"fiche.php?id=".$id."&action=editlink\">".img_picto($langs->trans('Doclink'),'edit')."</a>";
+		 else
+		   print '&nbsp;';
+		 print '</td>';
+		 print '</tr>';
+		 print '</table>';
+	       }
+	     else
+	       {
+		 print $langs->trans('Doclink');
+	       }
+	     print '</td>';
+	     print '<td colspan="7">';
+	     if ($action == 'editlink')
+	       include_once DOL_DOCUMENT_ROOT.'/poa/workflow/tpl/mod.tpl.php';
+	     else
+	       {
+		 if ($action != 'createassign')
+		   if ($object->doclink)
+		     {
+		       $aDocnew = explode('/',$object->doclink);
+		       $cDocnew = $aDocnew[count($aDocnew)-1];
+		       $cDocnew = str_replace("%20"," ",$cDocnew);
+		       print '<a href="'.$object->doclink.'" target="_blank">'.$cDocnew.'</a>';
+		     }
+		   else
+		     print $object->doclink;
+	       }
+	     print '</td>';
+	     print '</tr>';
+	     //lista de workflow assign
+	     $objworku->getlist($id);
+	     if (count($objworku->array) > 0)
+	       {
+		 foreach((array) $objworku->array AS $m => $objwu)
+		   {
+		     print '<tr><td>'.$objwu->code_area.'</td><td colspan="7">';
+		     print '<table class="nobordernopadding">';
+		     if ($objuser->fetch($objwu->fk_user) > 0)
+		       {
+			 print '<tr><td>';
+			 print $objuser->lastname.' '.$objuser->firstname;
+			 print '</td><td>';
+			 if ($aUserAreaPerm[$objwu->code_area] == 1 || $user->admin)
+			   print '&nbsp;&nbsp;<a href="fiche.php?id='.$id.'&idu='.$objwu->id.'&action=deluser'.'">'.img_picto($langs->trans('Delete'),'delete').'</a>';
+			 else
+			   print '&nbsp;';
+			 print '</td>';
+			 print '</td></tr>';
+		       }
+		     else
+		       print $langs->trans('Notdefined');
+		     print '</table>';
+		     print '</td>';
+		     print '</tr>';
+		   }
+	       }
+
+	     if ($action == 'createassign')
+	       {
+		 //buscamos el contenido del workflow det
+		 $objworkd->getlist($id);
+		 $codearea = '';
+		 foreach ($objworkd->array AS $i => $objwd)
+		     $codearea = $objwd->code_area_next;
+		 if ($aUserArea[$codearea])
+		   {
+		     print '<tr><td>'.$langs->trans('Responsible for process area').' '.$codearea.'</td><td colspan="7">';
+		     include_once DOL_DOCUMENT_ROOT.'/poa/workflow/tpl/assign.tpl.php';
+		     print '</td>';
+		     print '</tr>';
+		   }
+	       }
+	     //statut
+	     print '<tr><td>'.$langs->trans('Statut').'</td><td colspan="7">';
+	     print $object->LibStatut($object->statut,0);
+	     print '</td>';
+	     print '</tr>';
+
+	     print '<tr><td colspan="7">&nbsp;</td></tr>';
+
+	     if ($action != 'editlink')
+	       {  
+		 //mostramos el seguimiento al workflow
+		 
+		 print '<tr class="liste_titre">';
+		 print_liste_field_titre($langs->trans("Sequen"),"", "","","",'align="center"');
+		 print_liste_field_titre($langs->trans("Date"),"", "","","",'');
+		 print_liste_field_titre($langs->trans("Ofarea"),"", "","","",'');
+		 print_liste_field_titre($langs->trans("Toarea"),"", "","","",'');
+		 print_liste_field_titre($langs->trans("Procedure"),"", "","","",'');
+		 print_liste_field_titre($langs->trans("Detail"),"", "","","",'');
+		 print_liste_field_titre($langs->trans("Days"),"", "","","",'align="center"');
+		 print_liste_field_titre($langs->trans("Action"),"", "","","",'align="center"');
+		 print '</tr>';
+
+		 //buscamos el contenido del workflow det
+		 $objworkd->getlist($id);
+		 //recuperamos el contenido del typeprocedure
+		 $arraytp = getlist_typeprocedure('code',0);
+		 $codearea = '';		 
+		 $sequen = 0;
+		 $datetracking = '';
+		 //array para graficar el avance 
+		 $arraygraf = poa_grafic($id);
+		 $landmark = 0;
+		 //registro nuevo
+
+		 if (count($objworkd->array) > 0)
+		   {
+		     foreach ($objworkd->array AS $i => $objwd)
+		       {
+			 $codearea = $objwd->code_area_next;
+			 $sequen = $objwd->sequen;
+			 if ($action == 'editwd' && $objwd->id == $idw && $user->rights->poa->work->mod)
+			   {
+			     $objnew = $objwd;
+			     include_once DOL_DOCUMENT_ROOT.'/poa/workflow/tpl/add.tpl.php';
+			     
+			   }
+			 else
+			   {
+			     print '<tr>';
+			     print '<td align="center">'.$objwd->sequen.'</td>';
+			     print '<td>'.dol_print_date($objwd->date_tracking,'day').'</td>';
+			     //last area
+			     print '<td>'.$objwd->code_area_last.'</td>';
+			     print '<td>'.$objwd->code_area_next.'</td>';
+			     //typeprocedure
+			     print '<td>';
+			     //print select_typeprocedure($objwd->code_procedure,'code_procedure','',0,1,'code');
+			     print $arraytp[$objwd->code_procedure]->label;
+			     //select_typeprocedure($objwd->code_procedure,'code_procedure','',0,1,'code');
+
+			     print '</td>';
+			     //detail
+			     print '<td>';
+			     print $objwd->detail;
+			     print '</td>';
+			     //day
+			     print '<td align="center">';
+			     if (!empty($datetracking))
+			       {
+				 $daydelay = resta_fechas($datetracking,$objwd->date_tracking,1);
+				 print $daydelay;
+			       }
+			     $datetracking = $objwd->date_tracking;
+			     print '</td>';
+			     
+			     //action
+			     print '<td align="center">';
+			     if ($user->rights->poa->work->mod)
+			       {
+				 print '<a href="'.$_SERVER['PHP_SELF'].'?id='.$id.'&idw='.$objwd->id.'&action=editwd">'.img_picto($langs->trans('Edit'),'edit').'</a>';
+			       }
+			     else
+			       print '&nbsp;';
+			     
+			     print '</td>';
+			     
+			     print '</tr>';
+			 //buscamos el procedure en el array
+			 // $objtp = $arraytp[$objwd->code_procedure];
+			 // // if ($landmark != $objtp->landmark)
+			 // //   { 
+			 // $landmark = $objtp->landmark;
+			 // //agregamos al array para graficar avance
+			 // $arraygraf[] = array('landmark' => $landmark,
+			 // 		      'date' => $objwd->date_tracking);
+
+			 //   }
+			 // else
+			 //   {
+			 //     $arraygraf[] = array('landmark' => $landmark,
+			 // 			  'date' => $objwd->date_tracking);
+			 //   }
+			   }
+		       }
+		     if ($action == 'createtransf')
+		       {
+			 if ($user->admin || 
+			     ($user->rights->poa->work->tra && $aUserArea[$codearea]))
+			   {
+			     include_once DOL_DOCUMENT_ROOT.'/poa/workflow/tpl/add.tpl.php';
+			     
+			   }
+		       }
+		   }
+	       }
+	     else
+	       include_once DOL_DOCUMENT_ROOT.'/poa/workflow/tpl/mod.tpl.php';
+	     
+	     print '</table>';
+
+	     
+	     print '</div>';
+	     
+	     /* ************************************** */
+	     /*                                        */
+	     /* Barre d'action                         */
+	     /*                                        */
+	     /* ************************************** */
+	     
+	     print "<div class=\"tabsAction\">\n";
+
+	     if ($user->rights->poa->prev->leer)
+	       print '<a class="butAction" href="'.DOL_URL_ROOT.'/poa/execution/liste.php'.(isset($_GET['nopac'])?'?nopac=1&idp='.$_GET['idp']:'').'">'.$langs->trans("Return").'</a>';
+	     else
+	       print "<a class=\"butActionRefused\" href=\"#\">".$langs->trans("Return")."</a>";
+	     
+	     if ($action == '' && $object->statut < 2)
+	       {
+		 if ($aUserAreaPerm[$codearea] == 1 && (!$user->admin && $aUserArea[$codearea]))
+		   {
+		     //permisos de administrador de area
+		     //privilegio para la asignacion de funciones 
+		     print "<a class=\"butAction\" href=\"fiche.php?id=".$id."&action=createassign\">".$langs->trans("Assignwork")."</a>";
+		   }
+		 //close workflow
+		 if ($user->rights->poa->work->fin)
+		   {
+		     $viewfin = false;
+		     if ($user->admin || 
+			 (!$user->admin && $aUserArea[$codearea]) && $user->id == $objprev->fk_user_create)
+		       {
+			 $sequen++;
+			 print "<a class=\"butAction\" href=\"fiche.php?id=".$id.'&codearea='.$codearea.'&sequen='.$sequen."&action=createfin\">".$langs->trans("Finalize")."</a>";
+		       }
+		     // if ($user->admin)
+		     //   print "<a class=\"butAction\" href=\"fiche.php?id=".$id."&action=createtransf\">".$langs->trans("Transfer")."</a>";
+		   }
+		 
+		 if ($user->rights->poa->work->tra)
+		   {
+		     $viewlink = false;
+		     if ($user->admin || 
+			 (!$user->admin && $aUserArea[$codearea]) && $user->id == $objprev->fk_user_create)
+		       print "<a class=\"butAction\" href=\"fiche.php?id=".$id."&action=createtransf\">".$langs->trans("Send")."</a>";
+		   }
+		 
+		 if ($user->admin || 
+		     ($user->rights->poa->work->mod && count($objworkd->array) <= 0))
+		   print "<a class=\"butAction\" href=\"fiche.php?action=edit&id=".$object->id."\">".$langs->trans("Modify")."</a>";
+		 else
+		   print "<a class=\"butActionRefused\" href=\"#\">".$langs->trans("Modify")."</a>";
+		 
+		 if ($user->rights->poa->work->del && count($objworkd->array) <=0 && $object->statut == 0)
+		   print "<a class=\"butActionDelete\" href=\"fiche.php?action=delete&id=".$object->id."\">".$langs->trans("Delete")."</a>";
+		 else
+		   print "<a class=\"butActionRefused\" href=\"#\">".$langs->trans("Delete")."</a>";
+		 // if ($user->rights->poa->work->val && $object->statut == 0 && $lValid)
+		 //   print "<a class=\"butAction\" href=\"fiche.php?action=validate&id=".$object->id."\">".$langs->trans("Validate")."</a>";
+		 // else
+		 //   print "<a class=\"butActionRefused\" href=\"#\">".$langs->trans("Delete")."</a>";
+		 		 
+	       }	  
+	     print "</div>";		
+	     
+
+	     //graficamos
+	     //armamos los colores para el grafico
+	     //if (empty($_SESSION['arrayc']) || empty($_SESSION['arrayl']))
+	     poa_grafic_color();
+		 //	       }
+	     $arrayc = $_SESSION['arrayc'];
+	     $arrayl = $_SESSION['arrayl'];
+	     $arraypri = array();
+
+	     //graficamos el flowmodel
+	     $groups = search_tables_amount('05',$objprev->amount); //05=tabla de tipo de contrataciones
+	     $filter = " AND t.deadlines = ".$object->deadlines;
+	     $orders = " t.sequen ASC ";
+	     $objflow->getlist($groups,'','',$filter,$orders);
+	     if (count($objflow->array) > 0)
+	       {
+		 print '<span>'.$langs->trans('Programmed').'</span>';
+		 print '<div>';
+		 foreach ((array) $objflow->array AS $m => $objfm)
+		   {
+		     $objtp = $arraytp[$objfm->code];
+		     $landmark = $objtp->landmark;
+		     $arraypri[$landmark] = $landmark;
+		     $dias = $objfm->quant;
+		     $width = $dias*10;
+		     print '<div class="height20 floatleft" style="text-align:center; width:'.($width<=0?10:$width).'px; background-color: '.(empty($landmark)?$arrayc[$landmark]:$arrayc[$landmark]).';">'.$dias.'</div>';
+		     
+		     
+		   }
+		 print '</div>';
+	       }
+	     print '<br><br>';
+
+	     if (count($arraygraf) > 0)
+	       {
+		 print '<span>'.$langs->trans('Executed').'</span>';
+		 print '<div>';
+		 print poa_grafic_executed($arraypri,$arraygraf,$arrayc,$arrayl);
+		 print '</div>';
+		 print poa_grafic_label($arrayl,$arrayc);
+	       }
+	   }
+
+	 /*
+	  * Edition fiche
+	  */
+	 if (($action == 'edit' || $action == 're-edit') && 1)
+	   {
+	     print_fiche_titre($langs->trans("Edit"), $mesg);
+	     print '<form name="fiche_process" action="fiche.php" method="post">';
+	     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+	     print '<input type="hidden" name="action" value="update">';
+	     print '<input type="hidden" name="id" value="'.$object->id.'">';
+	     print '<input type="hidden" name="fk_poa_prev" value="'.$object->fk_poa_prev.'">';
+	     
+	     $objprev->fetch($object->fk_poa_prev);
+	     print '<table class="border" width="100%">';
+	     // preventive
+	     print '<tr><td width="12%" class="fieldrequired">'.$langs->trans('Preventive').'</td><td>';
+	     print $objprev->nro_preventive.' '.$objprev->label;
+	     print '</td>';
+	     print '</tr>';
+	     print '<tr><td width="12%" class="fieldrequired">'.$langs->trans('Date').'</td><td>';
+	     print dol_print_date($objprev->date_preventive,'day');
+	     print '</td>';
+	     print '</tr>';
+
+	     //flowmodels
+	     //analizamos el monto del preventivo para saber que modalidad es
+	     $groups = search_tables_amount('05',$objprev->amount); //05=tabla de tipo de contrataciones
+	     
+	     print '<tr><td width="12%">'.$langs->trans('Deadlines').'</td><td>';
+	     print $objflow->select_flow_models($groups,$object->deadlines,'deadlines','',1,'deadlines');
+	     print '</td>';
+	     print '</tr>';
+
+	     //seleccionar si es contrato o no
+	     print '<tr><td width="12%" class="fieldrequired">'.$langs->trans('Contractisrequired').'</td><td>';
+	     print $form->selectyesno('contrat',($object->contrat?$object->contrat:0),1);
+	     print '</td>';
+	     print '</tr>';
+
+	     print '</table>';
+	  
+	  
+	     print '<center><br><input type="submit" class="button" value="'.$langs->trans("Save").'">&nbsp;';
+	     print '<input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'"></center>';
+	     
+	     print '</form>';
+	     
+	   }
+       }
+   }
+
+llxFooter();
+
+$db->close();
+?>

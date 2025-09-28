@@ -1,0 +1,1 @@
+ALTER TABLE llx_calendar_special ADD UNIQUE uk_unique (fk_object, object, datao, type_date);

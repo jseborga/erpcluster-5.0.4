@@ -1,0 +1,1 @@
+ALTER TABLE llx_tvadet ADD UNIQUE uk_unique (fk_tva,fk_typetvadet);

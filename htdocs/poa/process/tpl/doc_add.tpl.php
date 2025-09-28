@@ -1,0 +1,79 @@
+<?php
+/* Copyright (C)    2013      Cédric Salvador     <csalvador@gpcsolutions.fr>
+ * Copyright (C)    2013-2014 Laurent Destailleur <eldy@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * or see http://www.gnu.org/
+ */
+
+$langs->load("link");
+if (empty($relativepathwithnofile)) $relativepathwithnofile='';
+
+/*
+ * Confirm form to delete
+ */
+
+if ($action == 'delete')
+  {
+    $langs->load("companies");	// Need for string DeleteFile+ConfirmDeleteFiles
+    $ret = $form->form_confirm(
+			       $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&urlfile=' . urlencode(GETPOST("urlfile")) . '&linkid=' . GETPOST('linkid', 'int') . (empty($param)?'':$param),
+			       $langs->trans('DeleteFile'),
+			       $langs->trans('ConfirmDeleteFile'),
+			       'confirm_deletefile',
+			       '',
+			       0,
+			       1
+			       );
+    if ($ret == 'html') print '<br>';
+  }
+
+$formfile=new FormFile($db);
+// $permission = 1;
+// // Show upload form (document and links)
+// $formfile->form_attach_new_file(
+// 				$_SERVER["PHP_SELF"].'?id='.$object->id.(empty($withproject)?'':'&withproject=1'),
+// 				'',
+//     0,
+//     0,
+//     $permission,
+//     50,
+//     $object
+// );
+//$objcont->fetch($objpcon->fk_contrat);
+
+$upload_dir = $conf->contrat->dir_output.'/'.dol_sanitizeFileName($objcont->ref);	
+
+$filearray=dol_dir_list($upload_dir,"files",0,'','(\.meta|_preview\.png)$',$sortfield,(strtolower($sortorder)=='desc'?SORT_DESC:SORT_ASC),1);
+$totalsize=0;
+foreach($filearray as $key => $file)
+{
+  $totalsize+=$file['size'];
+}
+
+// // List of document
+$formfile->list_of_documents(
+    $filearray,
+    $objcont,
+    $modulepart,
+    $param,
+    0,
+    $relativepathwithnofile,		// relative path with no file. For example "moduledir/0/1"
+    $permission
+);
+
+// print "<br>";
+// //List of links
+// $formfile->listOfLinks($object, $permission, $action, GETPOST('linkid', 'int'), $param);
+// print "<br>";

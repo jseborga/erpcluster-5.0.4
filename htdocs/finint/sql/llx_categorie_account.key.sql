@@ -1,0 +1,1 @@
+ALTER TABLE llx_categorie_account DROP FOREIGN KEY fk_categorie_account_fk_account;

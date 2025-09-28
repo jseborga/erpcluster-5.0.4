@@ -1,0 +1,736 @@
+<?php
+/* Copyright (C) 2007-2015 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) ---Put here your own copyright and developer email---
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *   	\file       budget/items_card.php
+ *		\ingroup    budget
+ *		\brief      This file is an example of a php page
+ *					Initialy built by build_class_from_table on 2018-04-17 16:51
+ */
+
+//if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
+//if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
+//if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
+//if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
+//if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');			// Do not check anti CSRF attack test
+//if (! defined('NOSTYLECHECK'))   define('NOSTYLECHECK','1');			// Do not check style html tag into posted data
+//if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1');		// Do not check anti POST attack test
+//if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1');			// If there is no need to load and show top and left menu
+//if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML','1');			// If we don't need to load the html.form.class.php
+//if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
+//if (! defined("NOLOGIN"))        define("NOLOGIN",'1');				// If this page is public (can be called outside logged session)
+
+// Change this following line to use the correct relative path (../, ../../, etc)
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include '../main.inc.php';					// to work if your module directory is into dolibarr root htdocs directory
+if (! $res && file_exists("../../main.inc.php")) $res=@include '../../main.inc.php';			// to work if your module directory is into a subdir of root htdocs directory
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include '../../../dolibarr/htdocs/main.inc.php';     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include '../../../../dolibarr/htdocs/main.inc.php';   // Used on dev env only
+if (! $res) die("Include of main fails");
+// Change this following line to use the correct relative path from htdocs
+include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php');
+include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formv.class.php');
+dol_include_once('/product/class/product.class.php');
+dol_include_once('/budget/class/itemsext.class.php');
+dol_include_once('/budget/class/itemsregion.class.php');
+
+dol_include_once('/budget/class/itemsgroupext.class.php');
+dol_include_once('/budget/class/itemsproduct.class.php');
+dol_include_once('/budget/class/itemsproductregion.class.php');
+dol_include_once('/budget/class/itemsproduction.class.php');
+dol_include_once('/budget/class/ctypeitemext.class.php');
+dol_include_once('/budget/class/puvariablesext.class.php');
+dol_include_once('/budget/lib/budget.lib.php');
+
+dol_include_once('/orgman/class/cregiongeographic.class.php');
+dol_include_once('/orgman/class/cclasfin.class.php');
+// Load traductions files requiredby by page
+$langs->load("budget");
+$langs->load("other");
+
+// Get parameters
+$id			= GETPOST('id','int');
+$action		= GETPOST('action','alpha');
+$cancel     = GETPOST('cancel');
+$backtopage = GETPOST('backtopage');
+$myparam	= GETPOST('myparam','alpha');
+
+
+$search_entity=GETPOST('search_entity','int');
+$search_ref=GETPOST('search_ref','alpha');
+$search_ref_ext=GETPOST('search_ref_ext','alpha');
+$search_fk_type_item=GETPOST('search_fk_type_item','int');
+$search_type=GETPOST('search_type','int');
+$search_detail=GETPOST('search_detail','alpha');
+$search_fk_unit=GETPOST('search_fk_unit','int');
+$search_especification=GETPOST('search_especification','alpha');
+$search_plane=GETPOST('search_plane','alpha');
+$search_quant=GETPOST('search_quant','alpha');
+$search_amount=GETPOST('search_amount','alpha');
+$search_fk_user_create=GETPOST('search_fk_user_create','int');
+$search_fk_user_mod=GETPOST('search_fk_user_mod','int');
+$search_status=GETPOST('search_status','int');
+
+$fk_unit = GETPOST('units', 'int');
+$fk_type_item = GETPOST('fk_type_item', 'int');
+
+
+
+if (empty($action) && empty($id) && empty($ref)) $action='view';
+
+// Protection if external user
+if ($user->societe_id > 0)
+{
+	//accessforbidden();
+}
+//$result = restrictedArea($user, 'budget', $id);
+
+
+$object = new Itemsgroupext($db);
+$objItems = new Itemsext($db);
+$objTmp = new Itemsext($db);
+$objTmpgroup = new Itemsgroupext($db);
+$objCtypeitem = new Ctypeitemext($db);
+$extrafields = new ExtraFields($db);
+$objItemsregion = new Itemsregion($db);
+$objItemsproduct = new Itemsproduct($db);
+$objItemsproductregion = new Itemsproductregion($db);
+$objItemsproductregiontmp = new Itemsproductregion($db);
+$objItemsproduction = new Itemsproduction($db);
+$objPuvariables = new Puvariablesext($db);
+$objCregiongeographic = new Cregiongeographic($db);
+$objCclasfin = new Cclasfin($db);
+$objProduct = new Product($db);
+
+// fetch optionals attributes and labels
+$extralabels = $extrafields->fetch_name_optionals_label($object->table_element);
+
+// Load object
+include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php';  // Must be include, not include_once  // Must be include, not include_once. Include fetch and fetch_thirdparty but not fetch_optionals
+
+// Initialize technical object to manage hooks of modules. Note that conf->hooks_modules contains array array
+$hookmanager->initHooks(array('items'));
+
+if ($id>0 && $object->type==0)
+{
+	$res = $objItem->fetch($object->fk_item);
+}
+
+/*******************************************************************
+* ACTIONS
+*
+* Put here all code to do according to value of "action" parameter
+********************************************************************/
+
+$now=dol_now();
+$nDecimal = $conf->global->ITEMS_DEFAULT_NUMBER_DECIMAL;
+$parameters=array();
+$reshook=$hookmanager->executeHooks('doActions',$parameters,$object,$action);    // Note that $action and $object may have been modified by some hooks
+if ($reshook < 0) setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+
+if (empty($reshook))
+{
+	if ($cancel)
+	{
+		if ($action != 'addlink')
+		{
+			$urltogo=$backtopage?$backtopage:dol_buildpath('/budget/items/list.php',1);
+			header("Location: ".$urltogo);
+			exit;
+		}
+		if ($id > 0 || ! empty($ref)) $ret = $object->fetch($id,$ref);
+		$action='';
+	}
+
+	if ($action == 'add')
+	{
+		$fk_region = GETPOST('fk_region_ini');
+		$fk_sector = GETPOST('fk_sector_ini');
+		if ($fk_region <=0 || $fk_sector <=0)
+		{
+			$error++;
+			setEventMessages($langs->trans('Selecttheregionscorrectly'),null,'errors');
+		}
+		//armanos un array de las variables disponibles
+		$filter = " AND t.status = 1";
+		$filter = " AND t.entity = ".$conf->entity;
+		$resvar = $objPuvariables->fetchAll('ASC','ref',0,0,array(),'AND',$filter);
+		$aVariables = array();
+		if ($resvar>0)
+		{
+			$lines = $objPuvariables->lines;
+			//vamos a armar titulos
+			foreach ($lines AS $j => $line)
+			{
+				$aVariables[$line->id] = array('ref'=>$line->ref,'fk_unit'=>$line->fk_unit,'label'=>$line->label);
+				if ($line->fk_unit>0)
+				{
+					$objTmp = new PuvariablesLine($db);
+					$objTmp->fk_unit = $line->fk_unit;
+					$aVariables[$line->id]['unit'] = $objTmp->getLabelOfUnit('short');
+				}
+			}
+		}
+
+		if (!$error)
+		{
+			$db->begin();
+			$objItemsregiontmp = new Itemsregion($db);
+			$objItemsproductregiontmp = new Itemsproductregion($db);
+			$objItemsproductiontmp = new Itemsproduction($db);
+			//vamos a recuperar todos los items
+			//$filter = " AND t.status = 1 ";
+			//$filter = " AND t.rowid = 1";
+			if (!empty($search_ref)) $filter = " AND t.ref = '".trim($search_ref)."'";
+			$filter.= " AND t.manual_performance = 0";
+			//echo '<hr>res '.
+			$res = $objItems->fetchAll('','',0,0,array(),'AND',$filter);
+			if ($res > 0)
+			{
+				$lines = $objItems->lines;
+				foreach ($lines AS $b => $line)
+				{
+					//echo ' <br>item '.
+					$fk_item = $line->id;
+					//echo ' ref '.$line->ref;
+					$performance = 0;
+					//echo ' reg '.$fk_region.' sect '.$fk_sector;
+					//vamos a verificar el calculo de las cantidades para mano de obra
+					$resir = $objItemsregion->fetch(0,$fk_item,$fk_region,$fk_sector);
+					//echo '<hr>item '.$fk_item.' '.$line->status.' '.$line->ref;
+					unset($_SESSION['aItemsproduction_unit']);
+					//echo '<pre>';
+					//print_r($objItemsregion);
+					//vamos a sumar los registrados si el estado esta en 0
+					//echo '<hr>'.$objItemsregion->status .'== 0 && '.$objItemsregion->active .'== 1';
+					if ($objItemsregion->status == 0 && $objItemsregion->active == 1)
+					{
+						$filter = " AND t.fk_item = ".$fk_item;
+						$filter.= " AND t.group_structure = 'MQ'";
+						//echo '<hr>resitemprod '.
+						$resitemprod = $objItemsproduct->fetchAll('ASC','t.label',0,0,array(),'AND',$filter);
+						$aTitle = array();
+
+						if ($resitemprod>0)
+						{
+							$linesp = $objItemsproduct->lines;
+							//vamos a armar titulos
+							foreach ($linesp AS $k => $linep)
+							{
+								$resreg= $objItemsproductregion->fetch(0,$linep->id,$fk_region,$fk_sector);
+								if ($resreg==1)
+								{
+									$aTitle[$linep->id] = array('ref'=>$linep->ref,'fk_product'=>$linep->fk_product,'label'=>$linep->label,'formula'=>$linep->formula,'units'=>$linep->units,'commander'=>$linep->commander);
+
+									if ($resreg==1)
+									{
+										$aTitle[$linep->id]['units'] = $objItemsproductregion->units;
+										$aTitle[$linep->id]['commander'] = $objItemsproductregion->commander;
+										if ($resitemprod==1)
+											$aTitle[$linep->id]['commander'] = 1;
+										$aTitle[$linep->id]['fk_item_product_region'] = $objItemsproductregion->id;
+										if ($objItemsproductregion->commander==1)
+											$performance = $objItemsproductregion->performance;
+									}
+									if ($linep->fk_product>0)
+									{
+										$resprod=$objProduct->fetch($linep->fk_product);
+										if ($resprod>0)
+											$aTitle[$linep->id]['objProduct'] = $objProduct;
+									}
+								}
+							}
+						}
+						//vamos a actualizar y modificar todo en mano de obra
+						$filter = " AND t.fk_item = ".$fk_item;
+						$filter.= " AND t.group_structure = 'MO'";
+						$resitemprodmo = $objItemsproduct->fetchAll('ASC','t.label',0,0,array(),'AND',$filter);
+
+						$aPercent=array();
+						$nMinperformance = 0;
+						if ($resitemprod>0)
+						{
+							$linestmp = $objItemsproduct->lines;
+							foreach ($linestmp AS $k => $linetmp)
+							{
+								$filtertmp = " AND ";
+								$objItemsproductregion->fetch(0, $linetmp->id,$fk_region,$fk_sector);
+								if (empty($nMinperformance)) $nMinperformance=$objItemsproductregion->performance;
+								else
+									if ($nMinperformance>=$objItemsproductregion->performance) $nMinperformance = $objItemsproductregion->performance;
+								$aPercent[$objItemsproductregion->id]['performance'] = $objItemsproductregion->performance;
+								$aPercent[$objItemsproductregion->id]['units'] = $objItemsproductregion->units;
+							}
+							//vamos a modificar las cantidades por el valor del performance
+							//echo '<hr>minperf '.$nMinperformance;
+							foreach ($aPercent AS $k => $data)
+							{
+								$objItemsproductregion->fetch($k);
+								if ($nMinperformance>0)
+								{
+									$unitstmp = price2num($objItemsproductregion->performance/$nMinperformance,$nDecimal);
+									$unitstmp = ceil($unitstmp);
+									if ($unitstmp != $objItemsproductregion->units)
+									{
+										$objItemsproductregion->units = $unitstmp;
+										$restmp = $objItemsproductregion->update($user);
+										if ($restmp <=0)
+										{
+											$error++;
+											$err=501;
+											setEventMessages($objItemsproductregion->error,$objItemsproductregion->errors,'errors');
+										}
+									}
+								}
+							}
+						}
+
+						//vamos a recorrer para recalcular todo
+						//armamos el cuerpo
+						if (count($aVariables)>0)
+						{
+							$aVarformula = array();
+							foreach ($aVariables AS $j => $data)
+							{
+								//vamos a buscar los valores cargados segun array a title
+								if (count($aTitle)>0)
+								{
+									foreach ($aTitle AS $k => $row)
+									{
+										$resip=$objItemsproduction->fetch(0,$fk_item,$j,$k,$fk_region,$fk_sector);
+										if ($resip==1)
+										{
+											$aVarformula[$k][$data['ref']]= $objItemsproduction->quantity;
+										}
+									}
+								}
+							}
+						}
+
+						//vamos a mostrar unos calculos
+						$aCadena = array();
+						for ($i=65;$i<=90; $i++)
+							$aCadena[chr($i)] = '__'.chr($i).'__';
+						$aOperator= array('*'=>'|*|','+'=>'|+|','-'=>'|-|','/'=>'|/|','('=>'|(|',')'=>'|)|');
+						foreach ($aTitle AS $k => $row)
+						{
+							$selectcolor = '';
+							if ($row['commander'])
+								$selectcolor='style="background-color:#ffff00;"';
+							if($row['formula'])
+							{
+								$formula = $row['formula'];
+								//vamos a validar cada valor de la formula
+								foreach ($aVariables AS $v => $datavar)
+								{
+									$pos = strpos($formula,$datavar['ref']);
+									if ($pos===false)
+									{
+									}
+									else
+									{
+										//vamos a recuperar el valor en production si existe
+										$resp=$objItemsproductiontmp->fetch(0, $fk_item,$v,$k,$fk_region,$fk_sector);
+										if ($resp==1)
+										{
+											if (empty($objItemsproductiontmp->quantity))
+											{
+												$error++;
+												$err=502;
+												setEventMessages($langs->trans('El item ').' '.$line->ref.' ref producto '.$row['ref'].' '.$langs->trans('No tiene valor en su variable').' '.$datavar['ref'],null,'errors');
+											}
+										}
+										elseif($resp==0)
+										{
+											$error++;
+											$err=503;
+											setEventMessages($langs->trans('El item ').' '.$line->ref.' '.$row['ref'].' '.$langs->trans('No tiene valor en su variable').' '.$datavar['ref'],null,'errors');
+										}
+										else
+										{
+											$error++;
+											$err=504;
+											setEventMessages($objItemsproductiontmp->error,$objItemsproductiontmp->errors,'errors');
+										}
+									}
+								}
+
+								foreach ((array) $aVarformula[$k] AS $variable => $value)
+								{
+									if (empty($value))$value= 0;
+									$formula = str_replace($variable,$value,$formula);
+								}
+								//vamos a reemplazar algunos
+								if (is_array($aVarformula) && isset($aVarformula[$k]))
+								{
+									if (count($aVarformula[$k])>0)
+									{
+										if ($formula)
+										{
+											if (!$error)
+											{
+												eval("\$result= $formula;");
+												$aResult[$k] = $result;
+											}
+										}
+									}
+								}
+							}
+						}
+						$nTimeproductionoftheactivity = 0;
+						//vamos a definir quien commanda
+						foreach ($aTitle AS $k => $row)
+						{
+							if ($row['commander']) $nTimeproductionoftheactivity = $aResult[$k];
+						}
+
+						//vamos a calcular las unidades
+						foreach ($aTitle AS $k => $row)
+						{
+							$units= '';
+							if ($aResult[$k]>0)
+								$units = ceil($nTimeproductionoftheactivity/$aResult[$k]);
+							$aUnits[$k] = $units;
+						}
+
+						//vamos a pasar a una variable de session para actualizar las unidades
+						$aItemsproduction_unit[$fk_item] = $aUnits;
+						$_SESSION['aItemsproduction_unit'] = serialize($aItemsproduction_unit);
+						//Time Production of the activity
+						//vamos a rendimiento aplicable
+						foreach ($aTitle AS $k => $row)
+						{
+							$nApplicableperformance=0;
+							if ($nTimeproductionoftheactivity)
+							{
+								$units = 0;
+								if (isset($aUnits[$k]) && $aUnits[$k]>0) $units = $aUnits[$k]+0;
+								$nApplicableperformance=1/$nTimeproductionoftheactivity*$units;
+							}
+							$aApplicable[$k] = $nApplicableperformance;
+						}
+
+						//vamos a calcular el precio productivo
+						foreach ($aTitle AS $k => $row)
+						{
+							$nPriceproductive=0;
+							if ($nTimeproductionoftheactivity)
+							{
+								$units = 0;
+								if (isset($aUnits[$k]) && $aUnits[$k]>0) $units = $aUnits[$k]+0;
+								if ($aResult[$k]>0)
+									$nPriceproductive=$nTimeproductionoftheactivity/($aResult[$k]*$units)*100;
+								else
+									$nPriceproductive=0;
+								$aPriceproductive[$k] = $nPriceproductive;
+							}
+						}
+
+						//vamos a calcular el precio improducto
+						foreach ($aTitle AS $k => $row)
+						{
+							$nPriceunproductive=0;
+							if ($nTimeproductionoftheactivity)
+							{
+								$nPriceunproductive=100-$aPriceproductive[$k];
+								$aPriceunproductive[$k] = $nPriceunproductive;
+							}
+						}
+						//VAMOS A ACTUALZIAR
+						//echo '<hr>finalizamos con actualizacion';
+						//se actualiza en llx_items_region la hour_production
+						$resir = $objItemsregion->fetch(0,$fk_item,$fk_region,$fk_sector);
+						$lAdd=true;
+						if ($resir==1) $lAdd=false;
+						$objItemsregion->hour_production = $nTimeproductionoftheactivity;
+						$objItemsregion->amount = $totalCost+0;
+						if (empty($objItemsregion->hour_production)) $objItemsregion->hour_production = 0;
+						if (empty($objItemsregion->amount_noprod)) $objItemsregion->amount_noprod = 0;
+						if (empty($objItemsregion->amount)) $objItemsregion->amount = 0;
+						if ($lAdd)
+						{
+							$objItemsregion->fk_item = $fk_item;
+							$objItemsregion->fk_region = $fk_region;
+							$objItemsregion->fk_sector = $fk_sector;
+							$objItemsregion->fk_user_create = $user->id;
+							$objItemsregion->datec = $now;
+							$objItemsregion->status = 1;
+						}
+						$objItemsregion->fk_user_mod = $user->id;
+						$objItemsregion->datem = $now;
+						$objItemsregion->tms = $now;
+
+						if (!$lAdd) $res = $objItemsregion->update($user);
+						else $res = $objItemsregion->create($user);
+						if ($res <=0)
+						{
+							$error++;
+							$err=506;
+							setEventMessages($objItemsregion->error,$objItemsregion->errors,'errors');
+						}
+						$nMinperformance = 0;
+						if (!$error)
+						{
+							//se actualiza los valores en la tabla
+							foreach ($aTitle AS $k => $row)
+							{
+								//actualizamos resultados en items product region
+								$res = $objItemsproductregion->fetch(0,$k,$fk_region,$fk_sector);
+								if ($res==1)
+								{
+									$units = 0;
+									if (isset($aUnits[$k]) && $aUnits[$k]>0) $units = $aUnits[$k]+0;
+									$objItemsproductregion->units = $units;
+									$objItemsproductregion->commander = 0;
+									$objItemsproductregion->price_improductive = price2num($aPriceunproductive[$k],$nDecimal)+0;
+									$objItemsproductregion->price_productive = price2num($aPriceproductive[$k],$nDecimal)+0;
+									$objItemsproductregion->performance = price2num($aApplicable[$k],$nDecimal)+0;
+									if ($row['commander'])
+									{
+										$objItemsproductregion->commander = 1;
+										$nMinperformance = $objItemsproductregion->performance;
+									}
+									$objItemsproductregion->fk_user_mod = $user->id;
+									$objItemsproductregion->datem = $now;
+									$objItemsproductregion->tms = $now;
+									$res = $objItemsproductregion->update($user);
+									if ($res <=0)
+									{
+										$error++;
+										$err=999;
+										setEventMessages($objItemsproductregion->error,$objItemsproductregion->errors,'errors');
+									}
+								}
+							}
+						}
+
+						//FIN ACTUALIZACION
+						//echo '<hr>nMin '.$nMinperformance;
+						//vamos a recalcular la mano de obra
+						$filter = " AND t.fk_item = ".$fk_item;
+						$filter.= " AND t.group_structure = 'MO'";
+						//echo '<hr>actMO '.
+						$resitemprodmo = $objItemsproduct->fetchAll('ASC','t.label',0,0,array(),'AND',$filter);
+						$aTitle = array();
+						$aPercent=array();
+						if ($resitemprod>0)
+						{
+							$linestmp = $objItemsproduct->lines;
+							foreach ($linestmp AS $k => $linetmp)
+							{
+								$objItemsproductregion->fetch(0, $linetmp->id,$fk_region,$fk_sector);
+
+								$aPercent[$objItemsproductregion->id]['performance'] = $objItemsproductregion->performance;
+								$aPercent[$objItemsproductregion->id]['units'] = $objItemsproductregion->units;
+							}
+							//vamos a modificar las cantidades por el valor del performance
+							//echo '<hr>minperf '.$nMinperformance;
+							//print_r($aPercent);
+							foreach ($aPercent AS $k => $data)
+							{
+								$objItemsproductregion->fetch($k);
+								if ($objItemsproductregion->price_productive<=0) $objItemsproductregion->price_productive = 100;
+								if ($objItemsproductregion->units<=0) $objItemsproductregion->units = 1;
+								$objItemsproductregion->performance = ($objItemsproductregion->units>0?$objItemsproductregion->units:1)*$nMinperformance;
+								$restmp = $objItemsproductregion->update($user);
+								if ($restmp <=0)
+								{
+									$error++;
+									$err=507;
+									setEventMessages($objItemsproductregion->error,$objItemsproductregion->errors,'errors');
+								}
+							}
+						}
+						//para actualizar el costo directo
+						$filter = " AND t.fk_item = ".$fk_item;
+						$resip = $objItemsproduct->fetchAll('','',0,0,array(),'AND',$filter);
+						$totalCost=0;
+						$totalCostnoprod=0;
+						if ($resip>0)
+						{
+							$linesip = $objItemsproduct->lines;
+							foreach ($linesip AS $j => $lineip)
+							{
+								$resipr=$objItemsproductregiontmp->fetch(0,$lineip->id,$fk_region,$fk_sector);
+								if ($resipr==1)
+								{
+
+									if ($lineip->group_structure == 'MQ')
+									{
+										$objItemsproductregiontmp->cost_direct = $objItemsproductregiontmp->performance * ($objItemsproductregiontmp->price_productive / 100) * $objItemsproductregiontmp->amount + $objItemsproductregiontmp->performance * (1 - ($objItemsproductregiontmp->price_productive / 100)) * $objItemsproductregiontmp->price_improductive;
+									}
+									else
+									{
+										$objItemsproductregiontmp->price_productive = 100;
+										$objItemsproductregiontmp->cost_direct = $objItemsproductregiontmp->performance*$objItemsproductregiontmp->amount;
+										if (empty($objItemsproductregiontmp->amount))
+											setEventMessages($langs->trans('Doesnothavetheproductiveprice').' '.$lineip->ref.' '.$lineip->label,null,'warnings');
+									}
+									$resipr = $objItemsproductregiontmp->update($user);
+									if ($resipr<=0)
+									{
+										$error++;
+										$err=998;
+										setEventmessages($objItemsproductregiontmp->error,$objItemsproductregiontmp->errors,'errors');
+									}
+									$totalCost+= $objItemsproductregiontmp->cost_direct;
+									$totalCostnoprod+= $objItemsproductregiontmp->amount_noprod;
+								}
+							}
+						}
+						//se actualiza en llx_items_region la hour_production
+						$resir = $objItemsregion->fetch(0,$fk_item,$fk_region,$fk_sector);
+						$lAdd=true;
+						if ($resir==1) $lAdd=false;
+						$objItemsregion->hour_production = $nTimeproductionoftheactivity;
+						$objItemsregion->amount = $totalCost+0;
+						$objItemsregion->amount_noprod = $totalCostnoprod+0;
+						if (empty($objItemsregion->hour_production)) $objItemsregion->hour_production = 0;
+						if (empty($objItemsregion->amount_noprod)) $objItemsregion->amount_noprod = 0;
+						if (empty($objItemsregion->amount)) $objItemsregion->amount = 0;
+						if ($lAdd)
+						{
+							$objItemsregion->fk_item = $fk_item;
+							$objItemsregion->fk_region = $fk_region;
+							$objItemsregion->fk_sector = $fk_sector;
+							$objItemsregion->fk_user_create = $user->id;
+							$objItemsregion->datec = $now;
+							$objItemsregion->status = 1;
+						}
+						$objItemsregion->fk_user_mod = $user->id;
+						$objItemsregion->datem = $now;
+						$objItemsregion->tms = $now;
+
+						if (!$lAdd) $res = $objItemsregion->update($user);
+						else $res = $objItemsregion->create($user);
+						if ($res <=0)
+						{
+							$error++;
+							$err=608;
+							setEventMessages($objItemsregion->error,$objItemsregion->errors,'errors');
+						}
+						if (!$error && $abc)
+						{
+								//se actualiza los valores en la tabla
+							foreach ($aTitle AS $k => $row)
+							{
+								//actualizamos resultados en items product region
+								$res = $objItemsproductregion->fetch(0,$k,$fk_region,$fk_sector);
+								if ($res==1)
+								{
+									$units = 0;
+									if (isset($aUnits[$k]) && $aUnits[$k]>0) $units = $aUnits[$k]+0;
+									$objItemsproductregion->units = $units;
+									$objItemsproductregion->price_improductive = price2num($aPriceunproductive[$k],$nDecimal)+0;
+									$objItemsproductregion->price_productive = price2num($aPriceproductive[$k],$nDecimal)+0;
+									$objItemsproductregion->performance = price2num($aApplicable[$k],$nDecimal)+0;
+									$objItemsproductregion->fk_user_mod = $user->id;
+									$objItemsproductregion->datem = $now;
+									$objItemsproductregion->tms = $now;
+									$res = $objItemsproductregion->update($user);
+									if ($res <=0)
+									{
+										$error++;
+										setEventMessages($objItemsproductregion->error,$objItemsproductregion->errors,'errors');
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if (!$error)
+		{
+			$db->commit();
+			setEventMessages($langs->trans('Successfulrecalculate'),null,'mesgs');
+			header('Location: '.DOL_URL_ROOT.'/budget/items/list.php');
+			exit;
+		}
+		else
+			$db->rollback();
+	}
+}
+
+//armamos las regiones en un array
+$filter='';
+$res = $objCregiongeographic->fetchAll('ASC','t.label',0,0,array('status'=>1),'AND,$filter');
+if ($res>0)
+{
+	$lines = $objCregiongeographic->lines;
+	foreach ($lines AS $j => $line)
+		$aRegiongeographic[$line->id] = $line->label.' ('.$line->ref.')';
+}
+//armamos las instituiones en un array
+$res = $objCclasfin->fetchAll('ASC','t.label',0,0,array('active'=>1),'AND,$filter');
+if ($res>0)
+{
+	$lines = $objCclasfin->lines;
+	foreach ($lines AS $j => $line)
+		$aInstitutional[$line->id] = $line->label.' ('.$line->ref.')';
+}
+
+/***************************************************
+* VIEW
+*
+* Put here all code to build page
+****************************************************/
+
+llxHeader('','Cloneitems','');
+
+$form=new Formv($db);
+
+
+
+// Part to create
+if ($action == 'create')
+{
+	print load_fiche_titre($langs->trans("Cloneitems"));
+
+	print '<form name="formitem" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+	print '<input type="hidden" name="action" value="add">';
+	print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
+
+	dol_fiche_head();
+
+	print '<table class="border centpercent">'."\n";
+	print '<tr><td>'.$langs->trans('Fromregion').'</td><td>';
+	print $form->selectarray('fk_region_ini',$aRegiongeographic,GETPOST('fk_region_ini'),1);
+	print '</td></tr>';
+
+	print '<tr><td>'.$langs->trans('Frominstitutional').'</td><td>';
+	print $form->selectarray('fk_sector_ini',$aInstitutional,GETPOST('fk_sector_ini'),1);
+	print '</td></tr>';
+
+	print '<tr><td>'.$langs->trans('Itemnumber').'</td><td>';
+	print '<input type="text" name="search_ref" value="">';
+	print '</td></tr>';
+
+	print '</table>'."\n";
+
+	dol_fiche_end();
+
+	print '<div class="center"><input type="submit" class="button" name="add" value="'.$langs->trans("Recalculate").'"> &nbsp; <input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'"></div>';
+
+	print '</form>';
+}
+
+// End of page
+llxFooter();
+$db->close();

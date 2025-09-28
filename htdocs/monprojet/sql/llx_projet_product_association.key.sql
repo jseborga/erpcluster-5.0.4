@@ -1,0 +1,2 @@
+ALTER TABLE llx_projet_product_association ADD UNIQUE KEY uk_product_association  (fk_projet,fk_product_pere,fk_product_fils);
+ALTER TABLE llx_projet_product_association ADD KEY idx_product_association_fils (fk_product_fils);

@@ -1,0 +1,18 @@
+ALTER TABLE llx_subsidiary ADD UNIQUE INDEX uk_subsidiary_entity_ref(entity,ref);
+ALTER TABLE llx_subsidiary ADD city VARCHAR(50) NULL AFTER address;
+ALTER TABLE llx_subsidiary ADD activity text NULL AFTER message;
+ALTER TABLE llx_subsidiary ADD nit varchar(30) NOT NULL AFTER activity;
+ALTER TABLE llx_subsidiary ADD matriz_name VARCHAR(200) NULL AFTER message;
+ALTER TABLE llx_subsidiary ADD matriz_address VARCHAR(255) NULL AFTER matriz_name;
+ALTER TABLE llx_subsidiary ADD matriz_phone INTEGER NULL AFTER matriz_address;
+ALTER TABLE llx_subsidiary ADD matriz_city VARCHAR(50) NULL AFTER matriz_phone;
+ALTER TABLE llx_subsidiary ADD subsidiary_number VARCHAR(30) NOT NULL AFTER label;
+ALTER TABLE llx_subsidiary ADD subsidiary_matriz TINYINT NOT NULL AFTER subsidiary_number;
+ALTER TABLE llx_subsidiary ADD fk_user_create INTEGER NOT NULL AFTER matriz_city;
+ALTER TABLE llx_subsidiary ADD fk_user_mod INTEGER NOT NULL AFTER fk_user_create;
+ALTER TABLE llx_subsidiary ADD date_create DATE NULL AFTER fk_user_mod;
+ALTER TABLE llx_subsidiary ADD date_mod DATE NULL AFTER date_create;
+ALTER TABLE llx_subsidiary ADD tms TIMESTAMP NOT NULL AFTER date_mod;
+ALTER TABLE llx_subsidiary ADD matriz_def TINYINT NOT NULL DEFAULT '0' AFTER message;
+ALTER TABLE llx_subsidiary ADD matriz_address_two VARCHAR(120) NULL AFTER matriz_address;
+ALTER TABLE llx_subsidiary ADD matriz_zone VARCHAR(120) NULL AFTER matriz_address_two;

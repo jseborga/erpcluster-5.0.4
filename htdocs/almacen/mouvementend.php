@@ -1,0 +1,966 @@
+<?php
+/* Copyright (C) 2001-2006 Rodolphe Quiedeville <rodolphe@quiedeville.org>
+ * Copyright (C) 2004-2013 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis.houssin@capnetworks.com>
+ * Copyright (C) 2015	   Juanjo Menent        <jmenent@2byte.es>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *	\file       htdocs/product/stock/mouvement.php
+ *	\ingroup    stock
+ *	\brief      Page to list stock movements
+ */
+
+require '../main.inc.php';
+require_once DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
+require_once DOL_DOCUMENT_ROOT.'/product/stock/class/mouvementstock.class.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/stock.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/almacen/class/entrepotuserext.class.php';
+require_once DOL_DOCUMENT_ROOT.'/almacen/class/stockmouvementdoc.class.php';
+require_once DOL_DOCUMENT_ROOT.'/almacen/lib/almacen.lib.php';
+//excel para una versión anterior
+$file = DOL_DOCUMENT_ROOT.'/includes/phpexcel/PHPExcel.php';
+$ver = 0;
+if (file_exists($file))
+{
+	$ver = 1;
+	require_once DOL_DOCUMENT_ROOT.'/includes/phpexcel/PHPExcel.php';
+}
+$file = DOL_DOCUMENT_ROOT.'/includes/phpexcel/PHPExcel/IOFactory.php';
+if (file_exists($file))
+	include_once DOL_DOCUMENT_ROOT.'/includes/phpexcel/PHPExcel/IOFactory.php';
+
+//excel para version 4 o sup
+$file = DOL_DOCUMENT_ROOT.'/includes/phpoffice/phpexcel/Classes/PHPExcel.php';
+if (file_exists($file))
+{
+	$ver = 2;
+	require_once DOL_DOCUMENT_ROOT.'/includes/phpoffice/phpexcel/Classes/PHPExcel.php';
+}
+$file = DOL_DOCUMENT_ROOT.'/includes/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php';
+if (file_exists($file))
+	include_once DOL_DOCUMENT_ROOT.'/includes/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php';
+
+
+
+
+$langs->load("products");
+$langs->load("stocks");
+$langs->load("almacen");
+
+// Security check
+$result=restrictedArea($user,'almacen');
+
+if (!$user->rights->almacen->inv->viewmov) accessforbidden();
+
+if ($conf->global->ALMACEN_FILTER_YEAR && !isset($_SESSION['period_year']))
+{
+	header('Location: '.DOL_URL_ROOT.'/almacen/index.php');
+	exit;
+}
+
+
+$id=GETPOST('id','int');
+$product_id=GETPOST("product_id");
+$action=GETPOST('action');
+$cancel=GETPOST('cancel');
+$idproduct = GETPOST('idproduct','int');
+$day= GETPOST('day');
+$year = GETPOST("year");
+$month = GETPOST("month");
+
+
+
+$search_refdoc = GETPOST("search_refdoc");
+$search_movement = GETPOST("search_movement");
+$search_product_ref = trim(GETPOST("search_product_ref"));
+$search_product = trim(GETPOST("search_product"));
+$search_warehouse = trim(GETPOST("search_warehouse"));
+$search_user = trim(GETPOST("search_user"));
+$page = GETPOST("page",'int');
+$sortfield = GETPOST("sortfield",'alpha');
+$sortorder = GETPOST("sortorder",'alpha');
+
+$search_dateini =GETPOST("search_dateini");
+$search_datefin =GETPOST("search_datefin");
+
+if ($day > 0 && $month > 0 && $year > 0)
+{
+	$datestr = (strlen($day)==1?'0'.$day:$day).'/'.(strlen($month)==1?'0'.$month:$month).'/'.$year.' 01:01:01';
+	$datestr = $year.(strlen($month)==1?'0'.$month:$month).(strlen($day)==1?'0'.$day:$day).'T000001Z';
+	$aDate = dol_get_prev_day($day, $month, $year);
+	$datestr = (strlen($aDate['day'])==1?'0'.$aDate['day']:$aDate['day']).'/'.(strlen($aDate['month'])==1?'0'.$aDate['month']:$aDate['month']).'/'.$year.' 23:59:59';
+	$search_dateini = dol_stringtotime($datestr);
+
+	$datestr = (strlen($day)==1?'0'.$day:$day).'/'.(strlen($month)==1?'0'.$month:$month).'/'.$year.' 23:59:59';
+	$search_datefin = dol_stringtotime($datestr);
+}
+if ($page < 0) $page = 0;
+$offset = $conf->liste_limit * $page;
+
+if (! $sortfield) $sortfield="m.datem";
+if (! $sortorder) $sortorder="DESC";
+
+$now = dol_getdate(dol_now());
+$dateinimin = dol_get_first_day($now['year'],1);
+
+
+if (GETPOST("button_removefilter_x"))
+{
+	$day='';
+	$year='';
+	$month='';
+	$search_movement="";
+
+	$search_refdoc_="";
+
+	$search_product_ref="";
+	$search_product="";
+	$search_warehouse="";
+	$search_user="";
+	$sall="";
+}
+$objentrepotuser = new Entrepotuserext($db);
+$objectdoc = new Stockmouvementdoc($db);
+$objProduct = new Product($db);
+//verificamos el periodo
+verif_year();
+$period_year = $_SESSION['period_year'];
+
+$aFilterent = array();
+$filteruser = '';
+
+if (!$user->admin)
+{
+	$filterfkuser = $user->id;
+	$filter = array(1=>1);
+	$filterstatic = " AND t.fk_user = ".$user->id;
+	$filterstatic.= " AND t.active = 1";
+	$res = $objentrepotuser->fetchAll('','',0,0,$filter,'AND',$filterstatic,false);
+	//$res = $objentrepot->getlistuser($user->id);
+	if ($res > 0)
+	{
+		$num = count($objentrepotuser->lines);
+		$i = 0;
+		$lines = $objentrepotuser->lines;
+		foreach ($lines AS $i => $line)
+		{
+			if ($line->type == 1)
+			{
+				if (!empty($filteruser))$filteruser.= ',';
+				$filteruser.= $line->fk_entrepot;
+				$aFilterent[$line->fk_entrepot] = $line->fk_entrepot;
+			}
+			if ($line->type == 2)
+			{
+				if (!empty($filterusersol))$filterusersol.= ',';
+				$filterusersol.= $line->fk_entrepot;
+				$aFilterentsol[$line->fk_entrepot] = $line->fk_entrepot;
+			}
+
+		}
+	}
+}
+
+
+/*
+ * Actions
+ */
+
+if ($cancel) $action='';
+
+// Correct stock
+if ($action == "correct_stock" && ! $_POST["cancel"])
+{
+	if (is_numeric($_POST["nbpiece"]) && $product_id)
+	{
+		$product = new Product($db);
+		$result=$product->fetch($product_id);
+
+		$result=$product->correct_stock(
+			$user,
+			$id,
+			$_POST["nbpiece"],
+			$_POST["mouvement"],
+			$_POST["label"],
+			0
+		);		// We do not change value of stock for a correction
+
+		if ($result > 0)
+		{
+			header("Location: ".$_SERVER["PHP_SELF"]."?id=".$id);
+			exit;
+		}
+	}
+	else $action='';
+}
+if ($action == 'excel')
+{
+
+	$objPHPExcel = new PHPExcel();
+	$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+	$objPHPExcel = $objReader->load("./excel/mouvement.xlsx");
+
+	/*
+	$objPHPExcel->getProperties()->setCreator("yemer colque")
+	->setLastModifiedBy("yemer colque")
+	->setTitle("Office 2007 XLSX Test Document")
+	->setSubject("Office 2007 XLSX Test Document")
+	->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+	->setKeywords("office 2007 openxml php")
+	->setCategory("Test result file");
+	*/
+
+	$objPHPExcel->setActiveSheetIndex(0);
+
+	$productstatic=new Product($db);
+	$warehousestatic=new Entrepot($db);
+	$movement=new MouvementStock($db);
+	$userstatic=new User($db);
+	$form=new Form($db);
+	$formother=new FormOther($db);
+	$formproduct=new FormProduct($db);
+
+	$sql = "SELECT p.rowid, p.ref as product_ref, p.label as produit, p.fk_product_type as type,";
+	$sql.= " e.label as stock, e.rowid as entrepot_id,";
+	$sql.= " m.rowid as mid, m.value, m.datem, m.fk_user_author, m.label, m.fk_origin, m.origintype,";
+	$sql.= " sd.ref AS refdoc, sd.rowid AS rowiddoc, ";
+	$sql.= " u.login";
+	$sql.= " FROM (".MAIN_DB_PREFIX."entrepot as e,";
+	$sql.= " ".MAIN_DB_PREFIX."product as p,";
+	$sql.= " ".MAIN_DB_PREFIX."stock_mouvement as m)";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON m.fk_user_author = u.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."stock_mouvement_add as sm ON sm.fk_stock_mouvement = m.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."stock_mouvement_doc as sd ON sm.fk_stock_mouvement_doc = sd.rowid";
+
+	$sql.= " WHERE m.fk_product = p.rowid";
+	$sql.= " AND m.fk_entrepot = e.rowid";
+	$sql.= " AND e.entity IN (".getEntity('stock',1).")";
+
+	if ($conf->global->ALMACEN_FILTER_YEAR)
+		$sql.= " AND sm.period_year = ".$period_year;
+	if (empty($conf->global->STOCK_SUPPORTS_SERVICES)) $sql.= " AND p.fk_product_type = 0";
+	if ($id)
+	{
+		$sql.= " AND e.rowid ='".$id."'";
+	}
+
+	if($day>0 && $month>0 && $year>0)
+	{
+		$sql.= " AND m.datem BETWEEN '".$db->idate($search_dateini)."' AND '".$db->idate($search_datefin)."'";
+	}
+	else
+	{
+		if ($month > 0)
+		{
+
+			if ($year > 0)
+				$sql.= " AND m.datem BETWEEN '".$db->idate(dol_get_first_day($year,$month,false))."' AND '".$db->idate(dol_get_last_day($year,$month,false))."'";
+			else
+				$sql.= " AND date_format(m.datem, '%m') = '$month'";
+		}
+		else if ($year > 0)
+		{
+			$sql.= " AND m.datem BETWEEN '".$db->idate(dol_get_first_day($year,1,false))."' AND '".$db->idate(dol_get_last_day($year,12,false))."'";
+		}
+	}
+	if (! empty($search_movement))
+	{
+		$sql.= " AND m.label LIKE '%".$db->escape($search_movement)."%'";
+	}
+	if (! empty($search_refdoc))
+	{
+		$sql.= " AND sd.ref LIKE '%".$db->escape($search_refdoc)."%'";
+	}
+	if (! empty($search_product_ref))
+	{
+		$sql.= " AND p.ref LIKE '%".$db->escape($search_product_ref)."%'";
+	}
+	if (! empty($search_product))
+	{
+		$sql.= " AND p.label LIKE '%".$db->escape($search_product)."%'";
+	}
+	if (! empty($search_warehouse))
+	{
+		$sql.= " AND e.label LIKE '%".$db->escape($search_warehouse)."%'";
+	}
+	if (! empty($search_user))
+	{
+		$sql.= " AND u.login LIKE '%".$db->escape($search_user)."%'";
+	}
+	if ($idproduct > 0)
+	{
+		$sql.= " AND p.rowid = '".$idproduct."'";
+	}
+
+	if ($filteruser)
+		$sql .= " AND m.fk_entrepot IN (".$filteruser.")";
+
+	$sql.= $db->order($sortfield,$sortorder);
+		//$sql.= $db->plimit($conf->liste_limit+1, $offset);
+		//echo $sql;exit;
+	$resql = $db->query($sql);
+	if ($resql)
+	{
+
+		$num = $db->num_rows($resql);
+
+		if ($idproduct)
+		{
+			$product = new Product($db);
+			$product->fetch($idproduct);
+		}
+
+		if ($id > 0)
+		{
+			$entrepot = new Entrepot($db);
+			$result = $entrepot->fetch($id);
+			if ($result < 0)
+			{
+				dol_print_error($db);
+			}
+		}
+
+		$i = 0;
+		$help_url='EN:Module_Stocks_En|FR:Module_Stock|ES:M&oacute;dulo_Stocks';
+		$texte = $langs->trans("ListOfStockMovements").': '.$period_year;
+		if ($id) $texte.=' ('.$langs->trans("ForThisWarehouse").')';
+
+
+		$arrayofuniqueproduct=array();
+
+		$var=True;
+
+		//$objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setName('Arial');
+		//$objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setSize(12);
+		//$objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setBold(true);
+		$sheet = $objPHPExcel->getActiveSheet();
+		//$sheet->setCellValueByColumnAndRow(0,2, "Listado de movimientos de stock :");
+		//$sheet->getStyle('A2')->getFont()->setSize(15);
+		//$sheet->mergeCells('A2:I2');
+		//$sheet->getStyle('A2')->getAlignment()->applyFromArray(array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+
+		/*
+		$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
+		$objPHPExcel->getActiveSheet()->getStyle('A4')->getFont()->setBold(true);
+		$objPHPExcel->getActiveSheet()->getStyle('A5')->getFont()->setBold(true);
+		$objPHPExcel->getActiveSheet()->getStyle('A6')->getFont()->setBold(true);
+		$objPHPExcel->getActiveSheet()->getStyle('A6')->getFont()->setBold(true);
+
+		$objPHPExcel->getActiveSheet()->setCellValue('A6',$langs->trans('Date Report'));
+		*/
+		$objPHPExcel->getActiveSheet()->setCellValue('C4',dol_print_date(dol_now(),"dayhour",false,$outputlangs));
+
+		/*
+		$objPHPExcel->getActiveSheet()->setCellValue('A10',$langs->trans("Date"));
+		$objPHPExcel->getActiveSheet()->setCellValue('B10',$langs->trans("Ref"));
+		$objPHPExcel->getActiveSheet()->setCellValue('C10',$langs->trans("LabelMovement"));
+		$objPHPExcel->getActiveSheet()->setCellValue('D10',$langs->trans("Source time"));
+		$objPHPExcel->getActiveSheet()->setCellValue('E10',$langs->trans("ProductRef"));
+		$objPHPExcel->getActiveSheet()->setCellValue('F10',$langs->trans("ProductLabel"));
+		$objPHPExcel->getActiveSheet()->setCellValue('G10',$langs->trans("Warehouse"));
+		$objPHPExcel->getActiveSheet()->setCellValue('H10',$langs->trans("Author"));
+		$objPHPExcel->getActiveSheet()->setCellValue('I10',$langs->trans("Units"));
+
+		$objPHPExcel->getActiveSheet()->getStyle('A10:I10')->applyFromArray(
+			array('font'    => array('bold'      => true),'alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,),'borders' => array('allborders'     => array('style' => PHPExcel_Style_Border::BORDER_THIN)),'fill' => array(
+				'type'       => PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
+				'rotation'   => 90,
+				'startcolor' => array(
+					'argb' => 'FFA0A0A0'
+					),
+				'endcolor'   => array(
+					'argb' => 'FFFFFFFF'
+					)
+				)
+			)
+			);
+			*/
+		$j=7;
+		$i=0;
+		while ($i < $num)
+		{
+			$objp = $db->fetch_object($resql);
+			$objProduct->fetch($objp->rowid);
+			$unit = $langs->trans($objProduct->getLabelOfUnit());
+			$arrayofuniqueproduct[$objp->rowid]=$objp->produit;
+			//$code=$lines['code'];
+			$objPHPExcel->getActiveSheet()->setCellValue('A' .$j,dol_print_date($db->jdate($objp->datem),'dayhour'))
+
+			->setCellValue('B' .$j,$objp->refdoc)
+			->setCellValue('C' .$j,$objp->label)
+			->setCellValue('D' .$j,$origin)
+			->setCellValue('E' .$j,$objp->product_ref)
+			->setCellValue('F' .$j,$objp->produit)
+			->setCellValue('G' .$j,$unit)
+			->setCellValue('H' .$j,$objp->stock)
+			->setCellValue('I' .$j,$objp->login)
+			->setCellValue('J' .$j,$objp->value);
+
+			$j++;
+			$var=!$var;
+
+			$i++;
+		}
+		$db->free($resql);
+
+
+		$objPHPExcel->setActiveSheetIndex(0);
+		$objPHPExcel->getActiveSheet()->getStyle('A7:J'.$j)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+					// Save Excel 2007 file
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+		$objWriter->save("excel/mouv.xlsx");
+					//$objWriter->save("excel/export.xlsx");
+		header("Location: ".DOL_URL_ROOT.'/almacen/fiche_export.php?archive=mouv.xlsx');
+
+
+	}
+}
+
+/*
+ * View
+ */
+$productstatic=new Product($db);
+$warehousestatic=new Entrepot($db);
+$movement=new MouvementStock($db);
+$userstatic=new User($db);
+$form=new Form($db);
+$formother=new FormOther($db);
+$formproduct=new FormProduct($db);
+
+$sql = "SELECT p.rowid, p.ref as product_ref, p.label as produit, p.fk_product_type as type,";
+$sql.= " e.label as stock, e.rowid as entrepot_id,";
+$sql.= " m.rowid as mid, m.value, m.datem, m.fk_user_author, m.label, m.fk_origin, m.origintype,";
+$sql.= " sd.ref AS refdoc, sd.rowid AS rowiddoc, ";
+$sql.= " u.login";
+$sql.= " FROM (".MAIN_DB_PREFIX."entrepot as e,";
+$sql.= " ".MAIN_DB_PREFIX."product as p,";
+$sql.= " ".MAIN_DB_PREFIX."stock_mouvement as m)";
+$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON m.fk_user_author = u.rowid";
+$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."stock_mouvement_add as sm ON sm.fk_stock_mouvement = m.rowid";
+$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."stock_mouvement_doc as sd ON sm.fk_stock_mouvement_doc = sd.rowid";
+
+$sql.= " WHERE m.fk_product = p.rowid";
+$sql.= " AND m.fk_entrepot = e.rowid";
+$sql.= " AND e.entity IN (".getEntity('stock',1).")";
+if ($conf->global->ALMACEN_FILTER_YEAR)
+	$sql.= " AND sm.period_year = ".$period_year;
+if (empty($conf->global->STOCK_SUPPORTS_SERVICES)) $sql.= " AND p.fk_product_type = 0";
+if ($id)
+{
+	$sql.= " AND e.rowid ='".$id."'";
+}
+
+if($day>0 && $month>0 && $year>0)
+{
+
+
+	$sql.= " AND m.datem BETWEEN '".$db->idate($search_dateini)."' AND '".$db->idate($search_datefin)."'";
+}
+else
+{
+	if ($month > 0)
+	{
+
+		if ($year > 0)
+			$sql.= " AND m.datem BETWEEN '".$db->idate(dol_get_first_day($year,$month,false))."' AND '".$db->idate(dol_get_last_day($year,$month,false))."'";
+		else
+			$sql.= " AND date_format(m.datem, '%m') = '$month'";
+	}
+	else if ($year > 0)
+	{
+		$sql.= " AND m.datem BETWEEN '".$db->idate(dol_get_first_day($year,1,false))."' AND '".$db->idate(dol_get_last_day($year,12,false))."'";
+	}
+}
+
+if (! empty($search_movement))
+{
+	$sql.= " AND m.label LIKE '%".$db->escape($search_movement)."%'";
+}
+if (! empty($search_refdoc))
+{
+	$sql.= " AND sd.ref LIKE '%".$db->escape($search_refdoc)."%'";
+}
+if (! empty($search_product_ref))
+{
+	$sql.= " AND p.ref LIKE '%".$db->escape($search_product_ref)."%'";
+}
+if (! empty($search_product))
+{
+	$sql.= " AND p.label LIKE '%".$db->escape($search_product)."%'";
+}
+if (! empty($search_warehouse))
+{
+	$sql.= " AND e.label LIKE '%".$db->escape($search_warehouse)."%'";
+}
+if (! empty($search_user))
+{
+	$sql.= " AND u.login LIKE '%".$db->escape($search_user)."%'";
+}
+if ($idproduct > 0)
+{
+	$sql.= " AND p.rowid = '".$idproduct."'";
+}
+if ($filteruser)
+	$sql .= " AND m.fk_entrepot IN (".$filteruser.")";
+
+
+$sql.= $db->order($sortfield,$sortorder);
+$sql.= $db->plimit($conf->liste_limit+1, $offset);
+//echo $sql;
+$resql = $db->query($sql);
+if ($resql)
+{
+	$num = $db->num_rows($resql);
+
+	if ($idproduct)
+	{
+		$product = new Product($db);
+		$product->fetch($idproduct);
+	}
+
+	if ($id > 0)
+	{
+		$entrepot = new Entrepot($db);
+		$result = $entrepot->fetch($id);
+		if ($result < 0)
+		{
+			dol_print_error($db);
+		}
+	}
+
+	$i = 0;
+
+	$help_url='EN:Module_Stocks_En|FR:Module_Stock|ES:M&oacute;dulo_Stocks';
+	$texte = $langs->trans("ListOfStockMovements").': '.$period_year;
+	if ($id) $texte.=' ('.$langs->trans("ForThisWarehouse").')';
+	llxHeader("",$texte,$help_url);
+
+	/*
+	 * Show tab only if we ask a particular warehouse
+	 */
+	if ($id)
+	{
+		$head = stock_prepare_head($entrepot);
+
+		dol_fiche_head($head, 'movements', $langs->trans("Warehouse"), 0, 'stock');
+
+
+		print '<table class="border" width="100%">';
+
+		$linkback = '<a href="'.DOL_URL_ROOT.'/adherents/liste.php">'.$langs->trans("BackToList").'</a>';
+
+		// Ref
+		print '<tr><td width="25%">'.$langs->trans("Ref").'</td><td colspan="3">';
+		print $form->showrefnav($entrepot, 'id', $linkback, 1, 'rowid', 'libelle');
+		print '</td>';
+
+		print '<tr><td>'.$langs->trans("LocationSummary").'</td><td colspan="3">'.$entrepot->lieu.'</td></tr>';
+
+		// Description
+		print '<tr><td valign="top">'.$langs->trans("Description").'</td><td colspan="3">'.dol_htmlentitiesbr($entrepot->description).'</td></tr>';
+
+		// Address
+		print '<tr><td>'.$langs->trans('Address').'</td><td colspan="3">';
+		print $entrepot->address;
+		print '</td></tr>';
+
+		// Town
+		print '<tr><td width="25%">'.$langs->trans('Zip').'</td><td width="25%">'.$entrepot->zip.'</td>';
+		print '<td width="25%">'.$langs->trans('Town').'</td><td width="25%">'.$entrepot->town.'</td></tr>';
+
+		// Country
+		print '<tr><td>'.$langs->trans('Country').'</td><td colspan="3">';
+		if (! empty($entrepot->country_code))
+		{
+			$img=picto_from_langcode($entrepot->country_code);
+			print ($img?$img.' ':'');
+			print $entrepot->country;
+		}
+		print '</td></tr>';
+
+		// Status
+		print '<tr><td>'.$langs->trans("Status").'</td><td colspan="3">'.$entrepot->getLibStatut(4).'</td></tr>';
+
+		$calcproductsunique=$entrepot->nb_different_products();
+		$calcproducts=$entrepot->nb_products();
+
+		// Total nb of different products
+		print '<tr><td valign="top">'.$langs->trans("NumberOfDifferentProducts").'</td><td colspan="3">';
+		print empty($calcproductsunique['nb'])?'0':$calcproductsunique['nb'];
+		print "</td></tr>";
+
+		// Nb of products
+		print '<tr><td valign="top">'.$langs->trans("NumberOfProducts").'</td><td colspan="3">';
+		print empty($calcproducts['nb'])?'0':$calcproducts['nb'];
+		print "</td></tr>";
+
+		// Value
+		print '<tr><td valign="top">'.$langs->trans("EstimatedStockValueShort").'</td><td colspan="3">';
+		print empty($calcproducts['value'])?'0':$calcproducts['value'];
+		print "</td></tr>";
+
+		// Last movement
+		$sql = "SELECT MAX(m.datem) as datem";
+		$sql .= " FROM ".MAIN_DB_PREFIX."stock_mouvement as m";
+		$sql .= " WHERE m.fk_entrepot = '".$entrepot->id."'";
+		$resqlbis = $db->query($sql);
+		if ($resqlbis)
+		{
+			$obj = $db->fetch_object($resqlbis);
+			$lastmovementdate=$db->jdate($obj->datem);
+		}
+		else
+		{
+			dol_print_error($db);
+		}
+
+		print '<tr><td valign="top">'.$langs->trans("LastMovement").'</td><td colspan="3">';
+		if ($lastmovementdate)
+		{
+			print dol_print_date($lastmovementdate,'dayhour');
+		}
+		else
+		{
+			print $langs->trans("None");
+		}
+		print "</td></tr>";
+
+		print "</table>";
+
+		print '</div>';
+	}
+	/*
+	 * Correct stock
+	 */
+	if ($action == "correction")
+	{
+		print_titre($langs->trans("StockCorrection"));
+		print '<form action="'.$_SERVER["PHP_SELF"].'?id='.$id.'" method="post">'."\n";
+		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+		print '<input type="hidden" name="action" value="correct_stock">';
+		print '<table class="border" width="100%">';
+
+		// Warehouse
+		print '<tr>';
+		print '<td width="20%">'.$langs->trans("Product").'</td>';
+		print '<td width="20%">';
+		print $form->select_produits(GETPOST('productid'),'product_id',(empty($conf->global->STOCK_SUPPORTS_SERVICES)?'0':''));
+		print '</td>';
+		print '<td width="20%">';
+		print '<select name="mouvement" class="flat">';
+		print '<option value="0">'.$langs->trans("Add").'</option>';
+		print '<option value="1">'.$langs->trans("Delete").'</option>';
+		print '</select></td>';
+		print '<td width="20%">'.$langs->trans("NumberOfUnit").'</td><td width="20%"><input class="flat" name="nbpiece" size="10" value=""></td>';
+		print '</tr>';
+
+		// Label
+		print '<tr>';
+		print '<td width="20%">'.$langs->trans("Label").'</td>';
+		print '<td colspan="4">';
+		print '<input type="text" name="label" size="40" value="">';
+		print '</td>';
+		print '</tr>';
+
+		print '</table>';
+
+		print '<center><input type="submit" class="button" value="'.$langs->trans('Save').'">&nbsp;';
+		print '<input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'"></center>';
+		print '</form>';
+	}
+
+	/*
+	 * Transfer of units
+	 */
+	/*
+	if ($action == "transfert")
+	{
+		print_titre($langs->trans("Transfer"));
+		print '<form action="'.$_SERVER["PHP_SELF"].'?id='.$id.'" method="post">'."\n";
+		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+		print '<input type="hidden" name="action" value="transfert_stock">';
+		print '<table class="border" width="100%">';
+
+		print '<tr>';
+		print '<td width="20%">'.$langs->trans("Product").'</td>';
+		print '<td width="20%">';
+		print $form->select_produits(GETPOST('productid'),'product_id');
+		print '</td>';
+		print '<td width="20%">'.$langs->trans("WarehouseTarget").'</td><td width="20%">';
+		print $formproduct->selectWarehouses('','id_entrepot_destination','',1);
+		print '</td>';
+		print '<td width="20%">'.$langs->trans("NumberOfUnit").'</td><td width="20%"><input name="nbpiece" size="10" value=""></td>';
+		print '</tr>';
+
+		// Label
+		print '<tr>';
+		print '<td width="20%">'.$langs->trans("Label").'</td>';
+		print '<td colspan="5">';
+		print '<input type="text" name="label" size="40" value="">';
+		print '</td>';
+		print '</tr>';
+
+		print '</table>';
+
+		print '<center><input type="submit" class="button" value="'.$langs->trans('Save').'">&nbsp;';
+		print '<input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'"></center>';
+
+		print '</form>';
+	}
+	*/
+
+	/* ************************************************************************** */
+	/*                                                                            */
+	/* Barre d'action                                                             */
+	/*                                                                            */
+	/* ************************************************************************** */
+
+	if (empty($action) && $id)
+	{
+		print "<div class=\"tabsAction\">\n";
+
+		if ($user->rights->stock->mouvement->creer)
+		{
+			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$id.'&action=correction">'.$langs->trans("StockCorrection").'</a>';
+		}
+
+		/*if ($user->rights->stock->mouvement->creer)
+		{
+			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$id.'&action=transfert">'.$langs->trans("StockMovement").'</a>';
+		}*/
+		print '</div><br>';
+	}
+
+	$param='';
+	if ($id) $param.='&id='.$id;
+	//if ($search_dateini)   $param.='&search_dateini='.urlencode($search_dateini);
+	//if ($search_datefin)   $param.='&search_datefin='.urlencode($search_datefin);
+	if ($day)   $param.='&day='.urlencode($day);
+	if ($month)   $param.='&month='.urlencode($month);
+	if ($year)   $param.='&year='.urlencode($year);
+
+	if ($search_movement)   $param.='&search_movement='.urlencode($search_movement);
+	if ($search_refdoc) $param.='&search_refdoc='.urlencode($search_refdoc);
+	if ($search_product_ref) $param.='&search_product_ref='.urlencode($search_product_ref);
+	if ($search_product)   $param.='&search_product='.urlencode($search_product);
+	if ($search_warehouse) $param.='&search_warehouse='.urlencode($search_warehouse);
+	if ($sref) $param.='&sref='.urlencode($sref);
+	if ($snom) $param.='&snom='.urlencode($snom);
+	if ($search_user)    $param.='&search_user='.urlencode($search_user);
+	if ($idproduct > 0)  $param.='&idproduct='.$idproduct;
+
+
+	if ($id) print_barre_liste($texte, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder,'',$num,0,'');
+	else print_barre_liste($texte, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder,'',$num);
+
+	print '<table class="noborder" width="100%">';
+	print "<tr class=\"liste_titre\">";
+	//print_liste_field_titre($langs->trans("Id"),$_SERVER["PHP_SELF"], "m.rowid","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Date"),$_SERVER["PHP_SELF"], "m.datem","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Ref"),$_SERVER["PHP_SELF"], "sd.ref","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("LabelMovement"),$_SERVER["PHP_SELF"], "m.label","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Source"),$_SERVER["PHP_SELF"], "m.label","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("ProductRef"),$_SERVER["PHP_SELF"], "p.ref","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("ProductLabel"),$_SERVER["PHP_SELF"], "p.ref","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Warehouse"),$_SERVER["PHP_SELF"], "","",$param,"",$sortfield,$sortorder);	// We are on a specific warehouse card, no filter on other should be possible
+	print_liste_field_titre($langs->trans("Author"),$_SERVER["PHP_SELF"], "m.fk_user_author","",$param,"",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Units"),$_SERVER["PHP_SELF"], "m.value","",$param,'align="right"',$sortfield,$sortorder);
+	print "</tr>\n";
+
+	// Lignes des champs de filtre
+	print '<form method="get" action="'.$_SERVER["PHP_SELF"].'">';
+	if ($id) print '<input type="hidden" name="id" value="'.$id.'">';
+	print '<tr class="liste_titre">';
+	print '<td class="liste_titre" valign="right">';
+	print $langs->trans('Day').': <input class="flat" type="text" size="2" maxlength="2" name="day" value="'.$day.'">';
+
+	print $langs->trans('Month').': <input class="flat" type="text" size="2" maxlength="2" name="month" value="'.$month.'">';
+
+	print '&nbsp;'.$langs->trans('Year').': ';
+	$syear = GETPOST('year')?GETPOST('year'):-1;
+	$formother->select_year($syear,'year',0, 20, 0);
+
+	print '</td>';
+	//refdoc
+	print '<td class="liste_titre" align="left">';
+	print '<input class="flat" type="text" size="10" name="search_refdoc" value="'.$search_refdoc.'">';
+	print '</td>';
+
+	// Label of movement
+	print '<td class="liste_titre" align="left">';
+	print '<input class="flat" type="text" size="10" name="search_movement" value="'.$search_movement.'">';
+	print '</td>';
+	// Origin of movement
+	print '<td class="liste_titre" align="left">';
+	print '&nbsp; ';
+	print '</td>';
+	// Product Ref
+	print '<td class="liste_titre" align="left">';
+	print '<input class="flat" type="text" size="6" name="search_product_ref" value="'.($idproduct?$product->ref:$search_product_ref).'">';
+	print '</td>';
+	// Product label
+	print '<td class="liste_titre" align="left">';
+	print '<input class="flat" type="text" size="10" name="search_product" value="'.($idproduct?$product->libelle:$search_product).'">';
+	print '</td>';
+	print '<td class="liste_titre" align="left">';
+	if (empty($idproduct) || $idproduct < 0) print '<input class="flat" type="text" size="10" name="search_warehouse" value="'.($search_warehouse).'">';	// We are on a specific warehouse card, no filter on other should be possible
+	print '</td>';
+	print '<td class="liste_titre" align="left">';
+	print '<input class="flat" type="text" size="7" name="search_user" value="'.($search_user).'">';
+	print '</td>';
+	print '<td class="liste_titre" align="right">';
+	print '<input type="image" class="liste_titre" src="'.img_picto($langs->trans("Search"),'search.png','','',1).'" name="button_search" value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
+	print '&nbsp; ';
+	print '<input type="image" class="liste_titre" src="'.img_picto($langs->trans("Search"),'searchclear.png','','',1).'" name="button_removefilter" value="'.dol_escape_htmltag($langs->trans("RemoveFilter")).'" title="'.dol_escape_htmltag($langs->trans("RemoveFilter")).'">';
+
+
+	print '</td>';
+	print "</tr>\n";
+	print '</form>';
+
+
+	$arrayofuniqueproduct=array();
+	$var=True;
+	while ($i < min($num,$conf->liste_limit))
+	{
+		$objp = $db->fetch_object($resql);
+
+		$arrayofuniqueproduct[$objp->rowid]=$objp->produit;
+		if(!empty($objp->fk_origin)) {
+			$origin = $movement->get_origin($objp->fk_origin, $objp->origintype);
+		} else {
+			$origin = '';
+		}
+
+		$var=!$var;
+		print "<tr ".$bc[$var].">";
+		// Id movement
+		//print '<td>'.$objp->mid.'</td>';	// This is primary not movement id
+		// Date
+		print '<td>'.dol_print_date($db->jdate($objp->datem),'dayhour').'</td>';
+		// refdoc
+		if ($objp->rowiddoc>0)
+		{
+			$objectdoc->id = $objp->rowiddoc;
+			$objectdoc->ref = $objp->refdoc;
+			print '<td>'.$objectdoc->getNomUrl(0,'',0,24,'',1).'</td>';
+			//$withpicto=0, $option='', $notooltip=0, $maxlen=24, $morecss='',$type=0
+		}
+		else
+			print '<td>'.$objp->refdoc.'</td>';
+		// Label of movement
+		print '<td>'.$objp->label.'</td>';
+		// Origin of movement
+		print '<td>'.$origin.'</td>';
+		// Product ref
+		print '<td>';
+		$productstatic->id=$objp->rowid;
+		$productstatic->ref=$objp->product_ref;
+		$productstatic->type=$objp->type;
+		print $productstatic->getNomUrl(1,'',16);
+		print "</td>\n";
+		// Product label
+		print '<td>';
+		$productstatic->id=$objp->rowid;
+		$productstatic->ref=$objp->produit;
+		$productstatic->type=$objp->type;
+		print $productstatic->getNomUrl(1,'',16);
+		print "</td>\n";
+		// Warehouse
+		print '<td>';
+		$warehousestatic->id=$objp->entrepot_id;
+		$warehousestatic->libelle=$objp->stock;
+		print $warehousestatic->getNomUrl(1);
+		print "</td>\n";
+		// Author
+		print '<td>';
+		$userstatic->id=$objp->fk_user_author;
+		$userstatic->lastname=$objp->login;
+		print $userstatic->getNomUrl(1);
+		print "</td>\n";
+		// Value
+		print '<td align="right">';
+		if ($objp->value > 0) print '+';
+		print $objp->value.'</td>';
+		print "</tr>\n";
+		$i++;
+	}
+	$db->free($resql);
+
+	print "</table><br>";
+
+	print "<div class=\"tabsAction\">\n";
+	print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?id='.$id.$param.'&action=excel">'.$langs->trans("Spreadsheet").'</a>';
+	print '</div>';
+
+
+	// Add number of product when there is a filter on period
+	if (count($arrayofuniqueproduct) == 1 && is_numeric($year))
+	{
+		$productidselected=0;
+		foreach ($arrayofuniqueproduct as $key => $val)
+		{
+			$productidselected=$key;
+			$productlabelselected=$val;
+		}
+		$datebefore=dol_get_first_day($year?$year:strftime("%Y",time()), $month?$month:1, true);
+		$dateafter=dol_get_last_day($year?$year:strftime("%Y",time()), $month?$month:12, true);
+		$balancebefore=$movement->calculateBalanceForProductBefore($productidselected, $datebefore);
+		$balanceafter=$movement->calculateBalanceForProductBefore($productidselected, $dateafter);
+
+		//print '<tr class="total"><td class="liste_total">';
+		print $langs->trans("NbOfProductBeforePeriod", $productlabelselected, dol_print_date($datebefore,'day','gmt'));
+		//print '</td>';
+		//print '<td class="liste_total" colspan="6" align="right">';
+		print ': '.$balancebefore;
+		print "<br>\n";
+		//print '</td></tr>';
+		//print '<tr class="total"><td class="liste_total">';
+		print $langs->trans("NbOfProductAfterPeriod", $productlabelselected, dol_print_date($dateafter,'day','gmt'));
+		//print '</td>';
+		//print '<td class="liste_total" colspan="6" align="right">';
+		print ': '.$balanceafter;
+		print "<br>\n";
+		//print '</td></tr>';
+	}
+
+
+}
+else
+{
+	dol_print_error($db);
+}
+
+llxFooter();
+
+$db->close();
+

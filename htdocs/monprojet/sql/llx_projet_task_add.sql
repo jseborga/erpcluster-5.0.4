@@ -1,0 +1,23 @@
+CREATE TABLE llx_projet_task_add (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  fk_task integer NOT NULL,
+  fk_contrat integer DEFAULT '0' NULL,
+  c_grupo tinyint DEFAULT '0' NULL,
+  level tinyint DEFAULT '0' NULL,
+  c_view tinyint DEFAULT '0' Null,
+  fk_unit integer DEFAULT '0' NULL,
+  fk_type integer DEFAULT '0' NULL,
+  fk_item integer DEFAULT '0' NULL,
+  unit_budget double DEFAULT '0' NULL,
+  unit_program double(24,5) DEFAULT NULL,
+  unit_declared double(24,5) DEFAULT NULL,
+  unit_ejecuted double(24,5) DEFAULT NULL,
+  unit_amount double(24,5) DEFAULT NULL,
+  detail_close text,
+  order_ref integer DEFAULT '0' NULL,
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  date_create date NOT NULL,
+  tms timestamp,
+  statut tinyint NOT NULL DEFAULT '0'
+) ENGINE=InnoDB;

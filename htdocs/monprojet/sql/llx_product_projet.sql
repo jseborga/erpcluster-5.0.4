@@ -1,0 +1,20 @@
+CREATE TABLE llx_product_projet (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  fk_product integer NOT NULL,
+  fk_projet integer NOT NULL,
+  type_resource varchar(6) NOT NULL,
+  ref varchar(128) DEFAULT NULL,
+  label varchar(255) NOT NULL,
+  fk_unit integer NOT NULL,
+  code_structure varchar(30) NOT NULL,
+  quant double NOT NULL DEFAULT '0',
+  percent_prod double NOT NULL DEFAULT '100',
+  amount_noprod double NOT NULL DEFAULT '0',
+  amount double NOT NULL DEFAULT '0',
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  date_create datetime NOT NULL,
+  date_mod datetime NOT NULL,
+  tms timestamp NOT NULL,
+  status tinyint NOT NULL
+) ENGINE=InnoDB;

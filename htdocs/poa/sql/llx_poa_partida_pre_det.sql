@@ -1,0 +1,21 @@
+CREATE TABLE llx_poa_partida_pre_det (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  fk_poa_partida_pre integer NOT NULL,
+  fk_product integer DEFAULT NULL,
+  fk_contrat integer NULL,
+  fk_contrato integer NULL DEFAULT '0',
+  fk_poa_partida_com integer NULL,
+  origin varchar(150) NULL,
+  originid integer DEFAULT '0' NULL,
+  quant double NOT NULL,
+  amount_base double NOT NULL DEFAULT '0',
+  detail varchar(255) NOT NULL,
+  quant_adj double NULL,
+  amount double NOT NULL DEFAULT '0',
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  datec date NOT NULL,
+  datem date NOT NULL,
+  tms timestamp NOT NULL,
+  statut tinyint NOT NULL DEFAULT '1'
+) ENGINE=InnoDB;

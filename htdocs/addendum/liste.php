@@ -1,0 +1,402 @@
+<?php
+/* Copyright (C) 2007-2012 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2014-2014 Ramiro Queso        <ramiroques@gmail.com>
+ *
+ */
+
+/**
+ *      \file       htdocs/contratadd/liste.php
+ *      \ingroup    
+ *      \brief      Adendas al contrato
+ */
+
+require("../main.inc.php");
+require_once(DOL_DOCUMENT_ROOT."/addendum/class/addendum.class.php");
+require_once(DOL_DOCUMENT_ROOT."/contrat/class/contrat.class.php");
+require_once DOL_DOCUMENT_ROOT.'/core/lib/contract.lib.php';
+include_once DOL_DOCUMENT_ROOT.'/addendum/lib/addendum.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
+
+$langs->load("contracts");
+$langs->load("addendum@addendum");
+
+if (!$user->rights->addendum->leer)
+	accessforbidden();
+
+$hookmanager->initHooks(array('contractcard'));
+
+$object  = new Addendum($db);
+$objcont = new Contrat($db);
+$objcon_ = new Contrat($db);
+$extrafields = new ExtraFields($db);
+
+// fetch optionals attributes and labels
+$extralabels=$extrafields->fetch_name_optionals_label($objcont->table_element);
+
+$id  = GETPOST('id');
+$idr = GETPOST('idr');
+$ref = GETPOST('ref');
+$confirm = GETPOST('confirm');
+//recuperando direccion para fiche de contrat
+//version 3.7 <
+$dir = DOL_DOCUMENT_ROOT.'/contrat/fiche.php';
+if (file_exists($dir)) $cFile = 'fiche.php';
+//version 3.8 >=
+$dir = DOL_DOCUMENT_ROOT.'/contrat/card.php';
+if (file_exists($dir)) $cFile = 'card.php';
+// Security check
+if ($user->societe_id) $socid=$user->societe_id;
+
+$action = GETPOST('action');
+
+$soc = new Societe($db);
+
+if ($action == 'add' && $user->rights->contratadd->crear)
+{
+	$error = 0;
+	$object->date_contrat = dol_mktime(12, 0, 0, GETPOST('dc_month'),GETPOST('dc_day'),GETPOST('dc_year'));
+	$object->fk_contrat      = $id;
+	$object->ref             = 0;
+	$object->time_limit      = GETPOST('time_limit');
+	$object->type_time_limit = GETPOST('type_time_limit');
+	$object->amount          = GETPOST('amount')+0;
+	$object->note_public     = GETPOST('note_public');
+	$object->note_private    = GETPOST('note_private');
+	$object->statut          = 0;
+	$object->datec           = date('Y-m-d');
+	$object->tms             = date('YmdHis');
+	$object->fk_user_author  = $user->id;
+	//verificamos el registro de time_limit o amount
+	
+	if (empty($object->time_limit) && empty($object->amount))
+	{
+		$error++;
+		$mesg.='<div class="error">'.$langs->trans("Errortimelimitoramountisrequired").'</div>';
+	}
+	if (!empty($object->time_limit) && empty($object->type_time_limit))
+	{
+		$error++;
+		$mesg.='<div class="error">'.$langs->trans("Errortypetimelimitisrequired").'</div>';
+	}
+	if (empty($error)) 
+	{
+		$idr = $object->create($user);
+		if ($idr > 0)
+		{
+			header("Location: liste.php?id=".$id);
+			exit;
+		}
+		$action = 'create';
+		$mesg='<div class="error">'.$object->error.'</div>';
+	}
+	else
+	{
+		if ($error)
+	  $action="create";   // Force retour sur page creation
+}
+}
+
+if ($action == 'update' && $user->rights->contratadd->crear)
+{
+	$error = 0;
+	if ($object->fetch($idr))
+	{
+		$object->date_contrat = dol_mktime(12, 0, 0, GETPOST('dc_month'),GETPOST('dc_day'),GETPOST('dc_year'));
+		$object->ref             = $_POST["ref"];
+		$object->time_limit      = GETPOST('time_limit');
+		$object->type_time_limit = GETPOST('type_time_limit');
+		$object->amount          = GETPOST('amount')+0;
+		$object->note_public     = GETPOST('note_public');
+		$object->note_private    = GETPOST('note_private');
+		$object->tms             = date('YmdHis');
+	//verificamos el registro de time_limit o amount
+
+		if (empty($object->time_limit) && empty($object->amount))
+		{
+			$error++;
+			$mesg.='<div class="error">'.$langs->trans("Errortimelimitoramountisrequired").'</div>';
+		}
+		if (!empty($object->time_limit) && !empty($object->amount))
+		{
+			$error++;
+			$mesg.='<div class="error">'.$langs->trans("Errortimelimitoramountisrequired").'</div>';
+		}
+		if (!empty($object->time_limit) && empty($object->type_time_limit))
+		{
+			$error++;
+			$mesg.='<div class="error">'.$langs->trans("Errortypetimelimitisrequired").'</div>';
+		}
+		if (empty($error) && $id == $object->fk_contrat) 
+		{
+			$result = $object->update($user);
+			if ($result > 0)
+			{
+				header("Location: liste.php?id=".$id);
+				exit;
+			}
+			$action = 'edit';
+			$mesg='<div class="error">'.$object->error.'</div>';
+		}
+		else
+		{
+			if ($error)
+		  $action="edit";   // Force retour sur page creation
+	}
+}
+}
+
+if ($action == 'confirm_valid' && $confirm == 'yes' && $user->rights->contratadd->crear)
+{
+	if ($objcont->fetch($id))
+	{
+		if ($object->fetch($idr))
+		{
+			$objnew = new Contratadd($db);
+			$objnew->fetch_max($id);
+			if (empty($object->ref))
+			{
+				$object->ref = $objnew->maximo;
+				$object->statut = 1;
+				$result = $object->update($user);
+				if ($result > 0)
+					$action = '';
+			}
+		}
+	}
+}
+
+if ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->contratadd->del)
+{
+	if ($objcont->fetch($id))
+	{
+		if ($object->fetch($idr))
+		{
+			$result = $object->delete($user);
+			if ($result > 0)
+				$action = '';
+		}
+	}
+}
+
+/*desplegamos el contrato*/
+
+/*
+ * View
+ */
+
+$aArrcss= array('addendum/css/style.css');
+$aArrjs = array();
+$help_url='EN:Module_Addendum_En|FR:Module_Addendum|ES:M&oacute;dulo_Addendum';
+llxHeader("",$langs->trans("ContractCard"),$help_url,'','','',$aArrjs,$aArrcss);
+
+$form = new Form($db);
+
+$now=dol_now();
+if ($id > 0 || $ref)
+{
+	$result=$objcont->fetch($id,$ref);//contrat
+	$socid = $objcont->fk_socid;
+	$soc = new Societe($db);
+	$soc->fetch($socid);
+	if ($result < 0) { dol_print_error($db,$objcont->error); exit; }
+	$res=$objcont->fetch_optionals($objcont->id,$extralabels);
+	if ($result < 0) dol_print_error($db,$objcont->error);
+	//recuperando el id
+	if (empty($id))
+		$id = $objcont->id;
+	dol_htmloutput_errors($mesg,'');
+
+	$author = new User($db);
+	$author->fetch($objcont->user_author_id);
+
+	$commercial_signature = new User($db);
+	$commercial_signature->fetch($objcont->commercial_signature_id);
+
+	$commercial_suivi = new User($db);
+	$commercial_suivi->fetch($objcont->commercial_suivi_id);
+
+	$head = contract_prepare_head($objcont);
+
+	$hselected = 2;
+	dol_fiche_head($head, $hselected, $langs->trans("Contract"), 0, 'contract');
+
+	if ($idr)
+		$object->fetch($idr);
+	//verificamos que no sea hijo
+	$resson = $object->getlist_son($id);
+
+	/*
+	 * Confirmation de la suppression du contrat add
+	 */
+	if ($action == 'delete')
+	{
+		print $form->formconfirm($_SERVER['PHP_SELF']."?id=".$id.'&idr='.$object->id,$langs->trans("DeleteAContract"),$langs->trans("ConfirmDeleteAContract"),"confirm_delete",'',0,1);
+
+	}
+
+	/*
+	 * Confirmation de la validation
+	 */
+	if ($action == 'valid')
+	{	
+		$text=$langs->trans('ConfirmValidateContract',$numref);
+		print $form->formconfirm($_SERVER['PHP_SELF'].'?id='.$id.'&idr='.$object->id,$langs->trans("ValidateAContract"),$text,"confirm_valid",'',0,1);
+
+	}
+
+
+	/*
+	 *   Contrat
+	 */
+	if (! empty($object->brouillon) && $user->rights->contrat->creer)
+	{
+		print '<form action="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'" method="POST">';
+		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+		print '<input type="hidden" name="action" value="setremise">';
+	}
+
+	print '<table class="border" width="100%">';
+
+	$linkback = '<a href="'.DOL_URL_ROOT.'/contrat/liste.php'.(! empty($socid)?'?socid='.$socid:'').'">'.$langs->trans("BackToList").'</a>';
+	
+	// Ref contrat
+	print '<tr><td width="25%">'.$langs->trans("Ref").'</td><td colspan="3">';
+	print $form->showrefnav($objcont, 'ref', $linkback, 1, 'ref', 'ref', '');
+	print "</td></tr>";
+
+	//mostramos al contrato padre
+	if ($resson>0)
+	{
+		print '<tr><td width="25%">'.$langs->trans("Reffather").'</td><td colspan="3">';
+		foreach ((array) $object->array AS $j => $objf)
+		{
+			$objfather = new Contrat($db);
+			$objfather->fetch($objf->fk_contrat_father);
+			print $objfather->getNomUrl(1,40);
+			print '<br/>';
+		}
+		print "</td></tr>";
+	}
+	// Statut contrat
+	print '<tr><td>'.$langs->trans("Status").'</td><td colspan="3">';
+	if ($objcont->statut==0) print $objcont->getLibStatut(2);
+	else print $objcont->getLibStatut(4);
+	print "</td></tr>";
+
+	// Date
+	print '<tr><td>'.$langs->trans("Date").'</td>';
+	print '<td colspan="3">'.dol_print_date($objcont->date_contrat,"dayhour")."</td></tr>\n";
+
+	//Total contract
+	$objc = new Addendum($db);
+	$objc->get_suma_contratdet($id);
+
+	print '<tr><td>'.$langs->trans("Amountcontract").'</td>';
+	print '<td colspan="3">'.price($objc->total_ttc)."</td></tr>\n";
+	$sumaAmount+= $objc->total_ttc;
+	// Other attributes
+	$parameters=array('colspan' => ' colspan="3"');
+	$reshook=$hookmanager->executeHooks('formObjectOptions',$parameters,$objcont,$action);    // Note that $action and $object may have been modified by hook
+	if (empty($reshook) && ! empty($extrafields->attribute_label))
+	{
+		print $objcont->showOptionals($extrafields);
+	}
+
+	print "</table>";
+	//si existe el campo plazo
+	if (!empty($objcont->array_options['options_plazo']))
+		$sumaPlazo += $objcont->array_options['options_plazo'];
+	//listado de adendas
+	
+	$lLink = false;
+	if ($resson <= 0)
+	{
+		//verificamos si es contrato padre
+		$object->getlist($id);
+		$aArray = $object->array;
+		print_barre_liste($langs->trans("Addendum to contract"), $page, "liste.php", "", $sortfield, $sortorder,'',$num);
+
+		print '<table class="noborder" width="100%">';
+
+		print "<tr class=\"liste_titre\">";
+		print_liste_field_titre($langs->trans("Ref"),"liste.php", "p.ref","","","");
+		print_liste_field_titre($langs->trans("Datecontract"),"liste.php", "p.date_contrat","","","");
+		print_liste_field_titre($langs->trans("Timelimit"),"liste.php", "p.time_limit","","",'align="center"');
+		print_liste_field_titre($langs->trans("Typetimelimit"),"liste.php", "p.type_time_limit","","",'align="center"');
+		print_liste_field_titre($langs->trans("Amount"),"liste.php", "p.amount","","",'align="right"');
+		print_liste_field_titre($langs->trans("Notepublic"),"liste.php", "p.note_public","","","");
+		print_liste_field_titre($langs->trans("Noteprivate"),"liste.php", "p.nte_private","","","");
+		print_liste_field_titre($langs->trans("Status"),"liste.php", "p.statut","","","");
+		print_liste_field_titre($langs->trans("Action"),"", "","","",'align="right"');
+		print "</tr>\n";
+
+		if (count($aArray)>0)
+		{
+		//tiene contratos hijos
+			foreach ((array) $aArray AS $i => $obj)
+			{
+				$objcon_ = new Contrat($db);
+				$objcon_->fetch($obj->fk_contrat_son);
+				$res=$objcon_->fetch_optionals($objcon_->id,$extralabels);
+				//recuperamos el contrato
+
+				$var=!$var;
+				if ($id && $action=='edit' && $idr == $obj->fk_contrat_son)
+				{
+					$object = clone $obcon_;
+					include_once DOL_DOCUMENT_ROOT.'/addendum/tpl/add.tpl.php';
+				}
+				else
+				{
+					$objview = clone $objcon_;
+					include DOL_DOCUMENT_ROOT.'/addendum/tpl/view.tpl.php';
+				}
+				$i++;
+			}
+		//}
+
+		//calculando totales
+			print '<tr class="liste_total">';
+			print '<td colspan="2">'.$langs->trans('Total contract').'</td>';
+			print '<td align="center">';
+			print $sumaPlazo;
+			print '</td>';
+			print '<td>';
+			print $typetimelimit;
+			print '</td>';
+			print '<td align="right">';
+			print price($sumaAmount);
+			print '</td>';
+			print '<td colspan="4"></td>';
+			print '</tr>';
+
+			$db->free($result);
+
+		}
+		else
+	  //no tiene contratos hijos //se puede enlazar
+			$lLink =true;
+		print "</table>";
+		print "<div class=\"tabsAction\">\n";
+
+		if ($action == '')
+		{
+			$_SESSION['fk_contrat_father'] = $id;
+			if ($user->rights->addendum->crear && $objcont->statut == 1)
+				print '<a class="butAction" href="'.DOL_URL_ROOT.'/contrat/'.$cFile.'?socid='.$objcont->fk_soc.'&action=create">'.$langs->trans("Createnew").'</a>';
+			else
+				print '<a class="butActionRefused" href="#">'.$langs->trans("Createnew").'</a>';
+
+			if ($user->rights->addendum->crear && $objcont->statut == 1 && $lLink)
+				print '<a class="butAction" href="'.DOL_URL_ROOT.'/addendum/fichelink.php?cid='.$id.'&action=create">'.$langs->trans("Bindingcontract").'</a>';
+			else
+				print '<a class="butActionRefused" href="#">'.$langs->trans("Bindingcontract").'</a>';
+
+		}
+		print '</div>';
+	}
+}
+$db->close();
+
+llxFooter();
+?>

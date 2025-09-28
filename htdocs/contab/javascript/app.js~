@@ -1,0 +1,26 @@
+
+function app2()
+{
+    alert(mensaje);
+    document.frm.c_id3.disabled=true;
+    if(document.getElementById("c_id2").checked==true)
+    {
+	document.frm.c_id3.disabled=false;
+    }
+    if(document.getElementById("c_id2").checked==false)
+    {
+	document.frm.c_id3.enabled=false;
+    }
+}
+function app3()
+{
+    document.frm.c_id2.disabled=true;
+    if(document.getElementById("c_id3").checked==true)
+    {
+	document.frm.c_id2.disabled=false;
+    }
+    if(document.getElementById("c_id3")..checked==false)
+    {
+	document.frm.c_id2.enabled=false;
+    }
+}

@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS `llx_sol_almacen` (
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  `entity` int(11) NOT NULL,
+  `ref` varchar(30) NOT NULL,
+  `fk_entrepot` int(11) NOT NULL,
+  `fk_fabrication` int(11) NOT NULL DEFAULT '0',
+  `date_creation` date NOT NULL,
+  `date_delivery` date NOT NULL,
+  `description` text,
+  `statut` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`rowid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de solicitud almacenes' AUTO_INCREMENT=1 ;

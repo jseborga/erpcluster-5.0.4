@@ -1,0 +1,15 @@
+ALTER TABLE llx_m_type_repair ADD UNIQUE uk_unique (entity, code);
+ALTER TABLE llx_m_type_repair ADD fk_type_mant integer NOT NULL AFTER label;
+ALTER TABLE llx_m_type_repair ADD fk_user_create integer NOT NULL AFTER fk_type_mant;
+ALTER TABLE llx_m_type_repair ADD fk_user_mod integer NOT NULL AFTER fk_user_create;
+ALTER TABLE llx_m_type_repair ADD datec date NOT NULL AFTER fk_user_mod;
+ALTER TABLE llx_m_type_repair ADD datem date NOT NULL AFTER datec;
+ALTER TABLE llx_m_type_repair ADD tms timestamp NOT NULL AFTER datem;
+ALTER TABLE llx_m_type_repair ADD description TEXT NULL AFTER label;
+ALTER TABLE llx_m_type_repair ADD duration_min INTEGER NULL DEFAULT '0' AFTER description;
+ALTER TABLE llx_m_type_repair ADD duration_max INTEGER NULL DEFAULT '0' AFTER duration_min;
+ALTER TABLE llx_m_type_repair ADD fk_unit INTEGER NULL DEFAULT '0' AFTER duration_max;
+ALTER TABLE llx_m_type_repair ADD accountant DOUBLE NOT NULL AFTER fk_unit;
+ALTER TABLE llx_m_type_repair ADD type VARCHAR(1) NOT NULL DEFAULT 'C' AFTER accountant;
+ALTER TABLE llx_m_type_repair ADD fk_unit_accountant INTEGER NULL AFTER type;
+ALTER TABLE llx_m_type_repair CHANGE code ref varchar(30) NOT NULL;

@@ -1,0 +1,18 @@
+Multicurrency=Multi moneda
+Listecurrencytype=Lista tipos moneda
+
+Currencytype=Tipo Moneda
+Createcurrencytype=Crear Tipo Moneda
+Listecurrencytype=Lista Tipos Moneda
+Dialy=Diario
+Monthly=Mensual
+Registry=Registro
+Newcurrencytype=Nuevo Tipo Moneda
+Exchangerate=Tipos de cambio
+Createexchangerate=Crear Tipo Cambio
+Createnew=Crear Nuevo
+Change=Cambiar
+Order=Orden
+BoxTitleLastModifiedExchangeRate=Los 5 ultimos tipos de cambio modificados
+Errormonthrequired=Error, mes es requerido
+Erroryearrequired=Error, año es requerido

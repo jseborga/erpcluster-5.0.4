@@ -1,0 +1,1 @@
+ALTER TABLE llx_partida_colateral ADD UNIQUE KEY uk_unique (code_partida, code_colateral);

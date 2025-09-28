@@ -1,0 +1,1 @@
+ALTER TABLE llx_c_units DROP INDEX uk_c_units_code, ADD UNIQUE uk_c_units_code (code);

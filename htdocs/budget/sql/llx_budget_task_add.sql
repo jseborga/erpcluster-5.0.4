@@ -1,0 +1,20 @@
+CREATE TABLE llx_budget_task_add (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  fk_budget_task integer NOT NULL,
+  c_grupo tinyint(4) DEFAULT '0',
+  level tinyint(4) DEFAULT '0',
+  c_view tinyint(4) DEFAULT '0',
+  fk_unit integer DEFAULT '0',
+  fk_type integer DEFAULT '0',
+  complementary varchar(1) DEFAULT '0' NOT NULL,
+  unit_budget double(24,8) DEFAULT '0',
+  unit_amount double(24,8) DEFAULT NULL,
+  total_amount double(24,8) DEFAULT '0' NULL,
+  hour_production double(24,8) DEFAULT '0' NULL,
+  order_ref integer DEFAULT '0',
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  date_create date NOT NULL,
+  tms timestamp,
+  status tinyint NOT NULL DEFAULT '0'
+) ENGINE=InnoDB;

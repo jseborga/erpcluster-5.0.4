@@ -1,0 +1,51 @@
+.theight15{
+    font-size:15px;
+}
+.theight20{
+    font-size:18px;
+}
+.theightv{
+    font-size:18px;
+}
+
+.thlineleft{
+	border-left-style: solid; !important;
+	border-left-width: 1px;!important;
+	border-left-color: #fff000;!important;
+}
+.thlineright{
+	border-right-style: solid;!important;
+	border-right-width: 1px;!important;
+	border-right-color: #fff000;!important;
+}
+input.width50[type="number"] {
+	width:50px;
+}
+
+.width10{
+	width:10px;
+}
+.width20{
+	width:20px;
+}
+.width26{
+	width:26px;
+}
+.width35{
+	width:35px;
+}
+.width40{
+	width:40px;
+}
+.width50{
+	width:50px;
+}
+.width80{
+	width:80px;
+}
+.width90{
+	width:90px;
+}
+.width100{
+	width:100px;
+}

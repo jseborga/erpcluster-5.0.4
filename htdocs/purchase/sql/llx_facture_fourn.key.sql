@@ -1,0 +1,1 @@
+ALTER TABLE llx_facture_fourn CHANGE ref_supplier ref_supplier VARCHAR(255) NOT NULL;

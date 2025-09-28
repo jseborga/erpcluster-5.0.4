@@ -1,0 +1,20 @@
+CREATE TABLE llx_product_add (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  fk_product integer NOT NULL,
+  tva_tx double NOT NULL DEFAULT '0',
+  percent_base double NOT NULL DEFAULT '100',
+  sel_ice tinyint NOT NULL DEFAULT '0',
+  sel_iva tinyint NOT NULL DEFAULT '1',
+  fk_unit_ext integer NULL,
+  fk_product_type integer DEFAULT '0' NULL,
+  quant_convert double NULL,
+  quant_disassembly double NULL,
+  quant_material double NULL,
+  price_std double DEFAULT '0' NULL,
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  date_create datetime NOT NULL,
+  date_mod datetime NOT NULL,
+  tms timestamp,
+  status tinyint NOT NULL
+) ENGINE=InnoDB;

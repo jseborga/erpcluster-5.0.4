@@ -1,0 +1,11 @@
+ALTER TABLE llx_incidents_det ADD fk_unit INTEGER NOT NULL AFTER label;
+ALTER TABLE llx_incidents_det ADD res_one DOUBLE(24,8) NULL DEFAULT '0' AFTER value_four;
+ALTER TABLE llx_incidents_det ADD res_two DOUBLE(24,8) NULL DEFAULT '0' AFTER res_one;
+ALTER TABLE llx_incidents_det ADD res_three DOUBLE(24,8) NULL DEFAULT '0' AFTER res_two;
+ALTER TABLE llx_incidents_det ADD res_four DOUBLE(24,8) NULL DEFAULT '0' AFTER res_three;
+ALTER TABLE llx_incidents_det ADD value_five DOUBLE(24,8) NULL DEFAULT '0' AFTER value_four;
+ALTER TABLE llx_incidents_det ADD res_five DOUBLE(24,8) NULL DEFAULT '0' AFTER res_four;
+ALTER TABLE llx_incidents_det ADD value_six DOUBLE(24,8) NULL DEFAULT '0' AFTER value_five;
+ALTER TABLE llx_incidents_det ADD value_seven DOUBLE(24,8) NULL DEFAULT '0' AFTER value_six;
+ALTER TABLE llx_incidents_det ADD res_six DOUBLE(24,8) NULL DEFAULT '0' AFTER res_five;
+ALTER TABLE llx_incidents_det ADD res_seven DOUBLE(24,8) NULL DEFAULT '0' AFTER res_six;

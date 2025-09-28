@@ -1,0 +1,1 @@
+ALTER TABLE llx_pu_procedure ADD UNIQUE uk_unique(entity,ref);

@@ -1,0 +1,917 @@
+/*
+	Minimaxing 3.0 by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+*/
+
+/*********************************************************************************/
+/* Global                                                                        */
+/*********************************************************************************/
+
+/* Basic */
+
+div.rmeta a:link, div.rmeta a:visited, div.rmeta a:hover, div.rmeta a:active { font-family: arial,tahoma,verdana,helvetica; font-weight: bold; color: #ffffff; text-decoration: none;  }
+
+div.rmeta a:hover { text-decoration: underline; color: #FFFF00;}
+div.rmeta{
+    /*background-color:#333399;*/
+    color:#ffffff;
+}
+div.ractivity a:link, div.ractivity a:visited, div.ractivity a:hover, div.ractivity a:active { font-family: arial,tahoma,verdana,helvetica; font-weight: bold; color: #000000; text-decoration: none;  }
+
+div.ractivity a:hover { text-decoration: underline; color: #000000;}
+div.ractivity{
+    color:#000000;
+}
+
+.rpair{
+    background-color:#b4d4f4;
+}
+
+.rimpair{
+    background-color:#99ccff;
+}
+
+div.rproduct a:link, div.rproduct a:visited, div.rproduct a:hover, div.rproduct a:active { font-family: arial,tahoma,verdana,helvetica; font-weight: bold; color: #000000; text-decoration: none;  }
+
+div.rproduct a:hover { text-decoration: underline; color: #000000;}
+div.rproduct{
+    color:#000000;
+}
+
+.ppair{
+    background-color:#ffffff;
+}
+.pimpair{
+    background-color:#FFFBC9;
+}
+div.err{
+    background-color:#FF0000;
+    color:#ffffff;
+}
+
+.rowact{
+    padding: 0.0em 0.2em 0.2em 0.0em;
+
+}
+
+
+div.master{
+    height:74vh;
+    width:100%;
+    min-width:1352px;
+    margin-left:2px;
+}
+div.masteri{
+    width:100%;
+    min-width:1050px;
+}
+
+div.tabsActionleft {
+    margin: 20px 0em 10px 0em;
+    padding: 0em 0em;
+    width:50%;
+    float:left;
+    text-align: left;
+}
+div.tabsActionright {
+    margin: 20px 0 10px;
+    padding: 0;
+    text-align: right;
+    width:50%;
+    float:right;
+}
+#section-head {
+    background: #6A7889;
+    position: relative;
+    width: 100%;
+    margin: 0% 0 0% 0;
+}
+
+#section-body {
+    background: #ffffff;
+    position: relative;
+    width: 100%;
+    /*height: 420px;*/
+    height:65vh;
+    overflow: scroll;
+
+    margin: 0 0 0 0;
+}
+#section-bodyi {
+    background: #ffffff;
+    position: relative;
+    width: 100%;
+    /*height: 420px;*/
+    overflow: scroll;
+
+    margin: 0 0 0 0;
+}
+
+#section-add {
+    background: #e5e5e5;
+    position: relative;
+    width: 100%;
+    height: 25px;
+    margin: 1% 0 1% 0;
+}
+
+#section-footer {
+    background: #6A7889;
+    position: relative;
+    width: 100%;
+    min-width:1352px;
+    color:#fffa00;
+    margin: 1% 0 0% 0;
+}
+
+#aside-body {
+    background: #e5e5e5;
+    position: relative;
+    width: 100%;
+    height:70vh;
+    margin: 1% 0 2% 0;
+}
+#aside-bodyi {
+    background: #e5e5e5;
+    position: relative;
+    width: 100%;
+    margin: 1% 0 2% 0;
+}
+
+div.left {
+    float: left;
+    margin: 0.021em 0.05em 0.036em 0.05em;
+}
+.product{
+    background-color:#ffbb00;
+}
+div.clear{
+    clear:both;
+}
+.fontwhite{
+    color:#fff:
+}
+/*definicion para insumos*/
+#meta{
+    width:45px;
+    height:36px;
+}
+#label{
+    width:250px;
+    height:36px;
+}
+#label500{
+    width:500px;
+    min-width:150px;
+    height:36px;
+}
+#pseudonym500{
+    width:500px;
+    min-width:150px;
+    height:36px;
+}
+#pseudo{
+    width:250px;
+    height:36px;
+}
+#partida{
+    width:45px;
+    text-align:center;
+    height:36px;
+}
+#amount{
+    width:80px;
+    text-align:right;
+    height:36px;
+}
+#reform{
+
+    width:80px;
+    text-align:right;
+    height:36px;
+}
+#amountone{
+    width:40px;
+    text-align:left;
+    height:36px;
+}
+#estado{
+    width:20px;
+    text-align:center;
+    height:36px;
+}
+/*otra opcion para actividades*/
+#estado_{
+    width:20px;
+    text-align:center;
+    height:30px;
+}
+#meta_{
+    width:45px;
+    height:30px;
+}
+#label_{
+    width:250px;
+    height:30px;
+}
+#label500_{
+    width:500px;
+    min-width:150px;
+    height:30px;
+}
+#pseudonym500_{
+    width:500px;
+    min-width:150px;
+    height:30px;
+}
+#pseudo_{
+    width:250px;
+    height:30px;
+}
+#partida_{
+    width:45px;
+    text-align:center;
+    height:30px;
+}
+#amount_{
+    width:80px;
+    text-align:right;
+    height:30px;
+}
+#reform_{
+
+    width:80px;
+    text-align:right;
+    height:30px;
+}
+#amountone_{
+    width:40px;
+    text-align:left;
+    height:20px;
+
+}
+
+#amountplan_{
+    float:left;
+    width:5px;
+    text-align:right;
+    height:15px;
+    //background:#54F27C;
+}
+#action_{
+    width:70px;
+    text-align:center;
+    height:30px;
+}
+#user_{
+    width:80px;
+    text-align:center;
+    height:30px;
+}
+#fec_{
+    width:80px;
+    text-align:center;
+    height:30px;
+}
+#seg_{
+    width:160px;
+    text-align:left;
+    height:30px;
+}
+#estado_{
+    width:20px;
+    text-align:center;
+    height:30px;
+}
+/*fin actividad*/
+/*otra opcion para titulos*/
+#meta_t{
+    width:45px;
+    height:20px;
+}
+#label_t{
+    width:250px;
+    min-width:150px;
+    height:20px;
+}
+#label500_t{
+    width:500px;
+    min-width:150px;
+    height:20px;
+}
+#pseudonym500_t{
+    width:500px;
+    min-width:150px;
+    height:20px;
+}
+#pseudo_t{
+    width:250px;
+    height:20px;
+}
+#partida_t{
+    width:45px;
+    text-align:center;
+    height:20px;
+}
+#amount_t{
+    width:80px;
+    text-align:right;
+    height:20px;
+}
+#amount_te{
+    width:80px;
+    text-align:center;
+}
+#reform_t{
+
+    width:80px;
+    text-align:right;
+    height:20px;
+}
+#amountone_t{
+    width:40px;
+    text-align:left;
+    height:20px;
+
+}
+
+#amountplan_t{
+    float:left;
+    width:5px;
+    text-align:right;
+    height:11px;
+    //background:#54F27C;
+}
+#action_t{
+    width:70px;
+    text-align:center;
+    height:20px;
+}
+#user_t{
+    width:80px;
+    text-align:center;
+    height:20px;
+}
+#seg_t{
+    width:160px;
+    text-align:center;
+    height:20px;
+}
+#fec_t{
+    width:80px;
+    text-align:center;
+    height:20px;
+}
+#estado_t{
+    width:20px;
+    text-align:center;
+    height:20px;
+}
+/*fin actividad*/
+
+#amountplanm{
+    float:left;
+    width:5px;
+    text-align:right;
+    height:12px;
+    background:#FFF600;
+}
+#month{
+    width:40px;
+    text-align:center;
+}
+.trimestre{
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #000000;
+}
+#gestionpoa{
+    width:493px;
+    text-align:center;
+    height:20px;
+}
+#amounttwo{
+    width:16px;
+    height:25px;
+}
+#instruction{
+    width:50px;
+    text-align:center;
+    height:25px;
+}
+#pac{
+    width:80px;
+    text-align:center;
+    height:25px;
+}
+.fondomespac{
+    background-color:#1AE07D;
+}
+#action{
+    width:70px;
+    text-align:center;
+    height:36px;
+}
+#user{
+    width:80px;
+    text-align:center;
+    height:36px;
+}
+#fec{
+    width:80px;
+    text-align:center;
+    height:36px;
+}
+#seg{
+    width:160px;
+    text-align:center;
+    height:36px;
+}
+.pair{
+    background-color:#93c2f3;
+}
+.impair{
+    background-color:#99ccff;
+}
+.impairfather{
+    background-color:#D5F4B7;
+}
+.backgroundmeta{
+    background-color:#333399;
+    color:inherit;
+}
+.total{
+    background-color:#476689;
+    color:#ffffff;
+    height:16px;
+}
+.title{
+    background-color:#99A7B8;
+    color:#ffffff;
+}
+.textred{
+    color:#ff0000;
+}
+.textblack{
+    color:#000000;
+}
+.textwhite{
+    color:#ffffff;
+    z-index:1;
+}
+
+.yellowblack{
+    background-color:#fffa00;
+    color:#000000;
+}
+.colprev{
+    background-color:#ffff00;
+}
+.colcomp{
+    background-color:#ffcc00;
+}
+.coldeve{
+    background-color:#ff6600;
+}
+.colpaid{
+    background-color:#ff0000;
+}
+.rowsel{
+    background-color:#F4DEDE;
+}
+.colpair{
+    background-color:#F6e6e6;
+    min-width:80px;
+}
+.colimpair{
+    background-color:#Fcfcfc;
+    min-width:80px;
+}
+.btn_trans{
+    background:transparent;
+    border-width:0px;
+}
+
+.imgfondo1{
+    background-image:url("../img/bajo.png");
+    background-repeat:no-repeat;
+}
+.imgfondo2{
+    background-image:url("../img/centro.png");
+    background-repeat:no-repeat;
+}
+.imgfondo3{
+    background-image:url("../img/alto.png");
+    background-repeat:no-repeat;
+}
+
+.imgval0{
+    background-image:url("../img/valcero.png");
+    background-repeat:no-repeat;
+}
+.imgval1{
+    background-image:url("../img/valmin.png");
+    background-repeat:no-repeat;
+}
+.imgval2{
+    background-image:url("../img/valmedia.png");
+    background-repeat:no-repeat;
+}
+.imgval3{
+    background-image:url("../img/valmax.png");
+    background-repeat:no-repeat;
+}
+
+
+div.tableContainer {
+    border: 1px solid #996633;
+    clear: both;
+    height: 285px;
+    overflow: auto;
+    width: 1000px;
+}
+html > body div.tableContainer {
+    overflow: hidden;
+    width: 1000px;
+}
+div.tableContainer table {
+    float: left;
+    width: 940px;
+}
+html > body div.tableContainer table {
+    width: 1000px;
+}
+thead.fixedHeader tr {
+    position: relative;
+}
+html > body thead.fixedHeader tr {
+    display: block;
+}
+thead.fixedHeader th {
+    background: none repeat scroll 0 0 #CC9966;
+    border-left: 1px solid #EEBB88;
+    border-right: 1px solid #BB7744;
+    border-top: 1px solid #EEBB88;
+    font-weight: normal;
+    padding: 4px 3px;
+    text-align: left;
+}
+thead.fixedHeader a, thead.fixedHeader a:link, thead.fixedHeader a:visited {
+    color: #FFFFFF;
+    display: block;
+    text-decoration: none;
+    width: 100%;
+}
+thead.fixedHeader a:hover {
+    color: #FFFFFF;
+    display: block;
+    text-decoration: underline;
+    width: 100%;
+}
+
+html > body thead.fixedHeader th {
+    width: 100px;
+}
+html > body thead.fixedHeader th + th {
+    width: 330px;
+}
+html > body thead.fixedHeader th + th + th {
+    width: 00px;
+}
+html > body thead.fixedHeader th + th + th + th {
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th{
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th + th{
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th + th + th{
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th + th + th + th{
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th + th + th + th + th{
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th + th + th + th + th + th{
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th + th + th + th + th + th + th{
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th + th + th + th + th + th + th + th{
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th + th + th + th + th + th + th + th + th{
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th + th + th + th + th + th + th + th + th + th{
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th + th + th + th + th + th + th + th + th + th + th{
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th + th + th + th + th + th + th + th + th + th + th + th{
+    width: 70px;
+}
+html > body thead.fixedHeader th + th + th + th + th + th + th + th + th + th + th + th + th + th + th + th + th{
+    width: 70px;
+}
+
+html > body tbody.scrollContent td {
+    width: 100px;
+}
+html > body tbody.scrollContent td + td {
+    width: 330px;
+}
+html > body tbody.scrollContent td + td + td {
+    width: 80px;
+}
+html > body tbody.scrollContent td + td + td + td {
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td{
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td + td{
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td + td + td{
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td + td + td + td{
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td + td + td + td + td{
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td + td + td + td + td + td{
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td + td + td + td + td + td + td{
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td + td + td + td + td + td + td + td{
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td + td + td + td + td + td + td + td + td{
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td + td + td + td + td + td + td + td + td + td{
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td + td + td + td + td + td + td + td + td + td + td{
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td + td + td + td + td + td + td + td + td + td + td + td{
+    width: 70px;
+}
+html > body tbody.scrollContent td + td + td + td + td + td + td + td + td + td + td + td + td + td + td + td + td{
+    width: 70px;
+}
+
+.impair1:hover {
+	border: 0px;
+}
+
+.impair1, .nohover .impair1:hover, tr.impair1 td.nohover {
+	background: linear-gradient(bottom, rgb(242,242,242) 85%, rgb(248,248,248) 100%);
+	background: -o-linear-gradient(bottom, rgb(242,242,242) 85%, rgb(248,248,248) 100%);
+	background: -moz-linear-gradient(bottom, rgb(242,242,242) 85%, rgb(248,248,248) 100%);
+	background: -webkit-linear-gradient(bottom, rgb(242,242,242) 85%, rgb(248,248,248) 100%);
+	background: -ms-linear-gradient(bottom, rgb(242,242,242) 85%, rgb(248,248,248) 100%);
+	font-family: arial,tahoma,verdana,helvetica;
+	border: 0px;
+	margin-bottom: 1px;
+	color: #202020;
+	min-height: 18px; /* seems to not be used */
+}
+
+.pair1:hover {
+	border: 0px;
+}
+
+.pair1, .nohover .pair1:hover, tr.pair1 td.nohover {
+	background: linear-gradient(bottom, rgb(255,255,255) 85%, rgb(255,255,255) 100%);
+	background: -o-linear-gradient(bottom, rgb(255,255,255) 85%, rgb(255,255,255) 100%);
+	background: -moz-linear-gradient(bottom, rgb(255,255,255) 85%, rgb(255,255,255) 100%);
+	background: -webkit-linear-gradient(bottom, rgb(255,255,255) 85%, rgb(255,255,255) 100%);
+	background: -ms-linear-gradient(bottom, rgb(255,255,255) 85%, rgb(255,255,255) 100%);
+	font-family: arial,tahoma,verdana,helvetica;
+	border: 0px;
+	margin-bottom: 1px;
+	color: #202020;
+}
+
+.refcolors{
+    index:-1;
+    margin:0 auto;
+    color:#000000 !important;
+    text-align:center;
+    float:left;
+    width:50px;
+    height:20px;
+    font-size:15px;
+}
+.refcolors a {
+    index:-1;
+    margin:0 auto;
+    color:#000000 !important;
+    text-align:center;
+    float:left;
+    width:50px;
+    height:20px;
+    font-size:15px;
+}
+
+.refejec{
+    index:-1;
+    margin:0 auto;
+    color:#000000 !important;
+    text-align:center;
+    float:left;
+    width:15px;
+    height:15px;
+    font-size:15px;
+}
+.refejec a {
+    index:-1;
+    margin:0 auto;
+    color:#000000 !important;
+    text-align:center;
+    float:left;
+    width:15px;
+    height:15px;
+    font-size:15px;
+}
+.clearfloat{
+    clear:both;
+}
+.black{
+    font-weight:bold;
+}
+.width10{
+    width:10px;
+}
+.width20{
+    width:20px;
+}
+.width26{
+    width:26px;
+}
+.width35{
+    width:35px;
+}
+.width40{
+    width:40px;
+}
+.width50{
+    width:50px;
+}
+.width80{
+    width:80px;
+}
+.width90{
+    width:90px;
+}
+.width100{
+    width:100px;
+}
+.width1{
+    width:1px;
+}
+.height20{
+    height:20px;
+}
+.height25{
+    height:25px;
+}
+.height36{
+    height:36px;
+}
+.height50{
+    height:50px;
+}
+.height55{
+    height:55px;
+}
+.height60{
+    height:60px;
+}
+.height70{
+    height:70px;
+}
+.height80{
+    height:80px;
+}
+.height100{
+    height:100px;
+}
+.padding1{
+    padding: 1em;
+}
+.padding3{
+    padding: 3em;
+}
+
+margin2{
+    margin:2px;
+}
+margin5{
+    margin:5px;
+}
+div.floatleft {
+    float: left;
+    margin: 0px;
+}
+
+div.floatleftm3 {
+    float: left;
+    margin: 3px;
+}
+
+.border1{
+    border-style:solid;
+    border-width:0 0 0 1px;
+    border-color:#ffff00;
+}
+.border2{
+    border-style:solid;
+    border-width:0px;
+}
+
+.borderlr{
+    border-style:solid;
+    border-width:0 0 0 1px;
+    border-color:#ffff00;
+}
+.linkall{
+    display:block;
+    width:100%;
+    height:100%;
+}
+
+.color_total{
+    border-style:solid;
+    border-top:#C1C1F4;
+    background:#196843;
+}
+
+.color-product{
+    border-top:#C1C1F4;
+    background:#01914E;
+}
+
+.searchBox{
+    background-image:url('../img/search.png');
+    background-repeat:no-repeat;
+    padding-left:20px;
+}
+.searchCalendar{
+    background-image:url('../img/calendar.png');
+    background-repeat:no-repeat;
+    padding-left:20px;
+}
+/*definicion para menupoa*/
+.fieldset1{
+    height:143px;
+}
+
+div.tabsActionm {
+    margin: 20px 0 10px;
+    padding-top: 30px;
+    text-align: left;
+}
+/*menu grafico*/
+div.tabmenu{
+    float:left;
+    width:50px;
+    height:50px;
+    text-align:center;
+    border: 1px solid #000;
+    padding:2px;
+    margin: 0px 10px 2px 10px;
+}
+/*menu grafico*/
+div.tabmenumark{
+    float:left;
+    text-align:center;
+    border: 1px solid #2200ff;
+    padding:2px;
+    margin: 0px 10px 2px 10px;
+
+/*fondos de color*/
+.bg-prev {
+    background-color:#fa5858;
+}
+.table-bordered > tbody > tr > td.mesactual {
+    background-color:#FFFAAE;
+}
+
+input.width50[type="number"] {
+   width:50px;
+}

@@ -1,0 +1,20 @@
+CREATE TABLE llx_m_type_repair (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  entity integer NOT NULL,
+  ref varchar(30) NOT NULL,
+  label varchar(255) NOT NULL,
+  description text NULL,
+  duration_min integer DEFAULT '0' NULL,
+  duration_max integer DEFAULT '0' NULL,
+  fk_unit integer NOT NULL,
+  accountant double DEFAULT '0' NULL,
+  type varchar(1) DEFAULT 'C' NOT NULL,
+  fk_unit_accountant integer DEFAULT NULL,
+  fk_type_mant integer NOT NULL,
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  datec date NOT NULL,
+  datem date NOT NULL,
+  tms timestamp NOT NULL,  
+  active tinyint DEFAULT NULL
+) ENGINE=InnoDB;

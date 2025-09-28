@@ -1,0 +1,2 @@
+ALTER TABLE llx_assets_tracing ADD UNIQUE uk_unique (fk_asset, fk_user_resp, dater);
+ALTER TABLE llx_assets_tracing ADD CONSTRAINT idk_assetstracing_fk_asset FOREIGN KEY (fk_asset) REFERENCES llx_assets(rowid) ON DELETE RESTRICT ON UPDATE RESTRICT;

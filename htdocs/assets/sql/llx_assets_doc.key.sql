@@ -1,0 +1,2 @@
+ALTER TABLE llx_assets_doc ADD CONSTRAINT idk_assetsdoc_fk_asset FOREIGN KEY (fk_asset) REFERENCES llx_assets(rowid) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE llx_assets_doc ADD CONSTRAINT idk_assetsdoc_fk_cassetdoc FOREIGN KEY (fk_cassetdoc) REFERENCES llx_c_assets_doc(rowid) ON DELETE RESTRICT ON UPDATE RESTRICT;

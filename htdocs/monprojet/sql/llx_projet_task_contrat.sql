@@ -1,0 +1,23 @@
+CREATE TABLE llx_projet_task_contrat (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  ref varchar(50) DEFAULT NULL,
+  entity integer NOT NULL DEFAULT '1',
+  fk_projet integer NOT NULL,
+  fk_contrat integer NOT NULL,
+  datec datetime DEFAULT NULL,
+  tms timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  dateo datetime DEFAULT NULL,
+  datee datetime DEFAULT NULL,
+  datev datetime DEFAULT NULL,
+  label varchar(255) NOT NULL,
+  description text,
+  priority integer DEFAULT '0',
+  fk_user_creat integer DEFAULT NULL,
+  fk_user_valid integer DEFAULT NULL,
+  c_grupo tinyint DEFAULT '0',
+  fk_type integer NOT NULL,
+  fk_unit integer NOT NULL,
+  unit_program double(24,5) NOT NULL,
+  unit_amount double(24,5) NOT NULL,
+  fk_statut smallint NOT NULL DEFAULT '0'
+) ENGINE=InnoDB;

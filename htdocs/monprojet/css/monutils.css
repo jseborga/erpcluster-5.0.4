@@ -1,0 +1,39 @@
+ 
+#tableMAT{border: solid 1px #333;	width: 300px; }
+#tableMAT tbody tr{ background: #999; }
+.fila-baseMAT{ display: none; } /* fila base oculta */
+.eliminarMAT{ cursor: pointer; color: #000; }
+/*input[type="text"]{ width: 80px; }  ancho a los elementos input="text" */
+
+#tableMDO{border: solid 1px #333;	width: 300px; }
+#tableMDO tbody tr{ background: #999; }
+.fila-baseMDO{ display: none; } /* fila base oculta */
+.eliminarMDO{ cursor: pointer; color: #000; }
+/*input[type="text"]{ width: 80px; }  ancho a los elementos input="text" */
+
+#tableEMH{border: solid 1px #333;	width: 300px; }
+#tableEMH tbody tr{ background: #999; }
+.fila-baseEMH{ display: none; } /* fila base oculta */
+.eliminarEMH{ cursor: pointer; color: #000; }
+/*input[type="text"]{ width: 80px; }  ancho a los elementos input="text" */
+
+.contenedor-tabla{
+
+	display: table;
+
+}
+
+.contenedor-fila{
+	display: table-row;
+	border-bottom-style: solid;
+	border-bottom-color: #ff0000;
+}
+
+.contenedor-columna{
+
+	display: table-cell;
+
+}
+.clearleft{
+    clear: left;
+}

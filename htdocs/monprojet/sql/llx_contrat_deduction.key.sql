@@ -1,0 +1,1 @@
+ALTER TABLE llx_contrat_deduction ADD UNIQUE uk_unique (fk_contrat, code);

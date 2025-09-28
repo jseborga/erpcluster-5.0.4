@@ -1,0 +1,7 @@
+AuthName "erp.ssaingenieria.com statistics"
+AuthType Basic
+AuthUserFile /home/erp/.stats-htpasswd
+require valid-user
+<Files .stats-htpasswd>
+deny from all
+</Files>

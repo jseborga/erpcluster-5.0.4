@@ -1,0 +1,25 @@
+CREATE TABLE llx_items (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  entity integer NOT NULL,
+  ref varchar(30) NOT NULL,
+  ref_ext varchar(30) NULL,
+  version integer DEFAULT '1' NOT NULL,
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  fk_type_item integer NOT NULL,
+  fk_parent integer NULL,
+  type tinyint DEFAULT '0' NULL,
+  detail varchar(100) NULL DEFAULT '',
+  fk_unit integer NOT NULL,
+  especification varchar(50) DEFAULT NULL,
+  plane varchar(50) DEFAULT NULL,
+  quant double(24,5) DEFAULT 0 NULL,
+  formula varchar(100) DEFAULT NULL,
+  manual_performance tinyint DEFAULT '0' NOT NULL,
+  hour_production double(24,8) DEFAULT '0' NULL,
+  datec date NOT NULL,
+  datem date NULL,
+  tms timestamp,
+  status tinyint NOT NULL DEFAULT '0'
+) ENGINE=InnoDB;
+

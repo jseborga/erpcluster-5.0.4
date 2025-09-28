@@ -1,0 +1,1 @@
+ALTER TABLE llx_c_type_contact CHANGE rowid rowid INTEGER NOT NULL AUTO_INCREMENT;

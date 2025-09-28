@@ -1,0 +1,23 @@
+CREATE TABLE llx_m_jobs_program (
+  rowid integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  fk_jobs integer NOT NULL,
+  ref varchar(30) NOT NULL,
+  fk_speciality integer NOT NULL,
+  description text,
+  date_ini datetime DEFAULT NULL,
+  date_fin datetime DEFAULT NULL,
+  image_req tinyint DEFAULT '0' NOT NULL,
+  members text,
+  fk_equipment integer DEFAULT NULL,
+  fk_property integer DEFAULT NULL,
+  fk_location integer DEFAULT NULL,
+  fk_departament integer DEFAULT NULL,
+  fk_user integer DEFAULT NULL,
+  fk_structure integer DEFAULT '0',
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  datec date NOT NULL,
+  datem date NOT NULL,
+  tms timestamp NOT NULL,
+  status tinyint DEFAULT '0' NOT NULL
+) ENGINE=InnoDB;

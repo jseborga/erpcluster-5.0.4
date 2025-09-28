@@ -1,0 +1,114 @@
+<?php
+  //recuperamos las variables
+$id  = $_SESSION['transfid_'];
+$idp = $_SESSION['transfidp_'];
+$ll  = $_SESSION['transfll_'];
+$group = $_SESSION['transfgroup_'];
+$lLoop = true;
+$nLoop = 5;
+//buscamos el flujomodel
+if ($objflow->fetch($ll)>0)
+  {
+    $objnew = new Cflowmodels($db);
+    print '<div>';
+    $i = 0;
+    $html = '';
+    while ($i <= $nLoop)
+      {
+	if (!empty($objflow->'code'.$i))
+	  {
+	    //buscamos el nombre
+	    if ($objnew->fetch_code($group,$objflow->'code'.$i)>0)
+	      {
+		if ($objnew->code_actor_last == 'US')
+		  {
+		    //unidad solicitante recuperamos del preventivo
+		    $idArea_transf = $objprev->fk_area;
+		  }
+		else
+		  {
+		    //
+		  }
+	      }
+	    $html.= '<a class="linkall" href="'.$_SERVER['PHP_SELF'].'?id='.$id.'&idp='.$idp.'&action=createtrans'.'" title="'.$label.'">';      
+	    $html.= '<div class=" height60 width80 padding1 margin5 floatleftm3" style="text-align:center; background-color: '.$arrayc[$l].'; ';
+	    $html.= '">';
+	    $html.= $arrayr['label'];
+	    $html.= '</div>';
+	    $html.= '</a>';	    
+	  }	
+      }
+    if ($action != 'editwd')
+      {
+	$sequen++;
+	$objnew->sequen = $sequen;
+      }
+    print '<form name="fiche_process" action="'.$_SERVER['PHP_SELF'].'" method="post">';
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<input type="hidden" name="id" value="'.$object->id.'">';
+    if ($action == 'editwd')
+      {
+	print '<input type="hidden" name="action" value="updatelin">';
+	print '<input type="hidden" name="idw" value="'.$idw.'">';
+      }
+    else
+      print '<input type="hidden" name="action" value="adddetconfirm">';
+    
+    print '<tr>';
+    
+    print '<td align="center">';
+    if ($action == 'editwd')
+      {
+	print '<input type="number" name="sequen" value="'.$objnew->sequen.'">';
+      }
+    else
+      {
+	print $objnew->sequen;
+	print '<input type="hidden" name="sequen" value="'.$objnew->sequen.'">';
+      }
+    print '</td>';
+    print '<td nowrap>';
+    if ($user->admin)
+      $form->select_date($objnew->date_tracking,'dt_','','','',"date",1,0);
+    else
+      print dol_print_date(dol_now(),'day');
+    print '</td>';
+    
+    //last area
+    print '<td>';
+    print $codearea;
+    print '<input type="hidden" name="code_area_last" value="'.$codearea.'">';
+    print '</td>';
+    
+    //next area
+    print '<td>';
+    // print $objarea->select_area($objnew->code_area_next,'code_area_next','',40,1,implode(',',$aUserAreaId),1);
+    print $objarea->select_area($objnew->code_area_next,'code_area_next','',40,1,'',1);
+    print '</td>';
+    
+    //typeprocedure
+    print '<td>';
+    print select_typeprocedure($objnew->code_procedure,'code_procedure','',1,0,'code');
+    print '</td>';
+    
+    //detail
+    print '<td>';
+    print '<textarea name="detail" rows="1" cols="40">'.$objnew->detail.'</textarea>';
+    print '</td>';
+    //day
+    print '<td>';
+    print '&nbsp;';
+    print '</td>';
+    
+    //action
+    print '<td align="center">';
+    print '<input width="14" type="image" height="14" src="'.DOL_URL_ROOT.'/poa/img/save.png" alt="Grabar">';
+    print '</td>';
+    
+    print '</tr>';		     
+    
+    print '</form>';
+    
+    print '</div>';
+  }
+?>

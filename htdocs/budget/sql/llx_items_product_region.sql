@@ -1,0 +1,23 @@
+CREATE TABLE llx_items_product_region (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  fk_item_product integer NOT NULL,
+  fk_region integer NOT NULL,
+  fk_sector integer NOT NULL,
+  fk_origin integer DEFAULT '0' NULL,
+  percent_origin double(7,3) DEFAULT '0' NULL,
+  units double(24,8) NOT NULL DEFAULT '0.00000000',
+  commander integer NOT NULL DEFAULT '0',
+  performance double(24,8) NOT NULL DEFAULT '0.00000000',
+  hour_production double(24,8) NULL DEFAULT NULL,
+  price_productive double(24,8) NOT NULL DEFAULT '0.00000000',
+  price_improductive double(24,8) NOT NULL DEFAULT '0.00000000',
+  amount_noprod double(24,8) NOT NULL DEFAULT '0.00000000',
+  amount double(24,8) NOT NULL DEFAULT '0.00000000',
+  cost_direct double(24,8) NOT NULL DEFAULT '0',
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  datec date NOT NULL,
+  datem date NOT NULL,
+  tms timestamp NOT NULL,
+  status tinyint NOT NULL
+) ENGINE=InnoDB;

@@ -1,0 +1,28 @@
+code_parent;des_grupo;label;description
+16;OTROS MATERIALES QUIMICOS                                                                           ;1602;PEGAMENTOS                                                                                          
+20;PRODUCTOS DE MATERIALES PLASTICOS                                                                   ;2012;RAMPLUG                                                                                             
+20;;2023;VARIOS                                                                                              
+21;PRODUCTOS DE METAL                                                                                  ;2101;ABRAZADERAS                                                                                         
+21;;2111;CAJAS                                                                                               
+21;;2112;CANDADOS                                                                                            
+21;;2126;LLAVES DE PASO                                                                                      
+21;;2141;TORNILLOS                                                                                           
+21;;2142;TUBOS                                                                                               
+21;;2159;LLAVES                                                                                              
+21;;2162;VARIOS                                                                                              
+21;;2168;VARIOS                                                                                              
+21;;2170;GRIFOS                                                                                              
+28;UTILES DE ESCRITORIO Y OFICINA                                                                      ;2868;TONNERS VARIOS                                                                                      
+29;UTILES Y MATERIALES ELECTRICOS                                                                      ;2906;CABLES                                                                                              
+29;;2914;FOCOS                                                                                               
+29;;2920;LAMPARAS                                                                                            
+29;;2925;REACTANCIAS                                                                                         
+29;;2933;TUBOS FLUORESCENTES                                                                                 
+29;;2942;VARIOS                                                                                              
+29;;2944;MATERIALES ELECTRICOS PARA COMPUTADORAS                                                             
+29;;2946;DUCTOS                                                                                              
+99;MATERIALES NO CONTABILIZABLES (CTRL.FISICO)                                                         ;9943;DMMI - ALBAÑILERIA                                                                                  
+99;;9944;DMMI - PLOMERIA                                                                                     
+99;;9945;DMMI - ELECTRICIDAD                                                                                 
+99;;9948;DMMI - ELECTRONICA                                                                                  
+99;;9949;DMMI - SEGURIDAD MECANICA                                                                           

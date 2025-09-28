@@ -1,0 +1,20 @@
+CREATE TABLE llx_projet_paiement (
+  rowid integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  fk_projet integer NOT NULL,
+  ref varchar(30) NOT NULL,
+  fk_soc integer NOT NULL,
+  fk_fourn_facture integer DEFAULT '0',
+  date_payment date NOT NULL,
+  date_request date NOT NULL,
+  total_tva double DEFAULT '0' NULL,
+  total_ht double(24,8) DEFAULT '0.00000',
+  total_ttc double DEFAULT '0' NULL,
+  document text,
+  detail text,
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  datec date NOT NULL,
+  datem date NOT NULL,
+  tms timestamp NOT NULL,
+  status tinyint NOT NULL
+) ENGINE=InnoDB;

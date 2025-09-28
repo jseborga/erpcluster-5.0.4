@@ -1,0 +1,3 @@
+ALTER TABLE llx_budget_task_productivity ADD UNIQUE uk_unique ( fk_budget_task,code_parameter);
+
+ALTER TABLE llx_budget_task_productivity ADD CONSTRAINT fk_budgettaskproductivity_budgettaskresource_fkbudgettaskresource_rowid FOREIGN KEY (fk_budget_task_resource) REFERENCES llx_budget_task_resource(rowid) ON DELETE RESTRICT ON UPDATE RESTRICT;

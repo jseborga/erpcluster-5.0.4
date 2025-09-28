@@ -1,0 +1,21 @@
+CREATE TABLE llx_stock_mouvement_doc (
+  rowid integer PRIMARY KEY AUTO_INCREMENT,
+  entity integer NOT NULL,
+  ref varchar(30) NOT NULL,
+  ref_ext varchar(30) NULL,
+  fk_entrepot_from integer NOT NULL,
+  fk_entrepot_to integer NOT NULL,
+  fk_departament integer DEFAULT NULL,
+  fk_soc integer DEFAULT NULL,
+  fk_type_mov integer DEFAULT NULL,
+  fk_source integer DEFAULT '0' NULL,
+  model_pdf varchar(100) DEFAULT NULL,
+  datem datetime NOT NULL,
+  label text NOT NULL,
+  date_create date NOT NULL,
+  date_mod datetime DEFAULT NULL,
+  tms timestamp,
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  statut tinyint NOT NULL DEFAULT '0'
+) ENGINE=InnoDB;

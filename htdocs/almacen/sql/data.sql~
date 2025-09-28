@@ -1,0 +1,2 @@
+INSERT INTO llx_extrafields (name, entity, elementtype, tms, label, type, size, fieldunique, fieldrequired, pos, param) VALUES
+('unit', '__ENTITY__', 'product', '2015-05-05 18:36:02', 'Unidad', 'sellist', '', 0, 1, 1, 'a:1:{s:7:"options";a:1:{s:21:"units:description:ref";N;}}');

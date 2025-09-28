@@ -1,0 +1,27 @@
+.theight15{
+    font-size:15px;
+}
+.theight20{
+    font-size:18px;
+}
+.theightv{
+    font-size:18px;
+}
+
+.thlineleft{
+	border-left-style: solid; !important;
+	border-left-width: 1px;!important;
+	border-left-color: #fff000;!important;
+}
+.thlineright{
+	border-right-style: solid;!important;
+	border-right-width: 1px;!important;
+	border-right-color: #fff000;!important;
+}
+
+.tdlineerr{
+	border-right-style: solid;!important;
+	border-right-width: 1px;!important;
+	border-right-color: #fff000;!important;
+	background: #ff0000 !important;
+}

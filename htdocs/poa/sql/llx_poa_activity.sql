@@ -1,0 +1,23 @@
+CREATE TABLE llx_poa_activity (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  entity integer NOT NULL,
+  gestion smallint NOT NULL,
+  fk_poa integer DEFAULT '0',
+  fk_pac integer DEFAULT NULL,
+  fk_prev_ant integer DEFAULT '0',
+  fk_prev integer DEFAULT '0' NULL,
+  fk_area integer NOT NULL,
+  code_requirement varchar(30) NOT NULL,
+  label varchar(255) NOT NULL,
+  pseudonym varchar(50) DEFAULT NULL,
+  nro_activity integer NOT NULL,
+  date_activity date NOT NULL,
+  partida varchar(10) NOT NULL,
+  amount double NOT NULL DEFAULT '0',
+  priority tinyint DEFAULT '0',
+  date_create date NOT NULL,
+  fk_user_create integer NOT NULL,
+  tms timestamp NOT NULL,
+  statut tinyint NOT NULL DEFAULT '0',
+  active tinyint NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=325 DEFAULT CHARSET=utf8;

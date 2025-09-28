@@ -1,0 +1,1 @@
+ALTER TABLE llx_commande_fournisseurdet ADD price DOUBLE(24,8) NULL AFTER multicurrency_total_ttc;

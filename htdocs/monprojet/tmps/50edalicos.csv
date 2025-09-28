@@ -1,0 +1,27 @@
+ref|label|hilo|item|login|fechaini|fechafin|detail|group|type|typename|unitprogram|unit|price
+TK1510-0114|rurturtyurtyurtyu|||admindb|20/11/2015 12:00 AM|21/11/2015 12:00 AM|asd|0|||12|P|0
+TK1510-0112|Esto es una prueba de registro nuevo|||msalas|20/11/2015 11:36 AM||asdfasdf|1|||0||0
+TK1510-0113|45845574756|||admindb|20/11/2015 12:14 PM|||1|||0||0
+TK1510-0032|01 ADMINISTRACION|||carguedas|28/10/2015 12:00 AM|30/12/2015 12:00 AM|Tareas administrativas en Global|1|||0||0
+TK1510-0034|Revisiones|TK1510-0032||carguedas|28/10/2015 12:00 AM|30/12/2015 12:00 AM||1|||0||0
+TK1510-0035|Coordinacion|TK1510-0032||carguedas|28/10/2015 12:00 AM|30/12/2015 12:00 AM||1|||0||0
+TK1510-0037|Planillas de Pago|TK1510-0032||carguedas|28/10/2015 12:00 AM|30/12/2015 12:00 AM||1|||0||0
+TK1510-0033|02 PROYECTO|||carguedas|28/10/2015 12:00 AM|30/12/2015 12:00 AM|Rubros del Proyecto|1|||0||0
+TK1510-0050|MODELOS Y DISEÑOS|TK1510-0033||carguedas|04/11/2015 04:42 PM||Todas las tareas de modelar y diseñar|1|||0||0
+TK1510-0054|mod revit estructuras|TK1510-0050||gcalatayud; pduran|04/11/2015 12:00 AM|13/11/2015 12:00 AM|modelo revit de la estructura|0|||100|PER|0
+TK1510-0053|mod etbas|TK1510-0050||jseborga|09/11/2015 12:00 AM|16/11/2015 12:00 AM|modelo etbas con todos los criterios de diseño|0|||100|PER|1
+TK1510-0058|mod fontanería|TK1510-0050||pduran|12/11/2015 12:00 AM|25/11/2015 12:00 AM|modelacion de la fontanería en revit|0|||1|P|17.9
+TK1510-0059|mod sanitaria|TK1510-0050||pduran|25/11/2015 12:00 AM|15/12/2015 12:00 AM|diseño del sistema sanitario y pluvial y modelado en revit|0|1|1. TRABAJOS PRELIMINARES|1|SET|0
+TK1510-0043|Diseño sistema electrico|TK1510-0050||carguedas|01/12/2015 12:00 AM|09/01/2016 12:00 AM|Elaboracion del proyecto electrico a cargo del ing Torrez|0|||1|H|0
+TK1510-0039|INFORMES|TK1510-0033||carguedas|28/10/2015 12:00 AM|30/12/2015 12:00 AM||1|||0||0
+TK1510-0062|mem calc Estructuras|TK1510-0039||carguedas|16/11/2015 12:00 AM|25/11/2015 12:00 AM|memoria de calculo preliminar para presentacion|0|||1|P|0
+TK1510-0063|mem calc sanitaria y fontaneria|TK1510-0039||pduran|16/11/2015 12:00 AM|25/11/2015 12:00 AM|memorias de calculo preliminares|0|||1|P|0
+TK1510-0051|PLANOS|TK1510-0033||carguedas|04/11/2015 04:51 PM|||1|||0||0
+TK1510-0056|archivos asd|TK1510-0051|IT030004|gcalatayud|13/11/2015 12:00 AM|21/11/2015 12:00 AM|generar en base a revit cajetines y formatos listos para introducir armaduras para losas vigas muros escaleras|0|10|10. OTROS|1|P|0
+TK1510-0055|planos losas|TK1510-0051||gcalatayud|16/11/2015 12:00 AM|24/11/2015 12:00 AM|planos estructurales en base a los modelos asd y revit|0|||1|P|0
+TK1510-0057|planos vigas columnas escaleras muros|TK1510-0051||gcalatayud|26/11/2015 12:00 AM|21/12/2015 12:00 AM|planos estruturales definitivos|0|||1|P|0
+TK1510-0060|planos fontanería|TK1510-0051||pduran|19/11/2015 12:00 AM|25/11/2015 12:00 AM|planos constructivos de fontaneria preliminares, para presentacion al cliente|0|||1|P|0
+TK1510-0061|planos sanitarios|TK1510-0051||pduran|26/11/2015 12:00 AM|21/12/2015 12:00 AM|planos finales de sanitaria pluvial y lo que haya faltado de fontanería|0|||1|P|0
+TK1510-0052|CANTIDADES Y ESP|TK1510-0033||carguedas|04/11/2015 04:52 PM|||1|||0||0
+TK1510-0064|Ed final proy estruturas|TK1510-0052||carguedas|21/12/2015 12:00 AM|07/01/2016 12:00 AM|cantidades e informes finales|0|||1|P|0
+TK1510-0065|ed final proy sanitaria|TK1510-0052||carguedas|21/12/2015 12:00 AM|07/01/2016 12:00 AM|edicion final de sanitaria computos y especificaciones|0|||1|P|0

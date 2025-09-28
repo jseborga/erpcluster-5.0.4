@@ -1,0 +1,1 @@
+ALTER TABLE llx_c_parameter_equipment ADD UNIQUE uk_unique (code);

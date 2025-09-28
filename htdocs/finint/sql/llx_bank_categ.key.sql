@@ -1,0 +1,1 @@
+ALTER TABLE llx_bank_categ ADD UNIQUE uk_unique ( entity , label );

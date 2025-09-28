@@ -1,0 +1,1 @@
+ALTER TABLE llx_c_type_cash ADD recharge TINYINT NULL DEFAULT '0' AFTER label;

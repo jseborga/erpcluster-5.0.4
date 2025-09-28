@@ -1,0 +1,716 @@
+<?php
+/* Copyright (C) 2014-2014 Ramiro Queso        <ramiro@ubuntu-bo.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *	\file       htdocs/poa/process/fiche.php
+ *	\ingroup    Process
+ *	\brief      Page fiche poa process
+ */
+
+require("../../main.inc.php");
+// require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
+// require_once DOL_DOCUMENT_ROOT.'/core/class/html.formorder.class.php';
+
+require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
+
+require_once DOL_DOCUMENT_ROOT.'/assets/assets/class/assets.class.php';
+require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+require_once DOL_DOCUMENT_ROOT.'/assets/property/class/mproperty.class.php';
+require_once DOL_DOCUMENT_ROOT.'/assets/property/class/mlocation.class.php';
+require_once DOL_DOCUMENT_ROOT.'/assets/assignment/class/assetsassignment.class.php';
+require_once DOL_DOCUMENT_ROOT.'/assets/assignment/class/assetsassignmentdet.class.php';
+require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
+
+require_once DOL_DOCUMENT_ROOT.'/assets/lib/assets.lib.php';
+
+//require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
+
+$langs->load("assets@assets");
+
+$action = GETPOST('action');
+$id     = GETPOST("id");
+
+if (isset($_GET['tab']) || isset($_POST['tab']))
+  $_SESSION['tabasset'] = (!empty($_GET['tab'])?$_GET['tab']:$_POST['tab']);
+$tab = $_SESSION['tabasset'];
+
+$mesg = '';
+
+$object  = new Assets($db);
+$objpro  = new Mproperty($db);
+$objloc  = new Mlocation($db);
+$objassign = new Assetsassignment($db);
+$objassigndet = new Assetsassignmentdet($db);
+$objuser = new User($db);
+$objadh  = new Adherent($db);
+$projet = new Project($db);
+
+if ($action == 'search')
+  $action = 'createedit';
+/*
+ * Actions
+ */
+
+// Add
+if ($action == 'add' && $user->rights->assets->ass->crear)
+  {
+    $error = 0;
+    $object->date_adq = dol_mktime(12, 0, 0, GETPOST('da_month'),GETPOST('da_day'),GETPOST('da_year'));
+
+    $object->entity   = $conf->entity;
+    $object->ref   = GETPOST('ref');
+    $object->fk_father   = GETPOST('fk_father','int');
+
+    $object->type_group   = GETPOST('type_group');
+    $object->type_patrim  = GETPOST('type_patrim');
+    $object->item_asset   = GETPOST('item_asset');
+    $object->quant        = GETPOST('quant'); //tipo contrato
+    $object->coste        = GETPOST('coste'); //tipo contrato
+    $object->fk_type_adj  = GETPOST('fk_type_adj');
+    $object->descrip      = GETPOST('descrip');
+    $object->number_plaque = GETPOST('number_plaque');
+
+    $object->date_create = dol_now();
+    $object->fk_user_create = $user->id;
+    $object->tms = date('YmdHis');
+    $object->statut = 0;
+    if (empty($object->type_group))
+      {
+	$error++;
+	$mesg.='<div class="error">'.$langs->trans("Errortypegroupisrequired").'</div>';
+      }
+    if (empty($object->descrip))
+      {
+	$error++;
+	$mesg.='<div class="error">'.$langs->trans("Errordetailisrequired").'</div>';
+      }
+
+    if (empty($error)) 
+      {
+	$id = $object->create($user);
+	if ($id > 0)
+	  {
+	    //actualizamos la ref por el indice
+	    $object->fetch($id);
+	    $object->ref = '(PROV'.$object->id.')';
+	    $object->update($user);
+	    header("Location: fiche.php?id=".$id);
+	    exit;
+	  }
+	$action = 'create';
+	$mesg='<div class="error">'.$object->error.'</div>';
+      }
+    else
+      {
+	if ($error)
+	  $action="create";   // Force retour sur page creation
+      }
+  }
+
+// Addassign //registro individual de asignacion
+if ($action == 'addassign' && $user->rights->assets->alloc->crear)
+  {
+    $date_assig = dol_mktime(12, 0, 0, GETPOST('da_month'),GETPOST('da_day'),GETPOST('da_year'));
+    $error = 0;
+
+    $objassign->entity = $conf->entity;
+    $objassign->ref = '(PROV)';
+    $objassign->detail = $conf->global->ASSETS_ASSIGNMENT_DETAIL_DEFAULT;
+    $objassign->date_assignment = $date_assig;
+    $objassign->type_assignment = '1'; //tipo de asignacion por un solo item
+    $objassign->date_create = dol_now();
+    $objassign->fk_user_create = $user->id;
+    $objassign->tms = date('YmdHis');
+    $objassign->statut = 0;
+
+    $db->begin();
+    $idassign = $objassign->create($user);
+    if ($idassign > 0)
+      {
+	//damos de baja la asignacion anterior del activo si existe
+	$objassigndet_a = new Assetsassignmentdet($db);
+	$result = $objassigndet_a->fetch_ult($id);
+	if ($result > 0)
+	  {
+	    $objassigndet_a->statut = 2;
+	    $objassigndet_a->date_end = dol_now();
+	    $result = $objassigndet_a->update($user);
+	  }
+	//registramos en assets_assignment_det el activo asignado
+	$objassigndet->fk_asset_assignment = $idassign;
+	$objassigndet->fk_asset = GETPOST('id');
+	$objassigndet->fk_adherent = GETPOST('fk_adherent');
+	$objassigndet->fk_property = GETPOST('fk_property');
+	$objassigndet->fk_location = GETPOST('fk_location');
+	$objassigndet->date_assignment = $date_assig;
+	$objassigndet->date_create = dol_now();
+	$objassigndet->fk_user_create = $user->id;
+	$objassigndet->tms = date('Ymdhis');
+	$objassigndet->statut = 1;
+	
+	$result = $objassigndet->create($user);
+	
+	if ($result > 0)
+	  {
+	    //cambiamos la numeracion de la asignacion
+	    $numref = $objassign->getNextNumRef($objassign);
+	    $objassign->fetch($idassign);
+	    //cambiando a validado
+	    $objassign->statut = 1;
+	    $objassign->ref = $numref;
+	    //update
+	    $result = $objassign->update($user);
+	    if ($result > 0)
+	      {
+		$db->commit();
+		header("Location: ".$_SERVER['PHP_SELF'].'?id='.$id);
+		exit;
+	      }
+	    else
+	      {
+		$db->rollback();
+		$mesg='<div class="error">'.$objassign->error.'</div>';
+		$action='createassign';
+	      }
+	  }
+	else
+	  {
+	    $db->rollback();
+	    $action = 'createassign';
+	    $mesg='<div class="error">'.$objassigndet->error.'</div>';
+	  }
+      }
+    else
+      {
+	$db->rollback();
+	$action = 'createassign';
+	$mesg='<div class="error">'.$objassign->error.'</div>';
+      }
+  }
+
+// Add
+if ($action == 'update' && ($user->rights->assets->ass->crear || 
+			    $user->rights->assets->ass->act ||
+			    $user->rights->assets->ass->mod))
+  {
+    if ($object->fetch($id)>0)
+      {
+	$error = 0;
+	$object->date_adq = dol_mktime(12, 0, 0, GETPOST('da_month'),GETPOST('da_day'),GETPOST('da_year'));
+	
+	$object->ref       = GETPOST('ref');
+	$object->fk_father     = GETPOST('fk_father','int');
+	$object->type_group    = GETPOST('type_group');
+	$object->type_patrim   = GETPOST('type_patrim');
+	$object->item_asset    = GETPOST('item_asset');
+	$object->quant         = GETPOST('quant'); //tipo contrato
+	$object->coste         = GETPOST('coste');
+	$object->fk_type_adj   = GETPOST('fk_type_adj');
+	$object->descrip       = GETPOST('descrip');
+	$object->number_plaque = GETPOST('number_plaque');
+	$object->fk_location   = GETPOST('fk_location')+0;
+	
+	$object->tms = dol_now();
+	if (empty($object->type_group))
+	  {
+	    $error++;
+	    $mesg.='<div class="error">'.$langs->trans("Errortypegroupisrequired").'</div>';
+	  }
+	if (empty($object->descrip))
+	  {
+	    $error++;
+	    $mesg.='<div class="error">'.$langs->trans("Errordetailisrequired").'</div>';
+	  }
+	if (empty($error)) 
+	  {
+	    $res = $object->update($user);
+	    if ($res > 0)
+	      {
+		//actualizamos la ref por el indice
+		$object->fetch($id);
+		$object->ref = '(PROV'.$object->id.')';
+		$object->update($user);
+		header("Location: fiche.php?id=".$id);
+		exit;
+	      }
+	    $action = 'edit';
+	    $mesg='<div class="error">'.$object->error.'</div>';
+	  }
+	else
+	  {
+	    if ($error)
+	      $action="edit";   // Force retour sur page creation
+	  }
+      }
+  }
+
+// confirm validate
+if ($action == 'confirm_validate' && $_REQUEST["confirm"] == 'yes' && $user->rights->assets->ass->val)
+{
+  if ($object->fetch($_REQUEST["id"]))
+    {
+      //verificamos la numeracion
+      $ref = substr($object->ref, 1, 4);
+      if ($ref == 'PROV')
+	{
+	  $numref = $object->getNextNumRef($object);
+	}
+      else
+	{
+	  $numref = $object->ref;
+	}
+      if ($numref != -1)
+	{
+	  $object->fetch(GETPOST('id'));
+	  //cambiando a validado
+	  $object->statut = 1;
+	  $object->ref = $numref;
+	  //update
+	  $result = $object->update($user);
+	  if ($result > 0)
+	    {
+	      header("Location: ".$_SERVER['PHP_SELF'].'?id='.$id);
+	      exit;
+	    }
+	  else
+	    {
+	      $mesg='<div class="error">'.$object->error.'</div>';
+	      $action='';
+	    }
+	}
+    }
+ }
+
+// Delete assets
+if ($action == 'confirm_delete' && $_REQUEST["confirm"] == 'yes' && $user->rights->assets->ass->del)
+{
+  $object->fetch($_REQUEST["id"]);
+  $result=$object->delete($user);
+  if ($result > 0)
+    {
+      header("Location: ".DOL_URL_ROOT.'/assets/assets/liste.php');
+      exit;
+    }
+  else
+    {
+      $mesg='<div class="error">'.$object->error.'</div>';
+      $action='';
+    }
+ }
+
+
+if ( ($action == 'createedit') )
+  {
+    require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+    //$tmparray=getProperty(GETPOST('country_id','int'),'all',$db,$langs,0);
+    $date_adq = dol_mktime(12, 0, 0, GETPOST('da_month'),GETPOST('da_day'),GETPOST('da_year'));
+
+    $tmparray['type_group'] = GETPOST('type_group');
+    $tmparray['type_patrim'] = GETPOST('type_patrim');
+    $tmparray['descrip'] = GETPOST('descrip');
+    $tmparray['quant'] = GETPOST('quant');
+    $tmparray['date_adq'] = $date_adq;
+    $tmparray['number_plaque'] = GETPOST('number_plaque');
+
+    //buscamos la codificacion del activo
+    if ($tmparray['type_group'] && $object->fetch_max($tmparray['type_group']))
+      {
+	$object->type_group = $tmparray['type_group'];
+	$object->type_patrim = $tmparray['type_patrim'];
+	$object->descrip     = $tmparray['descrip'];
+	$object->quant       = $tmparray['quant'];
+	$object->date_adq    = $tmparray['date_adq'];
+	$object->number_plaque = $tmparray['number_plaque'];
+	$object->item_asset  = $object->maximo;
+      }
+    $action='create';
+  }
+
+
+if ( ($action == 'createassignsearch') )
+  {
+    $date_assign = dol_mktime(12, 0, 0, GETPOST('da_month'),GETPOST('da_day'),GETPOST('da_year'));
+
+    $tmparray['fk_adherent'] = GETPOST('fk_adherent');
+    $tmparray['fk_property'] = GETPOST('fk_property');
+    $tmparray['date_assign'] = $date_assign;
+
+    //buscamos la codificacion del activo
+    if ($tmparray['fk_property'])
+      {
+	$objassigndet->fk_adherent = $tmparray['fk_adherent'];
+	$objassigndet->fk_property = $tmparray['fk_property'];
+	$objassigndet->date_assignment = $tmparray['date_assign'];
+      }
+    $action='createassign';
+  }
+
+if ($_POST["cancel"] == $langs->trans("Cancel"))
+  {
+    $action = '';
+    $_GET["id"] = $_POST["id"];
+  }
+// print_r($_POST);
+// exit;
+
+/*
+ * View
+ */
+
+$form=new Form($db);
+
+$aArrcss= array('assets/css/style.css');
+$help_url='EN:Module_Assets_En|FR:Module_Assets|ES:M&oacute;dulo_Assets';
+llxHeader("",$langs->trans("Assets"),$help_url,'','','','',$aArrcss);
+
+if ($action == 'create' && $user->rights->assets->ass->crear)
+  {
+    print_fiche_titre($langs->trans("Newasset"));
+
+    print "\n".'<script type="text/javascript" language="javascript">';
+    print '$(document).ready(function () {
+	            $("#selecttype_group").change(function() {
+	              document.fiche_asset.action.value="createedit";
+	              document.fiche_asset.submit();
+	            });
+	
+	        });';
+    print '</script>'."\n";
+	
+    print '<form name="fiche_asset" action="'.$_SERVER['PHP_SELF'].'" method="post">';
+    print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+    print '<input type="hidden" name="action" value="add">';
+    
+    dol_htmloutput_mesg($mesg);
+    
+    print '<table class="border" style="min-width=1000px" width="100%">';
+
+    //group type
+    print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Group').'</td><td colspan="2">';
+    print select_type_group($object->type_group,'type_group','',1,0,'code');    
+    print '</td></tr>';
+    
+    //ref code
+    print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Code').'</td><td colspan="2">';
+    print '(PROV)';
+    print '<input type="hidden" name="ref" value="'.(empty($object->ref)?'(PROV)':$object->ref).'" size="30">';    
+    print '</td></tr>';
+
+    //ref item
+    print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Item').'</td><td colspan="2">';
+    print '<input type="text" name="item_asset" value="'.$object->item_asset.'" size="2" readonly>';    
+    print '</td></tr>';
+
+
+    //patrim type
+    print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Clasification').'</td><td colspan="2">';
+    print select_type_patrim((empty($object->type_patrim)?'N':$object->type_patrim),'type_patrim','',1,0,'code');    
+    print '</td></tr>';
+
+    //detail
+    print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Detail').'</td><td colspan="2">';
+    print '<input type="text" name="descrip" value="'.$object->descrip.'" size="60">';    
+    print '</td></tr>';
+
+    //quant
+    print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Quantity').'</td><td colspan="2">';
+    print '<input type="number" min="1" name="quant" value="'.$object->quant.'">';    
+    print '</td></tr>';
+
+    //coste
+    print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Cost').'</td><td colspan="2">';
+    print '<input type="number" min="0" step="any" name="coste" value="'.$object->coste.'">';
+    print '</td></tr>';
+
+    //date adq
+    print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Date acquisition').'</td><td colspan="2">';
+    $form->select_date($object->date_adq,'da_','','','',"date",1,1);
+    print '</td></tr>';
+
+    //number plaque
+    print '<tr><td width="15%">'.$langs->trans('Number plaque').'</td><td colspan="2">';
+    print '<input type="text" name="number_plaque" value="'.$object->number_plaque.'" size="27" maxlenght="30">';    
+    print '</td></tr>';
+
+    print '</table>';
+
+    print '<center><br><input type="submit" class="button" value="'.$langs->trans("Create").'"></center>';
+    print '</form>';
+  }
+ else
+   {
+     if ($id || $_GET['id'])
+       {
+	 //dol_htmloutput_mesg($mesg);
+	 if (empty($id)) $id = $_GET['id'];
+	 $result = $object->fetch($id);
+	 if ($result < 0)
+	   {
+	     dol_print_error($db);
+	   }
+	 if ( ($action == 'editedit') )
+	   {
+	     require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
+	     //$tmparray=getProperty(GETPOST('country_id','int'),'all',$db,$langs,0);
+	     $date_adq = dol_mktime(12, 0, 0, GETPOST('da_month'),GETPOST('da_day'),GETPOST('da_year'));
+	     
+	     $tmparray['type_group'] = GETPOST('type_group');
+	     $tmparray['type_patrim'] = GETPOST('type_patrim');
+	     $tmparray['descrip'] = GETPOST('descrip');
+	     $tmparray['quant'] = GETPOST('quant');
+	     $tmparray['date_adq'] = $date_adq;
+	     $tmparray['number_plaque'] = GETPOST('number_plaque');
+	     $tmparray['fk_property'] = GETPOST('fk_property');
+	     $tmparray['fk_location'] = GETPOST('fk_location');
+
+	     
+	     //buscamos la codificacion del activo
+	     if ($tmparray['type_group'] && $object->fetch_max($tmparray['type_group']))
+	       {
+		 $object->type_group = $tmparray['type_group'];
+		 $object->type_patrim = $tmparray['type_patrim'];
+		 $object->descrip     = $tmparray['descrip'];
+		 $object->quant       = $tmparray['quant'];
+		 $object->date_adq    = $tmparray['date_adq'];
+		 $object->number_plaque = $tmparray['number_plaque'];
+		 $object->fk_property = $tmparray['fk_property'];
+		 $object->fk_location = $tmparray['fk_location'];
+
+		 $object->item_asset  = $object->maximo;
+	       }
+	     $action=GETPOST('subaction');
+	   }
+
+	
+	 $head=assets_prepare_head($object);
+	 dol_fiche_head($head, $tab, $langs->trans("Fixed asset"),0,($object->public?'projectpub':'project'));
+ 
+	 /*
+	  * Affichage fiche
+	  */
+	 if ($action <> 'edit' && $action <> 're-edit')
+	   {
+	     
+	     // Confirm validate third party
+	     if ($action == 'validate')
+	       {
+		 $form = new Form($db);
+		 $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id,
+					  $langs->trans("Validateasset"),
+					  $langs->trans("Confirmvalidateasset").': '.$object->ref.' '.$object->descrip,
+					  "confirm_validate",
+					  '',
+					  0,
+					  2);
+		 if ($ret == 'html') print '<br>';
+	       }
+	     
+	     // Confirm delete third party
+	     if ($action == 'delete')
+	       {
+		 $form = new Form($db);
+		 $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id,$langs->trans("Deleteprocess"),$langs->trans("Confirmdeleteprocess",$object->ref.' '.$object->detail),"confirm_delete",'',0,2);
+		 if ($ret == 'html') print '<br>';
+	       }
+	     
+	     // Confirm cancel proces
+	     if ($action == 'anulate')
+	       {
+		 $form = new Form($db);
+		 $ret=$form->form_confirm($_SERVER["PHP_SELF"]."?id=".$object->id,$langs->trans("Cancelprocess"),$langs->trans("Confirmcancelprocess",$object->ref.' '.$object->detail),"confirm_cancel",'',0,2);
+		 if ($ret == 'html') print '<br>';
+	       }
+	     if (empty($tab))
+	       include_once DOL_DOCUMENT_ROOT."/assets/assets/tpl/tab0.tpl.php";
+	     if ($tab == 1)
+	       include_once DOL_DOCUMENT_ROOT."/assets/assets/tpl/tab1.tpl.php";
+	     if ($tab == 2)
+	       include_once DOL_DOCUMENT_ROOT."/assets/assets/tpl/tab2.tpl.php";
+	  
+	     print '</div>';
+	  
+	  
+	     /* ************************************** */
+	     /*                                        */
+	     /* Barre d'action                         */
+	     /*                                        */
+	     /* ************************************** */
+	     
+	     print "<div class=\"tabsAction\">\n";
+	     
+	     if ($action == '')
+	       {
+		 if ($user->rights->assets->ass->crear && ($tab <= 1))
+		   print "<a class=\"butAction\" href=\"fiche.php?action=create\">".$langs->trans("Createnew")."</a>";
+		 else
+		   print "<a class=\"butActionRefused\" href=\"#\">".$langs->trans("Createnew")."</a>";
+		 if ($user->rights->assets->ass->mod && 
+		     $object->statut == 0)
+		   print "<a class=\"butAction\" href=\"fiche.php?action=edit&id=".$object->id."\">".$langs->trans("Modify")."</a>";
+		 else
+		   print "<a class=\"butActionRefused\" href=\"#\">".$langs->trans("Modify")."</a>";
+
+		 if ($user->rights->assets->ass->act && 
+		     $object->statut == 0 && $tab == 0)
+		   print "<a class=\"butAction\" href=\"fiche.php?action=re-edit&id=".$object->id."\">".$langs->trans("Upgrade")."</a>";
+		 else
+		   print "<a class=\"butActionRefused\" href=\"#\">".$langs->trans("Upgrade")."</a>";
+		 
+		 if ($user->rights->assets->ass->del && $object->statut == 0 && ($tab == 1 || $tab == 1))
+		   print "<a class=\"butActionDelete\" href=\"fiche.php?action=delete&id=".$object->id."\">".$langs->trans("Delete")."</a>";
+		 else
+		   print "<a class=\"butActionRefused\" href=\"#\">".$langs->trans("Delete")."</a>";
+
+		 if ($user->rights->assets->ass->val && $object->statut == 0 && ($tab == 0 || $tab == 1))
+		   print "<a class=\"butAction\" href=\"fiche.php?action=validate&id=".$object->id."\">".$langs->trans("Validate")."</a>";
+		 else
+		   print "<a class=\"butActionRefused\" href=\"#\">".$langs->trans("Delete")."</a>";
+		 //tab2 asignacion
+		 if ($user->rights->assets->ass->crear && $object->statut == 1 && ($tab == 2))
+		   {
+		     if (!empty($object->mark))
+		       print '<a class="butAction" href="fiche.php?action=createassign&id='.$id.'">'.$langs->trans("Create assignment").'</a>';
+		   }
+		 else
+		   print "<a class=\"butActionRefused\" href=\"#\">".$langs->trans("Create assignment")."</a>";
+		 
+	       }	  
+	     print "</div>";		
+	     
+	   }
+
+	 /*
+	  * Edition fiche
+	  */
+	 if (($action == 'edit' || $action == 're-edit') && 1)
+	   {
+	     
+	     print_fiche_titre($langs->trans("Editasset"));
+
+	     print "\n".'<script type="text/javascript" language="javascript">';
+	     print '$(document).ready(function () {
+	            $("#selecttype_group").change(function() {
+	              document.fiche_asset.action.value="editedit";
+	              document.fiche_asset.submit();
+	            });
+	
+	        });';
+	     print '</script>'."\n";
+
+	     print "\n".'<script type="text/javascript" language="javascript">';
+	     print '$(document).ready(function () {
+	            $("#selectfk_property").change(function() {
+	              document.fiche_asset.action.value="editedit";
+	              document.fiche_asset.submit();
+	            });
+	
+	        });';
+	     print '</script>'."\n";
+	     
+	     print '<form name="fiche_asset" action="'.$_SERVER['PHP_SELF'].'" method="post">';
+	     print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+	     print '<input type="hidden" name="action" value="update">';
+	     print '<input type="hidden" name="id" value="'.$id.'">';
+	     print '<input type="hidden" name="subaction" value="'.$action.'">';
+
+	     
+	     dol_htmloutput_mesg($mesg);
+	     
+	     print '<table class="border" style="min-width=1000px" width="100%">';
+	     
+	     //group type
+	     print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Group').'</td><td colspan="2">';
+	     print select_type_group($object->type_group,'type_group','',1,0,'code');    
+	     print '</td></tr>';
+	     
+	     //ref code
+	     print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Code').'</td><td colspan="2">';
+	     print '<input type="text" name="ref" value="'.(empty($object->ref)?'(PROV)':$object->ref).'" size="30">';    
+	     print '</td></tr>';
+	     
+	     //ref item
+	     print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Item').'</td><td colspan="2">';
+	     if ($action == 'edit')
+	       print '<input type="text" name="item_asset" value="'.$object->item_asset.'" size="2">';    
+	     else
+	       {
+		 print $object->item_asset;    
+		 print '<input type="hidden" name="item_asset" value="'.$object->item_asset.'">';    
+	       }
+	     print '</td></tr>';
+	     
+	     
+	     //patrim type
+	     print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Clasification').'</td><td colspan="2">';
+	     if ($action == 'edit')
+	       print select_type_patrim((empty($object->type_patrim)?'N':$object->type_patrim),'type_patrim','',1,0,'code');    
+	     else 
+	       print select_type_patrim((empty($object->type_patrim)?'N':$object->type_patrim),'type_patrim','',0,1,'code');    
+	     print '</td></tr>';
+	     
+	     //detail
+	     print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Detail').'</td><td colspan="2">';
+	     print '<input type="text" name="descrip" value="'.$object->descrip.'" size="60">';    
+	     print '</td></tr>';
+	     
+	     //quant
+	     print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Quantity').'</td><td colspan="2">';
+	     print '<input type="number" name="quant" value="'.(empty($object->quant) || $object->quant<=0?1:$object->quant).'">';    
+	     print '</td></tr>';
+
+	     //coste
+	     print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Cost').'</td><td colspan="2">';
+	     print '<input type="number" min="0" step="any" name="coste" value="'.$object->coste.'">';
+	     print '</td></tr>';
+	     
+	     //date adq
+	     print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Date acquisition').'</td><td colspan="2">';
+	     $form->select_date($object->date_adq,'da_','','','',"date",1,1);
+	     print '</td></tr>';
+	     
+	     if ($action == 're-edit')
+	       {
+		 print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Property').'</td><td colspan="2">';
+		 print $objpro->select_property($object->fk_property,'fk_property','',40,1);
+		 print '</td></tr>';
+
+		 print '<tr><td width="15%" class="fieldrequired">'.$langs->trans('Location').'</td><td colspan="2">';
+		 print $objloc->select_location($objassigndet->fk_location,'fk_location','',40,1,$object->fk_property);
+		 print '</td></tr>';
+
+	       }
+
+	     //number plaque
+	     print '<tr><td width="15%">'.$langs->trans('Number plaque').'</td><td colspan="2">';
+	     print '<input type="text" name="number_plaque" value="'.$object->number_plaque.'" size="27" maxlenght="30">';    
+	     print '</td></tr>';
+	     
+	     print '</table>';
+	     
+	     print '<center><br><input type="submit" class="button" value="'.$langs->trans("Save").'">';
+	     print '&nbsp;<input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'">'.'</center>';
+	     print '</form>';
+	     
+	   }
+       }
+   }
+llxFooter();
+
+$db->close();
+?>

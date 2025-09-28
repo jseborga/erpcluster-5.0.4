@@ -1,0 +1,1 @@
+ALTER TABLE llx_c_departements_region ADD UNIQUE uk_unique (fk_region_geographic, fk_departement);

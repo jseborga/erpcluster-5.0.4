@@ -1,0 +1,1 @@
+ALTER TABLE llx_c_name_objetive ADD UNIQUE uk_unique (entity, code);

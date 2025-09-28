@@ -1,0 +1,31 @@
+CREATE TABLE llx_p_contract
+(
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  ref varchar(20) NOT NULL,
+  fk_user integer NOT NULL,
+  fk_departament integer NOT NULL,
+  fk_charge integer NOT NULL,
+  fk_regional integer NULL,
+  fk_proces integer NOT NULL,
+  fk_cc integer DEFAULT NULL,
+  fk_account integer NULL DEFAULT '0',
+  fk_unit integer DEFAULT NULL,
+  number_item varchar(20) NULL,
+  date_ini date NOT NULL,
+  date_fin date DEFAULT NULL,
+  basic double( 15,2 ) NOT NULL,
+  basic_fixed double( 15,2 ) DEFAULT 0 NULL,
+  unit_cost double(24,5) DEFAULT 0 NULL,
+  nivel varchar(30) NULL,
+  bonus_old tinyint DEFAULT 1 NOT NULL,
+  hours tinyint NOT NULL,
+  nua_afp integer DEFAULT NULL,
+  afp varchar(40) NULL,
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  date_create date NOT NULL,
+  date_mod date NOT NULL,
+  tms timestamp NOT NULL,
+  state tinyint NOT NULL
+
+) ENGINE=innodb;

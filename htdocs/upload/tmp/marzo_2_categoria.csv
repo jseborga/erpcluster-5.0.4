@@ -1,0 +1,36 @@
+code_parent;des_grupo;label;description
+02;CONFECCIONES TEXTILES                                                                               ;0201;ALFOMBRAS                                                                                           
+;;0213;CORTINAS                                                                                            
+12;SUSTANCIAS QUIMICAS                                                                                 ;1201;DILUYENTES                                                                                          
+;;1206;VARIOS                                                                                              
+16;OTROS MATERIALES QUIMICOS                                                                           ;1602;PEGAMENTOS                                                                                          
+19;CEMENTO CAL Y YESO                                                                                  ;1901;CAL                                                                                                 
+;;1902;CEMENTO                                                                                             
+20;PRODUCTOS DE MATERIALES PLASTICOS                                                                   ;2012;RAMPLUG                                                                                             
+;;2023;VARIOS                                                                                              
+21;PRODUCTOS DE METAL                                                                                  ;2101;ABRAZADERAS                                                                                         
+;;2112;CANDADOS                                                                                            
+;;2141;TORNILLOS                                                                                           
+;;2142;TUBOS                                                                                               
+;;2162;VARIOS                                                                                              
+;;2166;ANGULAR                                                                                             
+;;2170;GRIFOS                                                                                              
+25;MATERIAL DE LIMPIEZA                                                                                ;2502;DETERGENTES                                                                                         
+28;UTILES DE ESCRITORIO Y OFICINA                                                                      ;2868;TONNERS VARIOS                                                                                      
+29;UTILES Y MATERIALES ELECTRICOS                                                                      ;2906;CABLES                                                                                              
+;;2914;FOCOS                                                                                               
+;;2920;LAMPARAS                                                                                            
+;;2922;LUMINARIAS                                                                                          
+;;2924;PILAS (BATERIAS)                                                                                    
+;;2925;REACTANCIAS                                                                                         
+;;2933;TUBOS FLUORESCENTES                                                                                 
+;;2936;DUCHAS                                                                                              
+;;2942;VARIOS                                                                                              
+;;2944;MATERIALES ELECTRICOS PARA COMPUTADORAS                                                             
+99;MATERIALES NO CONTABILIZABLES (CTRL.FISICO)                                                         ;9943;DMMI - ALBAÑILERIA                                                                                  
+;;9944;DMMI - PLOMERIA                                                                                     
+;;9945;DMMI - ELECTRICIDAD                                                                                 
+;;9946;DMMI - CALEFACCION                                                                                  
+;;9947;DMMI - CARPINTERIA                                                                                  
+;;9948;DMMI - ELECTRONICA                                                                                  
+;;9949;DMMI - SEGURIDAD MECANICA                                                                           

@@ -1,0 +1,13 @@
+ref|label|hilo|item|login|fechaini|fechafin|detail|group|type|typename|unitprogram|unit|price
+TK1711-0001|Tarea inicial|||mforonda|15/11/2017 00:00|18/11/2017 00:00|Tarea intorductoria|0|||3|GLB|135
+TK1711-0002|Tarea 2|||mvillegas|19/11/2017 00:00|23/11/2017 00:00|segunda fase|0|||2.5|GLB|250
+TK1711-0003|Fase 3|||mvillegas|15/11/2017 00:00|20/11/2017 12:02|fase 3|1|||||
+TK1711-0004|tarea 3-1|TK1711-0003||mvillegas|15/11/2017 00:00|17/11/2017 00:00||0|||2|P|100
+TK1711-0005|tarea 3-2|TK1711-0003||mvillegas|18/11/2017 00:00|20/11/2017 12:02||0|||2|P|100
+TK1711-0006|Fase 4|||mvillegas|21/11/2017 00:00|30/12/2017 00:00|fase 4|1|||||
+TK1711-0007|Tarea 4-1|TK1711-0006||mvillegas|21/11/2017 00:00|30/11/2017 00:00||0|||6|P|145
+TK1711-0008|Tarea 4-2|TK1711-0006||mvillegas|01/12/2017 00:00|30/12/2017 00:00||0|||6|P|145
+TK1711-0009|Fase 5|||mvillegas|31/12/2017 00:00|31/03/2018 00:00|fase final|1|||||
+TK1711-0010|Tarea 5-1|TK1711-0009||mvillegas|31/12/2017 00:00|25/01/2018 00:00||0|||6|P|245
+TK1711-0011|Tarea 5-2|TK1711-0009||mvillegas|26/01/2018 00:00|22/02/2018 00:00||0|||6|P|245
+TK1711-0012|Tarea 5-3|TK1711-0009||mvillegas|23/02/2018 00:00|31/03/2018 00:00||0|||6|P|245

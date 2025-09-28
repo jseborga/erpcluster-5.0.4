@@ -1,0 +1,23 @@
+CREATE TABLE llx_commande_fournisseurdet_add (
+  rowid integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  fk_commande_fournisseurdet integer NOT NULL,
+  fk_object integer DEFAULT NULL,
+  object varchar(255) DEFAULT NULL,
+  fk_fabrication integer DEFAULT NULL,
+  fk_fabricationdet integer DEFAULT NULL,
+  fk_projet integer DEFAULT NULL,
+  fk_projet_task integer DEFAULT NULL,
+  fk_jobs integer DEFAULT NULL,
+  fk_jobsdet integer DEFAULT NULL,
+  fk_structure integer DEFAULT NULL,
+  fk_poa integer DEFAULT '0' NULL,
+  partida varchar(10) NULL,
+  amount_ice double DEFAULT '0',
+  discount double DEFAULT '0',
+  fk_user_create integer NOT NULL,
+  fk_user_mod integer NOT NULL,
+  datec date NOT NULL,
+  datem date NOT NULL,
+  tms timestamp NOT NULL,
+  status tinyint NOT NULL DEFAULT '0'
+) ENGINE=InnoDB;

@@ -1,0 +1,22 @@
+CREATE TABLE llx_c_flow_models (
+  rowid integer AUTO_INCREMENT PRIMARY KEY,
+  entity integer NOT NULL,
+  groups varchar(30) NOT NULL,
+  code varchar(30) NOT NULL,
+  code0 varchar(30) NULL,
+  code1 varchar(30) NULL,
+  code2 varchar(30) NULL,
+  code3 varchar(30) NULL,
+  code4 varchar(30) NULL,  
+  code_actor_last varchar(30) NOT NULL,
+  code_actor_next varchar(30) NOT NULL,
+  deadlines tinyint NOT NULL DEFAULT '0',
+  label varchar(255) NOT NULL,
+  label1 varchar(255) NULL,
+  label2 varchar(255) NULL,
+  label3 varchar(255) NULL,
+  label4 varchar(255) NULL,
+  quant double NOT NULL,
+  sequen tinyint NOT NULL,
+  active tinyint DEFAULT NULL
+) ENGINE=InnoDB;

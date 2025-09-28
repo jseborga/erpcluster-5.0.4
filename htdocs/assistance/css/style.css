@@ -1,0 +1,139 @@
+.boton180{
+	height:40px;
+	width:180px;
+	font-size:30px;
+}
+.margin15{
+	margin-top:15px;
+}
+.left{
+	float:left;
+}
+.clear{
+	clear:both;
+}
+.errormark{
+	background-color:#FF0000;
+}
+
+/* ============================================================================== */
+/* Boutons actions                                                                */
+/* ============================================================================== */
+
+.butActionValidate, .butActionValidate:link, .butActionValidate:visited, .butActionValidate:hover, .butActionValidate:active {
+	text-decoration: none;
+	margin: 0em 0.9em;
+	font-family: arial,tahoma,verdana,helvetica;
+/*  for bootstrap look
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  */
+
+  font-weight: normal;
+  border-color: #c5c5c5;
+  border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+  display: inline-block;
+  padding: 4px 14px;
+  text-align: center;
+  cursor: pointer;
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #bbbbbb;
+  border-bottom-color: #a2a2a2;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.butActionValidate, .butActionValidate:link, .butActionValidate:visited, .butActionValidate:hover, .butActionValidate:active {
+/* for bootstrap look
+  color: #fff;
+  background-color: #4070ff;
+  border-color: #d43f3a;
+  */
+  color: #0040EF;
+}
+
+#assmark{
+	width: 20px !important;
+	text-align:center;
+	background:#54F27C;
+	border: 1px solid white;
+	border-color:#00ffbb;
+}
+#assvac{
+	width: 20px !important;
+	text-align:center;
+	background:#C4C4C4;
+	border: 1px solid white;
+	border-color:#00ffbb;
+}
+#assfalta{
+	width: 20px !important;
+	text-align:center;
+	background:#ff0000;
+	border: 1px solid white;
+	border-color:#00ffbb;
+}
+#ferie{
+	width: 20px !important;
+	text-align:center;
+	background:#ffe500;
+	border: 1px solid white;
+	border-color:#00ffbb;
+}
+#ferie60{
+	width: 20px !important;
+	text-align:center;
+	background:#00b6ff;
+	border: 1px solid white;
+	border-color:#00ffbb;
+}
+
+#badgeab {
+	display: inline-block;
+	min-width: 10px;
+	padding: 2px 5px;
+	font-size: 10px;
+	font-weight: 700;
+	line-height: 0.9em;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	background-color: #5f47ff;
+	border-radius: 10px;
+}

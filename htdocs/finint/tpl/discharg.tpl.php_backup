@@ -1,0 +1,510 @@
+<?php
+/* * Copyright (C) 2015-2015 Ramiro Queso        <ramiroques@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *	    \file       htdocs/request/tpl/discharg.tpl.php
+ *		\ingroup    requestcash
+ *		\brief      List of details of bank transactions for an account
+ */
+//$langs->load("finint");
+//$langs->load("bills");
+//$langs->load("compta");
+
+//$id = (GETPOST('id','int') ? GETPOST('id','int') : GETPOST('account','int'));
+// $ref = GETPOST('ref','alpha');
+// $action=GETPOST('action','alpha');
+// $user_to = GETPOST('user_to','int');
+// $fk_account = GETPOST('fk_account','int');
+// $confirm=GETPOST('confirm','alpha');
+
+//if (!$user->rights->request->desc->leer) accessforbidden();
+
+
+// Security check
+$fieldvalue = (! empty($id) ? $id : (! empty($ref) ? $ref :''));
+$fieldtype = (! empty($ref) ? 'ref' :'rowid');
+
+$paiementtype=GETPOST('paiementtype','alpha',3);
+$req_nb=GETPOST("req_nb",'',3);
+$thirdparty=GETPOST("thirdparty",'',3);
+$vline=GETPOST("vline");
+$page=GETPOST('page','int');
+$negpage=GETPOST('negpage','int');
+if ($negpage)
+{
+	$page=$_GET["nbpage"] - $negpage;
+	if ($page > $_GET["nbpage"]) $page = $_GET["nbpage"];
+}
+
+//verificacion de version
+$version = substr($conf->global->MAIN_VERSION_LAST_INSTALL,0,5);
+if (!empty($conf->global->MAIN_VERSION_LAST_UPGRADE))
+	$version = substr($conf->global->MAIN_VERSION_LAST_UPGRADE,0,5);
+//cambiamos la version de texto a numero
+$version = substr($version,0,3) * 1;
+$lVersion = false;
+if ($version >= 3.7)
+	$lVersion = true;
+
+$mesg='';
+
+//$object = new Account($db);
+$objuser = new User($db);
+$deplacement = new Requestcashdeplacementext($db);
+$deplacementtmp = new Requestcashdeplacementext($db);
+if ($conf->monprojet->enabled)
+	$projet = new Project($db);
+if ($conf->societe->enabled)
+	$soc = new Societe($db);
+
+if ($user->societe_id > 0)
+{
+	$socid = $user->societe_id;
+	$soc->fetch($user->societe_id);
+}
+
+$dateop=-1;
+
+/*
+ * View
+ */
+
+$societestatic=new Societe($db);
+$chargestatic=new ChargeSociales($db);
+$memberstatic=new Adherent($db);
+
+$account = new Account($db);
+
+$form = new Formv($db);
+if ($conf->monprojet->enabled)
+	$formproject = new FormProjetsext($db);
+
+//recuperamos la y el usuario
+$lView = true;
+if (empty($object->fk_account))
+	$lView = false;
+$lModify 	= false;
+$lModifyval = false;
+if ($action == 'mod_depval')
+{
+	$lModifyval = true;
+	$lView = false;
+}
+$lEfeval 	= false;
+$lEfeclose = true;
+if (!$lModifyval)
+{
+	//listamos los gastos realizados por el usuario
+	$filterstatic = " AND t.fk_account_from = ".$object->fk_account;
+	//$filterstatic.= " AND t.fk_projet = ".$object->fk_projet;
+	$filterstatic.= " AND t.fk_request_cash = ".$object->id;
+	$filterstatic.= " AND t.entity = ".$object->entity;
+
+	$res = $deplacement->fetchAll('ASC','ref',0,0,array(1=>1),'AND',$filterstatic,false);
+}
+else
+{
+	if (!$subaction)
+	{
+		$deplacement->fetch(GETPOST('idrcd'));
+		$fk_projetsel = $deplacement->fk_projet_dest+0;
+		$fk_tasksel = $deplacement->fk_projet_task_dest;
+		$filtertask = " t.fk_projet = ".$fk_projetsel;
+	}
+	else
+		$deplacement = $myclass;
+}
+// //calculamos los saldos en caja y caja usuario
+// //saldo bank
+// $saldoBank = saldoAccount($fk_account);
+
+// $saldoBankUser = saldoAccount($fk_account,$user_to);
+$saldoBankUser = 0;
+$sumadep = $sumatransf;
+$sumagas = 0;
+$sumaactual = 0;
+$sumarecharge = 0;
+
+
+$saldoBankUser = price2num($sumadep,'MT');
+//revisamos el saldo real
+$lAdd = true;
+
+if ($saldoBankUser + $sumapar0 <= 0) $lAdd = false;
+
+
+if ($action == 'formapprecharge')
+{
+	include DOL_DOCUMENT_ROOT.'/finint/tpl/form_recharge.tpl.php';
+}
+elseif ($action == 'close')
+{
+	include DOL_DOCUMENT_ROOT.'/finint/tpl/close.tpl.php';
+}
+elseif ($action == 'recharge')
+{
+	include DOL_DOCUMENT_ROOT.'/finint/tpl/recharge.tpl.php';
+}
+elseif ($action == 'transfd')
+{
+	include DOL_DOCUMENT_ROOT.'/finint/tpl/transfd.tpl.php';
+}
+else
+{
+	if ($object->status < 4 && $saldoBankUser > 0 && !$lModifiyval)
+	{
+		//proceso para crear gastos
+		//buscamos la cuenta del que desembolsa
+		$accountuser = new Accountuser($db);
+		if (!empty($object->fk_account))
+		{
+			if ($user->rights->finint->desc->crear)
+			{
+
+				if ($action == 'mod_dep'&& GETPOST('idrcd'))
+				{
+					//buscamos
+					$myclass = new Requestcashdeplacementext($db);
+					$myclass->fetch(GETPOST('idrcd'));
+					$myclass->amount_ttc = $myclass->amount;
+					$fk_projetsel = $myclass->fk_projet_dest+0;
+					$fk_tasksel = $myclass->fk_projet_task_dest+0;
+					if ($fk_projetsel>0) $filtertask = " t.fk_projet = ".$fk_projetsel;
+					$lModify = true;
+				}
+
+				if ($vline)
+				{
+					$viewline = $vline;
+				}
+				else
+				{
+					$viewline = empty($conf->global->MAIN_SIZE_LISTE_LIMIT)?20:$conf->global->MAIN_SIZE_LISTE_LIMIT;
+				}
+				$result=$object->fetch($id, $ref);
+
+				dol_htmloutput_errors($mesg);
+				if ($lModify)
+					include_once DOL_DOCUMENT_ROOT.'/finint/tpl/modify_discharg.tpl.php';
+				elseif ($lAdd)
+					include_once DOL_DOCUMENT_ROOT.'/finint/tpl/add_discharg.tpl.php';
+				else
+				{
+					print '<div class="center">'.$langs->trans('Requestconfirmationoftransfer').'</div>';
+				}
+			}
+		}
+	}
+}
+
+if ($lView && $user->rights->finint->desc->leer)
+{
+	if ($lViewdischarg)
+	{
+		dol_fiche_head();
+		print '<table class="noborder centpercent">'."\n";
+		print '<thead>';
+		print '<tr class="liste_titre">';
+
+		print_liste_field_titre($langs->trans('Ref'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
+		print_liste_field_titre($langs->trans('Date'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
+		print_liste_field_titre($langs->trans('Typedocument'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
+		print_liste_field_titre($langs->trans('Doc'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
+		if($conf->browser->layout=='classic')
+			print_liste_field_titre($langs->trans('Detail'),$_SERVER['PHP_SELF'],'','',$param,'',$sortfield,$sortorder);
+		print_liste_field_titre($langs->trans('Amount'),$_SERVER['PHP_SELF'],'','',$param,'align="right"',$sortfield,$sortorder);
+		if($conf->browser->layout=='classic')
+			print_liste_field_titre($langs->trans('Action'),'','','',$param,'align="right"');
+
+		print '</tr>';
+		print '</thead>';
+		print '<tbody>';
+	}
+	$var = true;
+	foreach ((array) $deplacement->lines AS $j => $line)
+	{
+		$lFacture = false;
+		if ($line->status ==1) $lEfeclose = false;
+		if ($line->status == 2) $lEfeval = true;
+		if ($action == 'mod_dep'&& GETPOST('idrcd') == $line->id)
+		{
+			$myclass = $line;
+			$myclass->amount_ttc = $myclass->amount;
+			$fk_projetsel = $myclass->fk_projet_dest+0;
+			if ($fk_projetsel>0) $filtertask = " t.fk_projet = ".$fk_projetsel;
+			$lModify = true;
+		}
+		if ($action == 'modifyrefr' && GETPOST('idrcd') == $line->id)
+		{
+			$lModify = true;
+		}
+
+		$deplacementtmp->fetch($line->id);
+		$var = !$var;
+		if ($line->status == 1 || $line->status == 2)
+		{
+			if ($lViewdischarg)
+			{
+				if ($action == 'formapprecharge' && $line->status ==2)
+					print '<tr class="colortext">';
+				else
+					print "<tr $bc[$var]>";
+				print '<td>';
+				print $deplacementtmp->ref;
+				print '</td>';
+				print '<td>';
+				print dol_print_date($line->dateo,'day');
+				print '</td>';
+				print '<td>';
+				print ($line->type_operation==1?$langs->trans('Invoice'):$langs->trans('Receipt'));
+				print '</td>';
+
+				//print '<td>';
+				//$bankcateg->fetch($line->fk_categorie);
+				//print $bankcateg->label;
+				//print '</td>';
+				print '<td>';
+				print $line->nro_chq;
+				print '</td>';
+				if($conf->browser->layout=='classic')
+				{
+					print '<td>';
+					print $line->detail;
+					print '</td>';
+				}
+				print '<td align="right">';
+				print price($line->amount);
+				print '</td>';
+				if($conf->browser->layout=='classic')
+				{
+					print '<td align="right">';
+					if ($object->status >=3 && $object->status < 4)
+					{
+						if ($user->admin || (($object->fk_user_create == $user->id || $object->fk_user_assigned == $user->id) && $user->rights->finint->desc->crear))
+							print '<a href="'.$_SERVER['PHP_SELF'].'?id='.$id.'&idrcd='.$line->id.'&action=mod_dep">'.img_picto($langs->trans('Edit'),'edit').'</a>';
+						if ($user->admin || (($object->fk_user_create == $user->id || $object->fk_user_assigned == $user->id) && $user->rights->finint->desc->del))
+							print '&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?id='.$id.'&idrcd='.$line->id.'&action=delete_dep">'.img_picto($langs->trans('Delete'),'delete').'</a>';
+					}
+					if ($object->status == 4)
+					{
+						if ($user->rights->finint->desc->val)
+						{
+							$img = 'switch_off';
+							$img = 'statut8';
+							$text = $langs->trans('Validate');
+							if ($line->status == 2)
+							{
+								$text = $langs->trans('Invalidate');
+								$img = 'switch_on';
+								$img = 'statut4';
+							}
+							if ($line->status == 1)
+								print '<a href="'.$_SERVER['PHP_SELF'].'?id='.$id.'&idrcd='.$line->id.'&action=mod_depval">'.img_picto($langs->trans('Edit'),'edit').'</a>';
+							$lViewapp = true;
+							if ($conf->fiscal->enabled)
+							{
+								require_once DOL_DOCUMENT_ROOT.'/fiscal/lib/fiscal.lib.php';
+								if (!empty($line->code_facture))
+								{
+									//$objcfact = fetch_type_facture(0,$line->code_facture);
+
+									$rescfact = $objcfact->fetch(0,$line->code_facture);
+
+									//vamos a validar si se muestra creación de factura o no
+									$lCreatefacture = false;
+									if ($objcfact->nit_required) $lCreatefacture = true;
+									if ($objcfact->retention) $lCreatefacture = true;
+									if ($lCreatefacture)
+									{
+										if (empty($line->fk_facture_fourn) || is_null($line->fk_facture_fourn))
+										{
+											$lFacture = true;
+											if (empty($line->fourn_nit) || is_null($line->fourn_nit)) $lFacture = false;
+											if (empty($line->fourn_soc) || is_null($line->fourn_soc)) $lFacture = false;
+											if (empty($objcfact->retention))
+											{
+												if (empty($line->fourn_facture) || is_null($line->fourn_facture)) $lFacture = false;
+												if (empty($line->fourn_numaut) || is_null($line->fourn_numaut)) $lFacture = false;
+											}
+											if ($line->type_operation == 0) $lFacture = false;
+
+											$lViewapp = false;
+										}
+									}
+									else
+									{
+										if ($line->type_operation == 1)
+											$lViewapp = false;
+									}
+								}
+								else
+								{
+									if ($line->type_operation == 1) $lViewapp = false;
+								}
+							}
+							if ($line->fk_facture_fourn)
+							{
+								require_once DOL_DOCUMENT_ROOT.'/purchase/class/fournisseur.factureext.class.php';
+								$facturefourn = new FactureFournisseurext($db);
+								$res = $facturefourn->fetch($line->fk_facture_fourn);
+								$resadd = $objFactureadd->fetch(0,$line->fk_facture_fourn);
+								$lRetention= false;
+								if ($resadd>0)
+								{
+									$objcfact->fetch(0,$objFactureadd->code_facture);
+									if ($objcfact->retention) $lRetention = true;
+								}
+								if ($res> 0)
+								{
+									$facturefourn->ref_ext = $line->fourn_facture;
+									//verificamos los montos
+									$classerr='';
+									if ($lRetention)
+									{
+										if (price2num($facturefourn->total_ht,'MT') != price2num($line->amount,'MT'))
+										{
+											$classerr = 'errmark';
+											$lViewapp = false;
+										}
+									}
+									else
+									{
+										if (price2num($facturefourn->total_ttc,'MT') != price2num($line->amount,'MT'))
+										{
+											$classerr = 'errmark';
+											$lViewapp = false;
+										}
+									}
+									print '&nbsp;'.$facturefourn->getNomUrladd(0,'',0,1,$classerr);
+								}
+							}
+							//para mostrar icono de factura
+							if ((empty($line->fk_facture_fourn)||is_null($line->fk_facture_fourn)) && $lFacture)
+							{
+								print '<a href="'.DOL_URL_ROOT.'/purchase/facture/card.php'.'?origin=requestcashdeplacement&originid='.$line->id.'&action=create">'.img_object($langs->trans('Createfacture'),'bill').'</a>';
+							}
+							if ($lViewapp)
+							{
+								print '&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?id='.$id.'&idrcd='.$line->id.'&fk_transfert_ult='.$fk_transfert_ult.'&action=validate_dep">'.img_picto($text,$img).'</a>';
+							}
+						}
+						if ($user->rights->finint->desc->del)
+						{
+							if ($line->status ==1)
+								print '&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?id='.$id.'&idrcd='.$line->id.'&action=delete_dep">'.img_picto($langs->trans('Delete'),'delete').'</a>';
+						}
+
+					}
+
+					print '</td>';
+				}
+
+				print '</tr>';
+			}
+			$sumaactual+=$line->amount;
+			if ($line->status == 2) $sumarecharge+= $line->amount;
+		}
+		$sumadep -= $line->amount;
+		$sumagas += $line->amount*-1;
+	}
+	if ($lViewdischarg)
+	{
+		print '</tbody>';
+		//armamos el total
+		print '<tr class="liste_total">';
+		print '<td colspan="'.($conf->browser->layout=='classic'?'5':'3').'">'.$langs->trans('Total').'</td>';
+		print '<td align="right">'.price($sumaactual).'</td>';
+		print '</tr>';
+		print '</table>';
+		dol_fiche_end();
+	}
+	//echo '<hr>andesde '.$objtypecash->recharge.' && !'.$lCierre.' '.$object->status;
+	if (($user->rights->finint->efe->valc || $user->rights->finint->efe->vald) && $object->status == 4 && $action != 'formapprecharge')
+	{
+		// Buttons
+		print '<div class="tabsAction">'."\n";
+
+		if ($objtypecash->recharge && !$lCierre)
+		{
+			if (empty($conf->global->FININT_ID_SOCIETE_DEFAULT))
+			{
+				setEventMessages($langs->trans('The default free provider is not defined').', '.$langs->trans('Informs the administrator'),null,'errors');
+			}
+			else
+			{
+				if ($lEfeval)
+				{
+					print '<div style="float:left;">';
+					print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+					print '<input type="hidden" name="action" value="formapprecharge">';
+					print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
+					print '<input type="hidden" name="id" value="'.$object->id.'">';
+					$sumagas = $sumagas*-1;
+					print '<input type="hidden" name="amount" value="'.$sumrecharge.'">';
+					print '<input type="submit" class="butAction" value="'.$langs->trans('Approverecharge').'"/>'."\n";
+					print '</form>';
+					print '</div>';
+				}
+				print '<div style="float:left;">';
+				print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+				print '<input type="hidden" name="action" value="noapprecharge">';
+				print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
+				print '<input type="hidden" name="id" value="'.$object->id.'">';
+				print '<input type="submit" class="butAction" value="'.$langs->trans('Rejectrecharge').'"/>'."\n";
+				print '</form>';
+				print '</div>';
+			}
+		}
+		else
+		{
+			if ($lEfeclose)
+			{
+				print '<div style="float:left;">';
+				print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+				print '<input type="hidden" name="action" value="closeapp">';
+				print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
+				print '<input type="hidden" name="id" value="'.$object->id.'">';
+				print '<input type="hidden" name="idr" value="'.$idr.'">';
+				print '<input type="submit" class="butAction" value="'.$langs->trans('Approveclosure').'"/>'."\n";
+				print '</form>';
+				print '</div>';
+			}
+			print '<div style="float:left;">';
+			print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+			print '<input type="hidden" name="action" value="closenoapp">';
+			print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
+			print '<input type="hidden" name="id" value="'.$object->id.'">';
+			print '<input type="hidden" name="idr" value="'.$idr.'">';
+			print '<input type="submit" class="butAction" value="'.$langs->trans('Rejectclose').'"/>'."\n";
+			print '</form>';
+			print '</div>';
+		}
+		print '</div>';
+	}
+}
+else
+{
+	if ($lModifyval)
+	{
+		//armamos el formulario para modificar la descarga
+		include_once DOL_DOCUMENT_ROOT.'/finint/tpl/modify_dischargval.tpl.php';
+	}
+}
+
+//////////////////////////////////////////////////////////////
+
+?>

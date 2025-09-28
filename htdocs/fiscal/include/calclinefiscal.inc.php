@@ -1,0 +1,273 @@
+<?php
+
+//archivo oficial desde 19/12/2016 TODO DENTRO DE FISCAL
+//procesa el calculo del iva y otros impuestos
+//localtax1,2,3 son impuestos diferentes al IVA
+//definimos el tipo de impuesto
+//debe estar habilitado el $productadd de modulo productext
+//$price_base_type debe estar con valor
+//$lines con valor
+require_once DOL_DOCUMENT_ROOT.'/fiscal/class/ctypefacture.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fiscal/class/tvadefext.class.php';
+$restva = 0;
+$tvadef = new Tvadefext($db);
+if (empty($qty)) $qty = $lines->qty;
+if (is_object($objectadd))
+{
+	$objtype = new Ctypefacture($db);
+	$objtype->fetch(0,$objectadd->code_facture);
+
+	$filterstatic = " AND t.code_facture = '".trim($objectadd->code_facture)."'";
+	$restva = $tvadef->fetchAll('','',0,0,array(),'AND',$filterstatic);
+	$tvaline = $tvadef->lines;
+}
+if ($restva < 0)
+{
+	setEventMessages($langs->trans('NO esta definido Fiscal'), null, 'errors');
+	$error++;
+}
+$lLoop = 1;
+if ($restva>0)
+{
+	if ($objtype->type_value == 1 && $lLoop)
+	{
+		//si valor a introducir esta definido como valor neto
+		foreach ((array) $tvaline AS $j => $data)
+		{
+			$sumaalq+= $data->taux;
+		}
+		$pu = $pu + ($pu * ($sumaalq / (100-$sumaalq)));
+	}
+	//$qty viene definidio desde origen
+	$lines->qty = $qty;
+	foreach ((array) $tvaline AS $j => $data)
+	{
+		$nbase = 1;
+		$tvatx[$data->code_tva] = $data->taux;
+
+		if(empty($amount_ice)) $amount_ice = 0;
+		if ($lines->fk_product > 0 && $productadd->fk_product == $lines->fk_product)
+		{
+			if ($productadd->percent_base > 0)
+				$nbase = $productadd->percent_base/100;
+			if (!$productadd->sel_iva && $data->code_tva == 'IVA')
+			{
+				$tvatx[$data->code_tva]=0;
+				$data->taux = 0;
+			}
+			//revisamos si requiere registro de ice
+			//if ($productadd->sel_ice)
+			//{
+			//	if ($amount_ice <=0)
+			//	{
+			//		$error++;
+			//		$langs->load("errors");
+			//		setEventMessage($langs->trans("ErrorFieldRequired",$langs->transnoentitiesnoconv("Amountice")), 'errors');
+			//	}
+			//}
+			//else $amount_ice = 0;
+		}
+		//proceso para valores incluido IVA
+		if (trim(strtoupper($price_base_type)) == 'TTC')
+		{
+			//incluye iva
+			if ($remise_percent>0)
+			{
+				$pricetot  = $qty * $pu;
+				$discounttmp  = price2num($pricetot * $remise_percent / 100);
+				$pricetmp  = $qty * $pu;
+				$pricebase = ($pricetot-$discounttmp) * $nbase;
+				//$pricetot  = $pricetot - $discounttmp;
+				$lines->remise = $discounttmp+0;
+				$lines->remise_percent = $remise_percent+0;
+			}
+			elseif ($discount>0)
+			{
+				$pricetot = $qty * $pu;
+				//$pricetot = $pricetot - $discount;
+				$pricebase = ($pricetot-$discount) * $nbase;
+				$lines->remise = $discount;
+				$lines->remise_percent = $discount / $pricetot * 100;
+			}
+			else
+			{
+				$pricetot = $qty * $pu;
+				$pricebase = $pricetot * $nbase;
+				$lines->remise = 0;
+				$lines->remise_percent = 0;
+			}
+
+			//$pricebase = $qty * $pu * $nbase;
+			$lines->total_ttc = $pricetot;
+			$lines->pricebase = $pricebase;
+
+			if(empty($data->taux))
+			{
+				$lines->pricebase = 0;
+				$pricebase = 0;
+			}
+			$tvacalc[$data->code_tva] = $pricebase * $data->taux / 100;
+			$tvaht[$data->code_tva] = $pricetot - $tvacalc[$data->code_tva];
+			$tvattc[$data->code_tva] = $pricetot;
+		}
+		else
+		{
+			//modelo ht
+			//se tiene que revisar para este modelo
+			$tax = 1/(1-($data->taux/100));
+			$priceht = $qty * $pu;
+			$pricebaseht = $qty * $pu * $nbase;
+			$pricebase = $pricebaseht * $tax / 100;
+			$price = $priceht * $tax / 100;
+			$tvacalc[$data->code_tva] = $pricebase-$pricebaseht;
+			$tvattc[$data->code_tva] = $price;
+			$tvaht[$data->code_tva] = $priceht;
+			$lines->total_ht = $priceht;
+			$lines->total_ttc = $price;
+			$lines->subprice = $pu;
+			$lines->price = price2num($price / $qty);
+			$lines->pricebase = $pricebase;
+			if (empty($data->taux))
+			{
+				$lines->pricebase = 0;
+				$pricebase = 0;
+			}
+		}
+		//vamos condicionando
+		if ($data->code_tva == 'IVA')
+		{
+			$lines->vat_src_code = $data->code_tva;
+			$lines->tva_tx = $data->taux;
+			$lines->total_tva = $tvacalc[$data->code_tva];
+			$lines->total_ht = $lines->total_ttc - $lines->total_tva -$lines->total_localtax1 - $lines->total_localtax2;
+			$lines->subprice = $lines->total_ht/$lines->qty;
+		}
+		else
+		{
+			//$lines->tva_tx = 0;
+			$campotx = 'localtax'.$k.'_tx';
+			$campottx = 'localtax'.$k.'_type';
+			$campotot = 'total_localtax'.$k;
+			$campotfx = 'localtax'.$k;
+
+			//$lines->$campotx = $tvacalc[$data->code_tva];
+			$lines->$campotx = $data->taux;
+			$lines->$campotfx = $tvalc[$data->code_tva];
+
+			$lines->$campottx = $data->code_tva;
+			$lines->$campotot = $tvacalc[$data->code_tva];
+			$aTotaltav[$id][$campotfx]+=$tvalc[$data->code_tva];
+			$k++;
+		}
+	}
+	if ($price_base_type == 'TTC')
+	{
+		if ($objtype->type_fact == 1)
+			$lines->total_ht = $lines->total_ttc - $lines->total_tva;
+		else
+			$lines->total_ht = $lines->total_ttc - $lines->total_tva -$lines->total_localtax1-$lines->total_localtax2;
+		$lines->subprice = $lines->total_ht / $qty;
+		$lines->price = $lines->total_ttc / $qty;
+		$lines->price = $pu;
+	}
+}
+else
+{
+	$data = new StdClass();
+	$nbase = 1;
+	$data->taux = 0;
+	$data->code_tva=0;
+	if (trim(strtoupper($price_base_type)) == 'TTC')
+	{
+		//incluye iva
+		if ($discount>0)
+		{
+			$pricetot = $qty * $pu;
+			//$pricetot = $pricetot - $discount;
+			$pricebase = ($pricetot-$discount) * $nbase;
+			$lines->remise = $discount;
+			$lines->remise_percent = $discount / $pricetot * 100;
+		}
+		elseif ($remise_percent>0)
+		{
+			$pricetot  = $qty * $pu;
+			$discounttmp  = $pricetot * $remise_percent / 100;
+			$pricetmp  = $qty * $pu;
+			$pricebase = ($pricetot-$discounttmp) * $nbase;
+			//$pricetot  = $pricetot - $discounttmp;
+			$lines->remise = $discounttmp;
+			$lines->remise_percent = $remise_percent;
+		}
+		else
+		{
+			$pricetot = $qty * $pu;
+			$pricebase = $pricetot * $nbase;
+			$lines->remise = 0;
+			$lines->remise_percent = 0;
+		}
+		//$pricebase = $qty * $pu * $nbase;
+
+		$tvacalc[$data->code_tva] = $pricebase * $data->taux / 100;
+		$tvaht[$data->code_tva] = $pricetot - $tvacalc[$data->code_tva];
+		$tvattc[$data->code_tva] = $pricetot;
+
+		$lines->total_ht = $tvaht[$data->code_tva];
+		$lines->total_ttc = $pricetot;
+
+		$lines->subprice = $lines->total_ht/$lines->qty;
+		$lines->pricebase = $pricebase;
+		$lines->tva_tx = 0;
+		if (empty($data->taux))
+		{
+			$lines->pricebase = 0;
+			$pricebase = 0;
+		}
+	}
+	else
+	{
+		//revision para este modelo
+		$tax = 1/(1-($data->taux/100));
+		$priceht = $qty * $pu;
+		$pricebaseht = $qty * $pu * $nbase;
+		$pricebase = $pricebaseht * $tax / 100;
+		$price = $priceht * $tax / 100;
+		$tvacalc[$data->code_tva] = $pricebase-$pricebaseht;
+		$tvattc[$data->code_tva] = $price;
+		$tvaht[$data->code_tva] = $priceht;
+		$lines->total_ht = $priceht;
+		$lines->total_ttc = $price;
+		$lines->subprice = $pu;
+		$lines->price = price2num($price / $qty);
+		$lines->pricebase = $pricebase;
+		if (empty($data->taux))
+		{
+			$lines->pricebase = 0;
+			$pricebase = 0;
+		}
+	}
+	//vamos condicionando
+	if ($data->code_tva == 'IVA')
+	{
+		$lines->tva_tx = $data->taux;
+		$lines->total_tva = $tvacalc[$data->code_tva];
+	}
+	else
+	{
+		$lines->tva_tx = 0;
+		$campotx = 'localtax'.$k.'_tx';
+		$campottx = 'localtax'.$k.'_type';
+		$campotot = 'total_localtax'.$k;
+		$campotfx = 'localtax'.$k;
+
+		//$lines->$campotx = $tvacalc[$data->code_tva];
+		$lines->$campotx = $data->taux;
+		$lines->$campotfx = $tvalc[$data->code_tva];
+
+		$lines->$campottx = $data->code_tva;
+		$lines->$campotot = $tvacalc[$data->code_tva];
+		$aTotaltav[$id][$campotfx]+=$tvalc[$data->code_tva];
+		$k++;
+	}
+}
+
+?>

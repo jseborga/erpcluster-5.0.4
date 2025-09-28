@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  db:
+    image: mariadb:10.3
+    environment:
+      - MARIADB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=${DB_NAME}
+      - MARIADB_USER=${DB_USER}
+      - MARIADB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u${DB_USER}", "-p${DB_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DOLI_DB_HOST=db
+      - DOLI_DB_NAME=${DB_NAME}
+      - DOLI_DB_USER=${DB_USER}
+      - DOLI_DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./documents:/var/www/html/documents
+      - ./conf:/var/www/html/conf
+      - ./htdocs/custom:/var/www/html/htdocs/custom
+    ports:
+      - "8080:80" # En EasyPanel suele omitirse y se asigna en UI
+
+volumes:
+  db_data:

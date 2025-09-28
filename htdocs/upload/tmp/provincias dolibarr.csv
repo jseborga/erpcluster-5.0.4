@@ -1,0 +1,113 @@
+cod_pais;fk_region;dpto;code_departement;nom
+BO;30101;Departamento de Chuquisaca;BO-001;Belisario Boeto
+BO;30101;Departamento de Chuquisaca;BO-002;Hernando Siles
+BO;30101;Departamento de Chuquisaca;BO-003;Jaime Zudáñez
+BO;30101;Departamento de Chuquisaca;BO-004;Juana Azurduy de Padilla
+BO;30101;Departamento de Chuquisaca;BO-005;Luis Calvo
+BO;30101;Departamento de Chuquisaca;BO-006;Nor Cinti
+BO;30101;Departamento de Chuquisaca;BO-007;Oropeza
+BO;30101;Departamento de Chuquisaca;BO-008;Sud Cinti
+BO;30101;Departamento de Chuquisaca;BO-009;Tomina
+BO;30101;Departamento de Chuquisaca;BO-010;Yamparáez
+BO;30102;Departamento de La Paz;BO-011;Abel Iturralde
+BO;30102;Departamento de La Paz;BO-012;Aroma
+BO;30102;Departamento de La Paz;BO-013;Bautista Saavedra
+BO;30102;Departamento de La Paz;BO-014;Caranavi
+BO;30102;Departamento de La Paz;BO-015;Eliodoro Camacho
+BO;30102;Departamento de La Paz;BO-016;Franz Tamayo
+BO;30102;Departamento de La Paz;BO-017;Gualberto Villarroel
+BO;30102;Departamento de La Paz;BO-018;Ingaví
+BO;30102;Departamento de La Paz;BO-019;Inquisivi
+BO;30102;Departamento de La Paz;BO-020;José Ramón Loayza
+BO;30102;Departamento de La Paz;BO-021;Larecaja
+BO;30102;Departamento de La Paz;BO-022;Los Andes (Bolivia)
+BO;30102;Departamento de La Paz;BO-023;Manco Kapac
+BO;30102;Departamento de La Paz;BO-024;Muñecas
+BO;30102;Departamento de La Paz;BO-025;Nor Yungas
+BO;30102;Departamento de La Paz;BO-026;Omasuyos
+BO;30102;Departamento de La Paz;BO-027;Pacajes
+BO;30102;Departamento de La Paz;BO-028;Pedro Domingo Murillo
+BO;30102;Departamento de La Paz;BO-029;Sud Yungas
+BO;30102;Departamento de La Paz;BO-030;General José Manuel Pando
+BO;30103;Departamento de Cochabamba;BO-031;Arani
+BO;30103;Departamento de Cochabamba;BO-032;Arque
+BO;30103;Departamento de Cochabamba;BO-033;Ayopaya
+BO;30103;Departamento de Cochabamba;BO-034;Bolívar (Bolivia)
+BO;30103;Departamento de Cochabamba;BO-035;Campero
+BO;30103;Departamento de Cochabamba;BO-036;Capinota
+BO;30103;Departamento de Cochabamba;BO-037;Cercado (Cochabamba)
+BO;30103;Departamento de Cochabamba;BO-038;Esteban Arze
+BO;30103;Departamento de Cochabamba;BO-039;Germán Jordán
+BO;30103;Departamento de Cochabamba;BO-040;José Carrasco
+BO;30103;Departamento de Cochabamba;BO-041;Mizque
+BO;30103;Departamento de Cochabamba;BO-042;Punata
+BO;30103;Departamento de Cochabamba;BO-043;Quillacollo
+BO;30103;Departamento de Cochabamba;BO-044;Tapacarí
+BO;30103;Departamento de Cochabamba;BO-045;Tiraque
+BO;30103;Departamento de Cochabamba;BO-046;Chapare
+BO;30104;Departamento de Oruro;BO-047;Carangas
+BO;30104;Departamento de Oruro;BO-048;Cercado (Oruro)
+BO;30104;Departamento de Oruro;BO-049;Eduardo Avaroa
+BO;30104;Departamento de Oruro;BO-050;Ladislao Cabrera
+BO;30104;Departamento de Oruro;BO-051;Litoral de Atacama
+BO;30104;Departamento de Oruro;BO-052;Mejillones
+BO;30104;Departamento de Oruro;BO-053;Nor Carangas
+BO;30104;Departamento de Oruro;BO-054;Pantaleón Dalence
+BO;30104;Departamento de Oruro;BO-055;Poopó
+BO;30104;Departamento de Oruro;BO-056;Sabaya
+BO;30104;Departamento de Oruro;BO-057;Sajama
+BO;30104;Departamento de Oruro;BO-058;San Pedro de Totora
+BO;30104;Departamento de Oruro;BO-059;Saucarí
+BO;30104;Departamento de Oruro;BO-060;Sebastián Pagador
+BO;30104;Departamento de Oruro;BO-061;Sud Carangas
+BO;30104;Departamento de Oruro;BO-062;Tomás Barrón
+BO;30105;Departamento de Potosí;BO-063;Alonso de Ibáñez
+BO;30105;Departamento de Potosí;BO-064;Antonio Quijarro
+BO;30105;Departamento de Potosí;BO-065;Bernardino Bilbao
+BO;30105;Departamento de Potosí;BO-066;Charcas (Potosí)
+BO;30105;Departamento de Potosí;BO-067;Chayanta
+BO;30105;Departamento de Potosí;BO-068;Cornelio Saavedra
+BO;30105;Departamento de Potosí;BO-069;Daniel Campos
+BO;30105;Departamento de Potosí;BO-070;Enrique Baldivieso
+BO;30105;Departamento de Potosí;BO-071;José María Linares
+BO;30105;Departamento de Potosí;BO-072;Modesto Omiste
+BO;30105;Departamento de Potosí;BO-073;Nor Chichas
+BO;30105;Departamento de Potosí;BO-074;Nor Lípez
+BO;30105;Departamento de Potosí;BO-075;Rafael Bustillo
+BO;30105;Departamento de Potosí;BO-076;Sud Chichas
+BO;30105;Departamento de Potosí;BO-077;Sud Lípez
+BO;30105;Departamento de Potosí;BO-078;Tomás Frías
+BO;30106;Departamento de Tarija;BO-079;Aniceto Arce
+BO;30106;Departamento de Tarija;BO-080;Burdet O'Connor
+BO;30106;Departamento de Tarija;BO-081;Cercado (Tarija)
+BO;30106;Departamento de Tarija;BO-082;Eustaquio Méndez
+BO;30106;Departamento de Tarija;BO-083;José María Avilés
+BO;30106;Departamento de Tarija;BO-084;Gran Chaco
+BO;30107;Departamento de Santa Cruz;BO-085;Andrés Ibáñez
+BO;30107;Departamento de Santa Cruz;BO-086;Caballero
+BO;30107;Departamento de Santa Cruz;BO-087;Chiquitos
+BO;30107;Departamento de Santa Cruz;BO-088;Cordillera (Bolivia)
+BO;30107;Departamento de Santa Cruz;BO-089;Florida
+BO;30107;Departamento de Santa Cruz;BO-090;Germán Busch
+BO;30107;Departamento de Santa Cruz;BO-091;Guarayos
+BO;30107;Departamento de Santa Cruz;BO-092;Ichilo
+BO;30107;Departamento de Santa Cruz;BO-093;Obispo Santistevan
+BO;30107;Departamento de Santa Cruz;BO-094;Sara
+BO;30107;Departamento de Santa Cruz;BO-095;Vallegrande
+BO;30107;Departamento de Santa Cruz;BO-096;Velasco
+BO;30107;Departamento de Santa Cruz;BO-097;Warnes
+BO;30107;Departamento de Santa Cruz;BO-098;Ángel Sandóval
+BO;30107;Departamento de Santa Cruz;BO-099;Ñuflo de Chaves
+BO;30108;Departamento del Beni;BO-100;Cercado (Beni)
+BO;30108;Departamento del Beni;BO-101;Iténez
+BO;30108;Departamento del Beni;BO-102;Mamoré
+BO;30108;Departamento del Beni;BO-103;Marbán
+BO;30108;Departamento del Beni;BO-104;Moxos
+BO;30108;Departamento del Beni;BO-105;Vaca Díez
+BO;30108;Departamento del Beni;BO-106;Yacuma
+BO;30108;Departamento del Beni;BO-107;General José Ballivián Segurola
+BO;30109;Departamento de Pando;BO-108;Abuná
+BO;30109;Departamento de Pando;BO-109;Madre de Dios
+BO;30109;Departamento de Pando;BO-110;Manuripi
+BO;30109;Departamento de Pando;BO-111;Nicolás Suárez
+BO;30109;Departamento de Pando;BO-112;General Federico Román

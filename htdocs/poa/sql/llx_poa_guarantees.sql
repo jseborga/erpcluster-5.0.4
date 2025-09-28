@@ -1,0 +1,15 @@
+CREATE TABLE llx_poa_guarantees (
+rowid INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+fk_contrat INTEGER NOT NULL ,
+code_guarantee VARCHAR(30) NOT NULL,
+date_ini DATE NOT NULL ,
+date_fin DATE NOT NULL ,
+ref VARCHAR(50) NOT NULL ,
+issuer VARCHAR(150) NOT NULL ,
+concept TEXT NOT NULL ,
+amount DOUBLE NOT NULL ,
+fk_user_create INTEGER NOT NULL,
+date_create DATETIME NOT NULL,
+tms TIMESTAMP,
+statut TINYINT NOT NULL
+) ENGINE = InnoDB;

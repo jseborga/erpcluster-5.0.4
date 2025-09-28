@@ -1,0 +1,1 @@
+ALTER TABLE llx_unit_conv ADD UNIQUE uk_unique (fk_product, fk_unit_ext);

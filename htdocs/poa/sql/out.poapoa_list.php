@@ -1,0 +1,878 @@
+<?php
+/* Copyright (C) 2007-2015 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) ---Put here your own copyright and developer email---
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *   	\file       poa/poapoa_list.php
+ *		\ingroup    poa
+ *		\brief      This file is an example of a php page
+ *					Initialy built by build_class_from_table on 2016-05-23 09:19
+ */
+
+//if (! defined('NOREQUIREUSER'))  define('NOREQUIREUSER','1');
+//if (! defined('NOREQUIREDB'))    define('NOREQUIREDB','1');
+//if (! defined('NOREQUIRESOC'))   define('NOREQUIRESOC','1');
+//if (! defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN','1');
+//if (! defined('NOCSRFCHECK'))    define('NOCSRFCHECK','1');			// Do not check anti CSRF attack test
+//if (! defined('NOSTYLECHECK'))   define('NOSTYLECHECK','1');			// Do not check style html tag into posted data
+//if (! defined('NOTOKENRENEWAL')) define('NOTOKENRENEWAL','1');		// Do not check anti POST attack test
+//if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU','1');			// If there is no need to load and show top and left menu
+//if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML','1');			// If we don't need to load the html.form.class.php
+//if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX','1');
+//if (! defined("NOLOGIN"))        define("NOLOGIN",'1');				// If this page is public (can be called outside logged session)
+
+// Change this following line to use the correct relative path (../, ../../, etc)
+$res=0;
+if (! $res && file_exists("../main.inc.php")) $res=@include '../main.inc.php';					// to work if your module directory is into dolibarr root htdocs directory
+if (! $res && file_exists("../../main.inc.php")) $res=@include '../../main.inc.php';			// to work if your module directory is into a subdir of root htdocs directory
+if (! $res && file_exists("../../../dolibarr/htdocs/main.inc.php")) $res=@include '../../../dolibarr/htdocs/main.inc.php';     // Used on dev env only
+if (! $res && file_exists("../../../../dolibarr/htdocs/main.inc.php")) $res=@include '../../../../dolibarr/htdocs/main.inc.php';   // Used on dev env only
+if (! $res) die("Include of main fails");
+// Change this following line to use the correct relative path from htdocs
+include_once(DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php');
+dol_include_once('/poa/class/poapoa.class.php');
+
+// Load traductions files requiredby by page
+$langs->load("poa");
+$langs->load("other");
+
+// Get parameters
+$id			= GETPOST('id','int');
+$action		= GETPOST('action','alpha');
+$backtopage = GETPOST('backtopage');
+$myparam	= GETPOST('myparam','alpha');
+
+
+$search_entity=GETPOST('search_entity','int');
+$search_gestion=GETPOST('search_gestion','int');
+$search_fk_structure=GETPOST('search_fk_structure','int');
+$search_ref=GETPOST('search_ref','alpha');
+$search_sigla=GETPOST('search_sigla','alpha');
+$search_label=GETPOST('search_label','alpha');
+$search_pseudonym=GETPOST('search_pseudonym','alpha');
+$search_partida=GETPOST('search_partida','alpha');
+$search_amount=GETPOST('search_amount','alpha');
+$search_classification=GETPOST('search_classification','alpha');
+$search_source_verification=GETPOST('search_source_verification','alpha');
+$search_unit=GETPOST('search_unit','alpha');
+$search_responsible_one=GETPOST('search_responsible_one','alpha');
+$search_responsible_two=GETPOST('search_responsible_two','alpha');
+$search_responsible=GETPOST('search_responsible','alpha');
+$search_m_jan=GETPOST('search_m_jan','alpha');
+$search_m_feb=GETPOST('search_m_feb','alpha');
+$search_m_mar=GETPOST('search_m_mar','alpha');
+$search_m_apr=GETPOST('search_m_apr','alpha');
+$search_m_may=GETPOST('search_m_may','alpha');
+$search_m_jun=GETPOST('search_m_jun','alpha');
+$search_m_jul=GETPOST('search_m_jul','alpha');
+$search_m_aug=GETPOST('search_m_aug','alpha');
+$search_m_sep=GETPOST('search_m_sep','alpha');
+$search_m_oct=GETPOST('search_m_oct','alpha');
+$search_m_nov=GETPOST('search_m_nov','alpha');
+$search_m_dec=GETPOST('search_m_dec','alpha');
+$search_p_jan=GETPOST('search_p_jan','alpha');
+$search_p_feb=GETPOST('search_p_feb','alpha');
+$search_p_mar=GETPOST('search_p_mar','alpha');
+$search_p_apr=GETPOST('search_p_apr','alpha');
+$search_p_may=GETPOST('search_p_may','alpha');
+$search_p_jun=GETPOST('search_p_jun','alpha');
+$search_p_jul=GETPOST('search_p_jul','alpha');
+$search_p_aug=GETPOST('search_p_aug','alpha');
+$search_p_sep=GETPOST('search_p_sep','alpha');
+$search_p_oct=GETPOST('search_p_oct','alpha');
+$search_p_nov=GETPOST('search_p_nov','alpha');
+$search_p_dec=GETPOST('search_p_dec','alpha');
+$search_fk_area=GETPOST('search_fk_area','int');
+$search_weighting=GETPOST('search_weighting','alpha');
+$search_fk_poa_reformulated=GETPOST('search_fk_poa_reformulated','int');
+$search_version=GETPOST('search_version','int');
+$search_statut=GETPOST('search_statut','int');
+$search_statut_ref=GETPOST('search_statut_ref','int');
+$search_active=GETPOST('search_active','int');
+
+
+$optioncss = GETPOST('optioncss','alpha');
+
+// Load variable for pagination
+$limit = GETPOST("limit")?GETPOST("limit","int"):$conf->liste_limit;
+$sortfield = GETPOST('sortfield','alpha');
+$sortorder = GETPOST('sortorder','alpha');
+$page = GETPOST('page','int');
+if ($page == -1) { $page = 0; }
+$offset = $limit * $page;
+$pageprev = $page - 1;
+$pagenext = $page + 1;
+if (! $sortfield) $sortfield="t.rowid"; // Set here default search field
+if (! $sortorder) $sortorder="ASC";
+
+// Protection if external user
+$socid=0;
+if ($user->societe_id > 0)
+{
+    $socid = $user->societe_id;
+	//accessforbidden();
+}
+
+// Initialize technical object to manage hooks. Note that conf->hooks_modules contains array
+$hookmanager->initHooks(array('poapoalist'));
+$extrafields = new ExtraFields($db);
+
+// fetch optionals attributes and labels
+$extralabels = $extrafields->fetch_name_optionals_label('poa');
+$search_array_options=$extrafields->getOptionalsFromPost($extralabels,'','search_');
+
+// Load object if id or ref is provided as parameter
+$object=new Poapoa($db);
+if (($id > 0 || ! empty($ref)) && $action != 'add')
+{
+	$result=$object->fetch($id,$ref);
+	if ($result < 0) dol_print_error($db);
+}
+
+// Definition of fields for list
+$arrayfields=array(
+    
+'t.entity'=>array('label'=>$langs->trans("Fieldentity"), 'checked'=>1),
+'t.gestion'=>array('label'=>$langs->trans("Fieldgestion"), 'checked'=>1),
+'t.fk_structure'=>array('label'=>$langs->trans("Fieldfk_structure"), 'checked'=>1),
+'t.ref'=>array('label'=>$langs->trans("Fieldref"), 'checked'=>1),
+'t.sigla'=>array('label'=>$langs->trans("Fieldsigla"), 'checked'=>1),
+'t.label'=>array('label'=>$langs->trans("Fieldlabel"), 'checked'=>1),
+'t.pseudonym'=>array('label'=>$langs->trans("Fieldpseudonym"), 'checked'=>1),
+'t.partida'=>array('label'=>$langs->trans("Fieldpartida"), 'checked'=>1),
+'t.amount'=>array('label'=>$langs->trans("Fieldamount"), 'checked'=>1),
+'t.classification'=>array('label'=>$langs->trans("Fieldclassification"), 'checked'=>1),
+'t.source_verification'=>array('label'=>$langs->trans("Fieldsource_verification"), 'checked'=>1),
+'t.unit'=>array('label'=>$langs->trans("Fieldunit"), 'checked'=>1),
+'t.responsible_one'=>array('label'=>$langs->trans("Fieldresponsible_one"), 'checked'=>1),
+'t.responsible_two'=>array('label'=>$langs->trans("Fieldresponsible_two"), 'checked'=>1),
+'t.responsible'=>array('label'=>$langs->trans("Fieldresponsible"), 'checked'=>1),
+'t.m_jan'=>array('label'=>$langs->trans("Fieldm_jan"), 'checked'=>1),
+'t.m_feb'=>array('label'=>$langs->trans("Fieldm_feb"), 'checked'=>1),
+'t.m_mar'=>array('label'=>$langs->trans("Fieldm_mar"), 'checked'=>1),
+'t.m_apr'=>array('label'=>$langs->trans("Fieldm_apr"), 'checked'=>1),
+'t.m_may'=>array('label'=>$langs->trans("Fieldm_may"), 'checked'=>1),
+'t.m_jun'=>array('label'=>$langs->trans("Fieldm_jun"), 'checked'=>1),
+'t.m_jul'=>array('label'=>$langs->trans("Fieldm_jul"), 'checked'=>1),
+'t.m_aug'=>array('label'=>$langs->trans("Fieldm_aug"), 'checked'=>1),
+'t.m_sep'=>array('label'=>$langs->trans("Fieldm_sep"), 'checked'=>1),
+'t.m_oct'=>array('label'=>$langs->trans("Fieldm_oct"), 'checked'=>1),
+'t.m_nov'=>array('label'=>$langs->trans("Fieldm_nov"), 'checked'=>1),
+'t.m_dec'=>array('label'=>$langs->trans("Fieldm_dec"), 'checked'=>1),
+'t.p_jan'=>array('label'=>$langs->trans("Fieldp_jan"), 'checked'=>1),
+'t.p_feb'=>array('label'=>$langs->trans("Fieldp_feb"), 'checked'=>1),
+'t.p_mar'=>array('label'=>$langs->trans("Fieldp_mar"), 'checked'=>1),
+'t.p_apr'=>array('label'=>$langs->trans("Fieldp_apr"), 'checked'=>1),
+'t.p_may'=>array('label'=>$langs->trans("Fieldp_may"), 'checked'=>1),
+'t.p_jun'=>array('label'=>$langs->trans("Fieldp_jun"), 'checked'=>1),
+'t.p_jul'=>array('label'=>$langs->trans("Fieldp_jul"), 'checked'=>1),
+'t.p_aug'=>array('label'=>$langs->trans("Fieldp_aug"), 'checked'=>1),
+'t.p_sep'=>array('label'=>$langs->trans("Fieldp_sep"), 'checked'=>1),
+'t.p_oct'=>array('label'=>$langs->trans("Fieldp_oct"), 'checked'=>1),
+'t.p_nov'=>array('label'=>$langs->trans("Fieldp_nov"), 'checked'=>1),
+'t.p_dec'=>array('label'=>$langs->trans("Fieldp_dec"), 'checked'=>1),
+'t.fk_area'=>array('label'=>$langs->trans("Fieldfk_area"), 'checked'=>1),
+'t.weighting'=>array('label'=>$langs->trans("Fieldweighting"), 'checked'=>1),
+'t.fk_poa_reformulated'=>array('label'=>$langs->trans("Fieldfk_poa_reformulated"), 'checked'=>1),
+'t.version'=>array('label'=>$langs->trans("Fieldversion"), 'checked'=>1),
+'t.statut'=>array('label'=>$langs->trans("Fieldstatut"), 'checked'=>1),
+'t.statut_ref'=>array('label'=>$langs->trans("Fieldstatut_ref"), 'checked'=>1),
+'t.active'=>array('label'=>$langs->trans("Fieldactive"), 'checked'=>1),
+
+    
+    //'t.entity'=>array('label'=>$langs->trans("Entity"), 'checked'=>1, 'enabled'=>(! empty($conf->multicompany->enabled) && empty($conf->multicompany->transverse_mode))),
+    't.datec'=>array('label'=>$langs->trans("DateCreation"), 'checked'=>0, 'position'=>500),
+    't.tms'=>array('label'=>$langs->trans("DateModificationShort"), 'checked'=>0, 'position'=>500),
+    //'t.statut'=>array('label'=>$langs->trans("Status"), 'checked'=>1, 'position'=>1000),
+);
+// Extra fields
+if (is_array($extrafields->attribute_label) && count($extrafields->attribute_label))
+{
+   foreach($extrafields->attribute_label as $key => $val) 
+   {
+       $arrayfields["ef.".$key]=array('label'=>$extrafields->attribute_label[$key], 'checked'=>$extrafields->attribute_list[$key], 'position'=>$extrafields->attribute_pos[$key], 'enabled'=>$extrafields->attribute_perms[$key]);
+   }
+}
+
+
+
+
+/*******************************************************************
+* ACTIONS
+*
+* Put here all code to do according to value of "action" parameter
+********************************************************************/
+
+$parameters=array();
+$reshook=$hookmanager->executeHooks('doActions',$parameters,$object,$action);    // Note that $action and $object may have been modified by some hooks
+if ($reshook < 0) setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+
+include DOL_DOCUMENT_ROOT.'/core/actions_changeselectedfields.inc.php';
+
+if (GETPOST("button_removefilter_x") || GETPOST("button_removefilter.x") ||GETPOST("button_removefilter")) // All test are required to be compatible with all browsers
+{
+	
+$search_entity='';
+$search_gestion='';
+$search_fk_structure='';
+$search_ref='';
+$search_sigla='';
+$search_label='';
+$search_pseudonym='';
+$search_partida='';
+$search_amount='';
+$search_classification='';
+$search_source_verification='';
+$search_unit='';
+$search_responsible_one='';
+$search_responsible_two='';
+$search_responsible='';
+$search_m_jan='';
+$search_m_feb='';
+$search_m_mar='';
+$search_m_apr='';
+$search_m_may='';
+$search_m_jun='';
+$search_m_jul='';
+$search_m_aug='';
+$search_m_sep='';
+$search_m_oct='';
+$search_m_nov='';
+$search_m_dec='';
+$search_p_jan='';
+$search_p_feb='';
+$search_p_mar='';
+$search_p_apr='';
+$search_p_may='';
+$search_p_jun='';
+$search_p_jul='';
+$search_p_aug='';
+$search_p_sep='';
+$search_p_oct='';
+$search_p_nov='';
+$search_p_dec='';
+$search_fk_area='';
+$search_weighting='';
+$search_fk_poa_reformulated='';
+$search_version='';
+$search_statut='';
+$search_statut_ref='';
+$search_active='';
+
+	
+	$search_date_creation='';
+	$search_date_update='';
+	$search_array_options=array();
+}
+
+
+if (empty($reshook))
+{
+	// Action to delete
+	if ($action == 'confirm_delete')
+	{
+		$result=$object->delete($user);
+		if ($result > 0)
+		{
+			// Delete OK
+			setEventMessages("RecordDeleted", null, 'mesgs');
+			header("Location: ".dol_buildpath('/poa/list.php',1));
+			exit;
+		}
+		else
+		{
+			if (! empty($object->errors)) setEventMessages(null,$object->errors,'errors');
+			else setEventMessages($object->error,null,'errors');
+		}
+	}
+}
+
+
+
+
+/***************************************************
+* VIEW
+*
+* Put here all code to build page
+****************************************************/
+
+llxHeader('','MyPageName','');
+
+$form=new Form($db);
+
+// Put here content of your page
+$title = $langs->trans('MyModuleListTitle');
+
+// Example : Adding jquery code
+print '<script type="text/javascript" language="javascript">
+jQuery(document).ready(function() {
+	function init_myfunc()
+	{
+		jQuery("#myid").removeAttr(\'disabled\');
+		jQuery("#myid").attr(\'disabled\',\'disabled\');
+	}
+	init_myfunc();
+	jQuery("#mybutton").click(function() {
+		init_myfunc();
+	});
+});
+</script>';
+
+
+$sql = "SELECT";
+$sql.= " t.rowid,";
+
+		$sql .= " t.entity,";
+		$sql .= " t.gestion,";
+		$sql .= " t.fk_structure,";
+		$sql .= " t.ref,";
+		$sql .= " t.sigla,";
+		$sql .= " t.label,";
+		$sql .= " t.pseudonym,";
+		$sql .= " t.partida,";
+		$sql .= " t.amount,";
+		$sql .= " t.classification,";
+		$sql .= " t.source_verification,";
+		$sql .= " t.unit,";
+		$sql .= " t.responsible_one,";
+		$sql .= " t.responsible_two,";
+		$sql .= " t.responsible,";
+		$sql .= " t.m_jan,";
+		$sql .= " t.m_feb,";
+		$sql .= " t.m_mar,";
+		$sql .= " t.m_apr,";
+		$sql .= " t.m_may,";
+		$sql .= " t.m_jun,";
+		$sql .= " t.m_jul,";
+		$sql .= " t.m_aug,";
+		$sql .= " t.m_sep,";
+		$sql .= " t.m_oct,";
+		$sql .= " t.m_nov,";
+		$sql .= " t.m_dec,";
+		$sql .= " t.p_jan,";
+		$sql .= " t.p_feb,";
+		$sql .= " t.p_mar,";
+		$sql .= " t.p_apr,";
+		$sql .= " t.p_may,";
+		$sql .= " t.p_jun,";
+		$sql .= " t.p_jul,";
+		$sql .= " t.p_aug,";
+		$sql .= " t.p_sep,";
+		$sql .= " t.p_oct,";
+		$sql .= " t.p_nov,";
+		$sql .= " t.p_dec,";
+		$sql .= " t.fk_area,";
+		$sql .= " t.weighting,";
+		$sql .= " t.fk_poa_reformulated,";
+		$sql .= " t.version,";
+		$sql .= " t.statut,";
+		$sql .= " t.statut_ref,";
+		$sql .= " t.active";
+
+
+// Add fields for extrafields
+foreach ($extrafields->attribute_list as $key => $val) $sql.=",ef.".$key.' as options_'.$key;
+// Add fields from hooks
+$parameters=array();
+$reshook=$hookmanager->executeHooks('printFieldListSelect',$parameters);    // Note that $action and $object may have been modified by hook
+$sql.=$hookmanager->resPrint;
+$sql.= " FROM ".MAIN_DB_PREFIX."poa_poa as t";
+if (is_array($extrafields->attribute_label) && count($extrafields->attribute_label)) $sql.= " LEFT JOIN ".MAIN_DB_PREFIX."poa_poa_extrafields as ef on (u.rowid = ef.fk_object)";
+$sql.= " WHERE 1 = 1";
+//$sql.= " WHERE u.entity IN (".getEntity('mytable',1).")";
+
+if ($search_entity) $sql.= natural_search("entity",$search_entity);
+if ($search_gestion) $sql.= natural_search("gestion",$search_gestion);
+if ($search_fk_structure) $sql.= natural_search("fk_structure",$search_fk_structure);
+if ($search_ref) $sql.= natural_search("ref",$search_ref);
+if ($search_sigla) $sql.= natural_search("sigla",$search_sigla);
+if ($search_label) $sql.= natural_search("label",$search_label);
+if ($search_pseudonym) $sql.= natural_search("pseudonym",$search_pseudonym);
+if ($search_partida) $sql.= natural_search("partida",$search_partida);
+if ($search_amount) $sql.= natural_search("amount",$search_amount);
+if ($search_classification) $sql.= natural_search("classification",$search_classification);
+if ($search_source_verification) $sql.= natural_search("source_verification",$search_source_verification);
+if ($search_unit) $sql.= natural_search("unit",$search_unit);
+if ($search_responsible_one) $sql.= natural_search("responsible_one",$search_responsible_one);
+if ($search_responsible_two) $sql.= natural_search("responsible_two",$search_responsible_two);
+if ($search_responsible) $sql.= natural_search("responsible",$search_responsible);
+if ($search_m_jan) $sql.= natural_search("m_jan",$search_m_jan);
+if ($search_m_feb) $sql.= natural_search("m_feb",$search_m_feb);
+if ($search_m_mar) $sql.= natural_search("m_mar",$search_m_mar);
+if ($search_m_apr) $sql.= natural_search("m_apr",$search_m_apr);
+if ($search_m_may) $sql.= natural_search("m_may",$search_m_may);
+if ($search_m_jun) $sql.= natural_search("m_jun",$search_m_jun);
+if ($search_m_jul) $sql.= natural_search("m_jul",$search_m_jul);
+if ($search_m_aug) $sql.= natural_search("m_aug",$search_m_aug);
+if ($search_m_sep) $sql.= natural_search("m_sep",$search_m_sep);
+if ($search_m_oct) $sql.= natural_search("m_oct",$search_m_oct);
+if ($search_m_nov) $sql.= natural_search("m_nov",$search_m_nov);
+if ($search_m_dec) $sql.= natural_search("m_dec",$search_m_dec);
+if ($search_p_jan) $sql.= natural_search("p_jan",$search_p_jan);
+if ($search_p_feb) $sql.= natural_search("p_feb",$search_p_feb);
+if ($search_p_mar) $sql.= natural_search("p_mar",$search_p_mar);
+if ($search_p_apr) $sql.= natural_search("p_apr",$search_p_apr);
+if ($search_p_may) $sql.= natural_search("p_may",$search_p_may);
+if ($search_p_jun) $sql.= natural_search("p_jun",$search_p_jun);
+if ($search_p_jul) $sql.= natural_search("p_jul",$search_p_jul);
+if ($search_p_aug) $sql.= natural_search("p_aug",$search_p_aug);
+if ($search_p_sep) $sql.= natural_search("p_sep",$search_p_sep);
+if ($search_p_oct) $sql.= natural_search("p_oct",$search_p_oct);
+if ($search_p_nov) $sql.= natural_search("p_nov",$search_p_nov);
+if ($search_p_dec) $sql.= natural_search("p_dec",$search_p_dec);
+if ($search_fk_area) $sql.= natural_search("fk_area",$search_fk_area);
+if ($search_weighting) $sql.= natural_search("weighting",$search_weighting);
+if ($search_fk_poa_reformulated) $sql.= natural_search("fk_poa_reformulated",$search_fk_poa_reformulated);
+if ($search_version) $sql.= natural_search("version",$search_version);
+if ($search_statut) $sql.= natural_search("statut",$search_statut);
+if ($search_statut_ref) $sql.= natural_search("statut_ref",$search_statut_ref);
+if ($search_active) $sql.= natural_search("active",$search_active);
+
+
+if ($sall)          $sql.= natural_search(array_keys($fieldstosearchall), $sall);
+// Add where from extra fields
+foreach ($search_array_options as $key => $val)
+{
+    $crit=$val;
+    $tmpkey=preg_replace('/search_options_/','',$key);
+    $typ=$extrafields->attribute_type[$tmpkey];
+    $mode=0;
+    if (in_array($typ, array('int','double'))) $mode=1;    // Search on a numeric
+    if ($val && ( ($crit != '' && ! in_array($typ, array('select'))) || ! empty($crit))) 
+    {
+        $sql .= natural_search('ef.'.$tmpkey, $crit, $mode);
+    }
+}
+// Add where from hooks
+$parameters=array();
+$reshook=$hookmanager->executeHooks('printFieldListWhere',$parameters);    // Note that $action and $object may have been modified by hook
+$sql.=$hookmanager->resPrint;
+$sql.=$db->order($sortfield,$sortorder);
+//$sql.= $db->plimit($conf->liste_limit+1, $offset);
+
+// Count total nb of records
+$nbtotalofrecords = 0;
+if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST))
+{
+	$result = $db->query($sql);
+	$nbtotalofrecords = $db->num_rows($result);
+}	
+
+$sql.= $db->plimit($conf->liste_limit+1, $offset);
+
+
+dol_syslog($script_file, LOG_DEBUG);
+$resql=$db->query($sql);
+if ($resql)
+{
+    $num = $db->num_rows($resql);
+    
+    $params='';
+	
+if ($search_entity != '') $params.= '&amp;search_entity='.urlencode($search_entity);
+if ($search_gestion != '') $params.= '&amp;search_gestion='.urlencode($search_gestion);
+if ($search_fk_structure != '') $params.= '&amp;search_fk_structure='.urlencode($search_fk_structure);
+if ($search_ref != '') $params.= '&amp;search_ref='.urlencode($search_ref);
+if ($search_sigla != '') $params.= '&amp;search_sigla='.urlencode($search_sigla);
+if ($search_label != '') $params.= '&amp;search_label='.urlencode($search_label);
+if ($search_pseudonym != '') $params.= '&amp;search_pseudonym='.urlencode($search_pseudonym);
+if ($search_partida != '') $params.= '&amp;search_partida='.urlencode($search_partida);
+if ($search_amount != '') $params.= '&amp;search_amount='.urlencode($search_amount);
+if ($search_classification != '') $params.= '&amp;search_classification='.urlencode($search_classification);
+if ($search_source_verification != '') $params.= '&amp;search_source_verification='.urlencode($search_source_verification);
+if ($search_unit != '') $params.= '&amp;search_unit='.urlencode($search_unit);
+if ($search_responsible_one != '') $params.= '&amp;search_responsible_one='.urlencode($search_responsible_one);
+if ($search_responsible_two != '') $params.= '&amp;search_responsible_two='.urlencode($search_responsible_two);
+if ($search_responsible != '') $params.= '&amp;search_responsible='.urlencode($search_responsible);
+if ($search_m_jan != '') $params.= '&amp;search_m_jan='.urlencode($search_m_jan);
+if ($search_m_feb != '') $params.= '&amp;search_m_feb='.urlencode($search_m_feb);
+if ($search_m_mar != '') $params.= '&amp;search_m_mar='.urlencode($search_m_mar);
+if ($search_m_apr != '') $params.= '&amp;search_m_apr='.urlencode($search_m_apr);
+if ($search_m_may != '') $params.= '&amp;search_m_may='.urlencode($search_m_may);
+if ($search_m_jun != '') $params.= '&amp;search_m_jun='.urlencode($search_m_jun);
+if ($search_m_jul != '') $params.= '&amp;search_m_jul='.urlencode($search_m_jul);
+if ($search_m_aug != '') $params.= '&amp;search_m_aug='.urlencode($search_m_aug);
+if ($search_m_sep != '') $params.= '&amp;search_m_sep='.urlencode($search_m_sep);
+if ($search_m_oct != '') $params.= '&amp;search_m_oct='.urlencode($search_m_oct);
+if ($search_m_nov != '') $params.= '&amp;search_m_nov='.urlencode($search_m_nov);
+if ($search_m_dec != '') $params.= '&amp;search_m_dec='.urlencode($search_m_dec);
+if ($search_p_jan != '') $params.= '&amp;search_p_jan='.urlencode($search_p_jan);
+if ($search_p_feb != '') $params.= '&amp;search_p_feb='.urlencode($search_p_feb);
+if ($search_p_mar != '') $params.= '&amp;search_p_mar='.urlencode($search_p_mar);
+if ($search_p_apr != '') $params.= '&amp;search_p_apr='.urlencode($search_p_apr);
+if ($search_p_may != '') $params.= '&amp;search_p_may='.urlencode($search_p_may);
+if ($search_p_jun != '') $params.= '&amp;search_p_jun='.urlencode($search_p_jun);
+if ($search_p_jul != '') $params.= '&amp;search_p_jul='.urlencode($search_p_jul);
+if ($search_p_aug != '') $params.= '&amp;search_p_aug='.urlencode($search_p_aug);
+if ($search_p_sep != '') $params.= '&amp;search_p_sep='.urlencode($search_p_sep);
+if ($search_p_oct != '') $params.= '&amp;search_p_oct='.urlencode($search_p_oct);
+if ($search_p_nov != '') $params.= '&amp;search_p_nov='.urlencode($search_p_nov);
+if ($search_p_dec != '') $params.= '&amp;search_p_dec='.urlencode($search_p_dec);
+if ($search_fk_area != '') $params.= '&amp;search_fk_area='.urlencode($search_fk_area);
+if ($search_weighting != '') $params.= '&amp;search_weighting='.urlencode($search_weighting);
+if ($search_fk_poa_reformulated != '') $params.= '&amp;search_fk_poa_reformulated='.urlencode($search_fk_poa_reformulated);
+if ($search_version != '') $params.= '&amp;search_version='.urlencode($search_version);
+if ($search_statut != '') $params.= '&amp;search_statut='.urlencode($search_statut);
+if ($search_statut_ref != '') $params.= '&amp;search_statut_ref='.urlencode($search_statut_ref);
+if ($search_active != '') $params.= '&amp;search_active='.urlencode($search_active);
+
+	
+    if ($optioncss != '') $param.='&optioncss='.$optioncss;
+    // Add $param from extra fields
+    foreach ($search_array_options as $key => $val)
+    {
+        $crit=$val;
+        $tmpkey=preg_replace('/search_options_/','',$key);
+        if ($val != '') $param.='&search_options_'.$tmpkey.'='.urlencode($val);
+    } 
+    
+    print_barre_liste($title, $page, $_SERVER["PHP_SELF"],$params,$sortfield,$sortorder,'',$num,$nbtotalofrecords,'title_companies');
+    
+
+	print '<form method="GET" id="searchFormList" action="'.$_SERVER["PHP_SELF"].'">';
+    if ($optioncss != '') print '<input type="hidden" name="optioncss" value="'.$optioncss.'">';
+	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+	print '<input type="hidden" name="formfilteraction" id="formfilteraction" value="list">';
+	print '<input type="hidden" name="sortfield" value="'.$sortfield.'">';
+	print '<input type="hidden" name="sortorder" value="'.$sortorder.'">';
+	
+    if ($sall)
+    {
+        foreach($fieldstosearchall as $key => $val) $fieldstosearchall[$key]=$langs->trans($val);
+        print $langs->trans("FilterOnInto", $all) . join(', ',$fieldstosearchall);
+    }
+    
+	if (! empty($moreforfilter))
+	{
+		print '<div class="liste_titre liste_titre_bydiv centpercent">';
+		print $moreforfilter;
+    	$parameters=array();
+    	$reshook=$hookmanager->executeHooks('printFieldPreListTitle',$parameters);    // Note that $action and $object may have been modified by hook
+	    print $hookmanager->resPrint;
+	    print '</div>';
+	}
+
+    $varpage=empty($contextpage)?$_SERVER["PHP_SELF"]:$contextpage;
+    $selectedfields=$form->multiSelectArrayWithCheckbox('selectedfields', $arrayfields, $varpage);	// This also change content of $arrayfields
+	
+	print '<table class="liste '.($moreforfilter?"listwithfilterbefore":"").'">';
+
+    // Fields title
+    print '<tr class="liste_titre">';
+    
+if (! empty($arrayfields['t.entity']['checked'])) print_liste_field_titre($arrayfields['t.entity']['label'],$_SERVER['PHP_SELF'],'t.entity','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.gestion']['checked'])) print_liste_field_titre($arrayfields['t.gestion']['label'],$_SERVER['PHP_SELF'],'t.gestion','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.fk_structure']['checked'])) print_liste_field_titre($arrayfields['t.fk_structure']['label'],$_SERVER['PHP_SELF'],'t.fk_structure','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.ref']['checked'])) print_liste_field_titre($arrayfields['t.ref']['label'],$_SERVER['PHP_SELF'],'t.ref','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.sigla']['checked'])) print_liste_field_titre($arrayfields['t.sigla']['label'],$_SERVER['PHP_SELF'],'t.sigla','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.label']['checked'])) print_liste_field_titre($arrayfields['t.label']['label'],$_SERVER['PHP_SELF'],'t.label','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.pseudonym']['checked'])) print_liste_field_titre($arrayfields['t.pseudonym']['label'],$_SERVER['PHP_SELF'],'t.pseudonym','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.partida']['checked'])) print_liste_field_titre($arrayfields['t.partida']['label'],$_SERVER['PHP_SELF'],'t.partida','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.amount']['checked'])) print_liste_field_titre($arrayfields['t.amount']['label'],$_SERVER['PHP_SELF'],'t.amount','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.classification']['checked'])) print_liste_field_titre($arrayfields['t.classification']['label'],$_SERVER['PHP_SELF'],'t.classification','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.source_verification']['checked'])) print_liste_field_titre($arrayfields['t.source_verification']['label'],$_SERVER['PHP_SELF'],'t.source_verification','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.unit']['checked'])) print_liste_field_titre($arrayfields['t.unit']['label'],$_SERVER['PHP_SELF'],'t.unit','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.responsible_one']['checked'])) print_liste_field_titre($arrayfields['t.responsible_one']['label'],$_SERVER['PHP_SELF'],'t.responsible_one','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.responsible_two']['checked'])) print_liste_field_titre($arrayfields['t.responsible_two']['label'],$_SERVER['PHP_SELF'],'t.responsible_two','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.responsible']['checked'])) print_liste_field_titre($arrayfields['t.responsible']['label'],$_SERVER['PHP_SELF'],'t.responsible','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.m_jan']['checked'])) print_liste_field_titre($arrayfields['t.m_jan']['label'],$_SERVER['PHP_SELF'],'t.m_jan','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.m_feb']['checked'])) print_liste_field_titre($arrayfields['t.m_feb']['label'],$_SERVER['PHP_SELF'],'t.m_feb','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.m_mar']['checked'])) print_liste_field_titre($arrayfields['t.m_mar']['label'],$_SERVER['PHP_SELF'],'t.m_mar','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.m_apr']['checked'])) print_liste_field_titre($arrayfields['t.m_apr']['label'],$_SERVER['PHP_SELF'],'t.m_apr','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.m_may']['checked'])) print_liste_field_titre($arrayfields['t.m_may']['label'],$_SERVER['PHP_SELF'],'t.m_may','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.m_jun']['checked'])) print_liste_field_titre($arrayfields['t.m_jun']['label'],$_SERVER['PHP_SELF'],'t.m_jun','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.m_jul']['checked'])) print_liste_field_titre($arrayfields['t.m_jul']['label'],$_SERVER['PHP_SELF'],'t.m_jul','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.m_aug']['checked'])) print_liste_field_titre($arrayfields['t.m_aug']['label'],$_SERVER['PHP_SELF'],'t.m_aug','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.m_sep']['checked'])) print_liste_field_titre($arrayfields['t.m_sep']['label'],$_SERVER['PHP_SELF'],'t.m_sep','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.m_oct']['checked'])) print_liste_field_titre($arrayfields['t.m_oct']['label'],$_SERVER['PHP_SELF'],'t.m_oct','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.m_nov']['checked'])) print_liste_field_titre($arrayfields['t.m_nov']['label'],$_SERVER['PHP_SELF'],'t.m_nov','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.m_dec']['checked'])) print_liste_field_titre($arrayfields['t.m_dec']['label'],$_SERVER['PHP_SELF'],'t.m_dec','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.p_jan']['checked'])) print_liste_field_titre($arrayfields['t.p_jan']['label'],$_SERVER['PHP_SELF'],'t.p_jan','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.p_feb']['checked'])) print_liste_field_titre($arrayfields['t.p_feb']['label'],$_SERVER['PHP_SELF'],'t.p_feb','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.p_mar']['checked'])) print_liste_field_titre($arrayfields['t.p_mar']['label'],$_SERVER['PHP_SELF'],'t.p_mar','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.p_apr']['checked'])) print_liste_field_titre($arrayfields['t.p_apr']['label'],$_SERVER['PHP_SELF'],'t.p_apr','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.p_may']['checked'])) print_liste_field_titre($arrayfields['t.p_may']['label'],$_SERVER['PHP_SELF'],'t.p_may','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.p_jun']['checked'])) print_liste_field_titre($arrayfields['t.p_jun']['label'],$_SERVER['PHP_SELF'],'t.p_jun','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.p_jul']['checked'])) print_liste_field_titre($arrayfields['t.p_jul']['label'],$_SERVER['PHP_SELF'],'t.p_jul','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.p_aug']['checked'])) print_liste_field_titre($arrayfields['t.p_aug']['label'],$_SERVER['PHP_SELF'],'t.p_aug','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.p_sep']['checked'])) print_liste_field_titre($arrayfields['t.p_sep']['label'],$_SERVER['PHP_SELF'],'t.p_sep','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.p_oct']['checked'])) print_liste_field_titre($arrayfields['t.p_oct']['label'],$_SERVER['PHP_SELF'],'t.p_oct','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.p_nov']['checked'])) print_liste_field_titre($arrayfields['t.p_nov']['label'],$_SERVER['PHP_SELF'],'t.p_nov','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.p_dec']['checked'])) print_liste_field_titre($arrayfields['t.p_dec']['label'],$_SERVER['PHP_SELF'],'t.p_dec','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.fk_area']['checked'])) print_liste_field_titre($arrayfields['t.fk_area']['label'],$_SERVER['PHP_SELF'],'t.fk_area','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.weighting']['checked'])) print_liste_field_titre($arrayfields['t.weighting']['label'],$_SERVER['PHP_SELF'],'t.weighting','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.fk_poa_reformulated']['checked'])) print_liste_field_titre($arrayfields['t.fk_poa_reformulated']['label'],$_SERVER['PHP_SELF'],'t.fk_poa_reformulated','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.version']['checked'])) print_liste_field_titre($arrayfields['t.version']['label'],$_SERVER['PHP_SELF'],'t.version','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.statut']['checked'])) print_liste_field_titre($arrayfields['t.statut']['label'],$_SERVER['PHP_SELF'],'t.statut','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.statut_ref']['checked'])) print_liste_field_titre($arrayfields['t.statut_ref']['label'],$_SERVER['PHP_SELF'],'t.statut_ref','',$param,'',$sortfield,$sortorder);
+if (! empty($arrayfields['t.active']['checked'])) print_liste_field_titre($arrayfields['t.active']['label'],$_SERVER['PHP_SELF'],'t.active','',$param,'',$sortfield,$sortorder);
+
+    
+	// Extra fields
+	if (is_array($extrafields->attribute_label) && count($extrafields->attribute_label))
+	{
+	   foreach($extrafields->attribute_label as $key => $val) 
+	   {
+           if (! empty($arrayfields["ef.".$key]['checked'])) 
+           {
+				$align=$extrafields->getAlignFlag($key);
+				print_liste_field_titre($extralabels[$key],$_SERVER["PHP_SELF"],"ef.".$key,"",$param,($align?'align="'.$align.'"':''),$sortfield,$sortorder);
+           }
+	   }
+	}
+    // Hook fields
+	$parameters=array('arrayfields'=>$arrayfields);
+    $reshook=$hookmanager->executeHooks('printFieldListTitle',$parameters);    // Note that $action and $object may have been modified by hook
+    print $hookmanager->resPrint;
+	if (! empty($arrayfields['t.datec']['checked']))  print_liste_field_titre($langs->trans("DateCreationShort"),$_SERVER["PHP_SELF"],"t.datec","",$param,'align="center" class="nowrap"',$sortfield,$sortorder);
+	if (! empty($arrayfields['t.tms']['checked']))    print_liste_field_titre($langs->trans("DateModificationShort"),$_SERVER["PHP_SELF"],"t.tms","",$param,'align="center" class="nowrap"',$sortfield,$sortorder);
+	//if (! empty($arrayfields['t.status']['checked'])) print_liste_field_titre($langs->trans("Status"),$_SERVER["PHP_SELF"],"t.status","",$param,'align="center"',$sortfield,$sortorder);
+	print_liste_field_titre($selectedfields, $_SERVER["PHP_SELF"],"",'','','align="right"',$sortfield,$sortorder,'maxwidthsearch ');
+    print '</tr>'."\n";
+
+    // Fields title search
+	print '<tr class="liste_titre">';
+	
+if (! empty($arrayfields['t.entity']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_entity" value="'.$search_entity.'" size="10"></td>';
+if (! empty($arrayfields['t.gestion']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_gestion" value="'.$search_gestion.'" size="10"></td>';
+if (! empty($arrayfields['t.fk_structure']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_fk_structure" value="'.$search_fk_structure.'" size="10"></td>';
+if (! empty($arrayfields['t.ref']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_ref" value="'.$search_ref.'" size="10"></td>';
+if (! empty($arrayfields['t.sigla']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_sigla" value="'.$search_sigla.'" size="10"></td>';
+if (! empty($arrayfields['t.label']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_label" value="'.$search_label.'" size="10"></td>';
+if (! empty($arrayfields['t.pseudonym']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_pseudonym" value="'.$search_pseudonym.'" size="10"></td>';
+if (! empty($arrayfields['t.partida']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_partida" value="'.$search_partida.'" size="10"></td>';
+if (! empty($arrayfields['t.amount']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_amount" value="'.$search_amount.'" size="10"></td>';
+if (! empty($arrayfields['t.classification']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_classification" value="'.$search_classification.'" size="10"></td>';
+if (! empty($arrayfields['t.source_verification']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_source_verification" value="'.$search_source_verification.'" size="10"></td>';
+if (! empty($arrayfields['t.unit']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_unit" value="'.$search_unit.'" size="10"></td>';
+if (! empty($arrayfields['t.responsible_one']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_responsible_one" value="'.$search_responsible_one.'" size="10"></td>';
+if (! empty($arrayfields['t.responsible_two']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_responsible_two" value="'.$search_responsible_two.'" size="10"></td>';
+if (! empty($arrayfields['t.responsible']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_responsible" value="'.$search_responsible.'" size="10"></td>';
+if (! empty($arrayfields['t.m_jan']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_m_jan" value="'.$search_m_jan.'" size="10"></td>';
+if (! empty($arrayfields['t.m_feb']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_m_feb" value="'.$search_m_feb.'" size="10"></td>';
+if (! empty($arrayfields['t.m_mar']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_m_mar" value="'.$search_m_mar.'" size="10"></td>';
+if (! empty($arrayfields['t.m_apr']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_m_apr" value="'.$search_m_apr.'" size="10"></td>';
+if (! empty($arrayfields['t.m_may']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_m_may" value="'.$search_m_may.'" size="10"></td>';
+if (! empty($arrayfields['t.m_jun']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_m_jun" value="'.$search_m_jun.'" size="10"></td>';
+if (! empty($arrayfields['t.m_jul']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_m_jul" value="'.$search_m_jul.'" size="10"></td>';
+if (! empty($arrayfields['t.m_aug']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_m_aug" value="'.$search_m_aug.'" size="10"></td>';
+if (! empty($arrayfields['t.m_sep']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_m_sep" value="'.$search_m_sep.'" size="10"></td>';
+if (! empty($arrayfields['t.m_oct']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_m_oct" value="'.$search_m_oct.'" size="10"></td>';
+if (! empty($arrayfields['t.m_nov']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_m_nov" value="'.$search_m_nov.'" size="10"></td>';
+if (! empty($arrayfields['t.m_dec']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_m_dec" value="'.$search_m_dec.'" size="10"></td>';
+if (! empty($arrayfields['t.p_jan']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_p_jan" value="'.$search_p_jan.'" size="10"></td>';
+if (! empty($arrayfields['t.p_feb']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_p_feb" value="'.$search_p_feb.'" size="10"></td>';
+if (! empty($arrayfields['t.p_mar']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_p_mar" value="'.$search_p_mar.'" size="10"></td>';
+if (! empty($arrayfields['t.p_apr']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_p_apr" value="'.$search_p_apr.'" size="10"></td>';
+if (! empty($arrayfields['t.p_may']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_p_may" value="'.$search_p_may.'" size="10"></td>';
+if (! empty($arrayfields['t.p_jun']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_p_jun" value="'.$search_p_jun.'" size="10"></td>';
+if (! empty($arrayfields['t.p_jul']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_p_jul" value="'.$search_p_jul.'" size="10"></td>';
+if (! empty($arrayfields['t.p_aug']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_p_aug" value="'.$search_p_aug.'" size="10"></td>';
+if (! empty($arrayfields['t.p_sep']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_p_sep" value="'.$search_p_sep.'" size="10"></td>';
+if (! empty($arrayfields['t.p_oct']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_p_oct" value="'.$search_p_oct.'" size="10"></td>';
+if (! empty($arrayfields['t.p_nov']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_p_nov" value="'.$search_p_nov.'" size="10"></td>';
+if (! empty($arrayfields['t.p_dec']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_p_dec" value="'.$search_p_dec.'" size="10"></td>';
+if (! empty($arrayfields['t.fk_area']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_fk_area" value="'.$search_fk_area.'" size="10"></td>';
+if (! empty($arrayfields['t.weighting']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_weighting" value="'.$search_weighting.'" size="10"></td>';
+if (! empty($arrayfields['t.fk_poa_reformulated']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_fk_poa_reformulated" value="'.$search_fk_poa_reformulated.'" size="10"></td>';
+if (! empty($arrayfields['t.version']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_version" value="'.$search_version.'" size="10"></td>';
+if (! empty($arrayfields['t.statut']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_statut" value="'.$search_statut.'" size="10"></td>';
+if (! empty($arrayfields['t.statut_ref']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_statut_ref" value="'.$search_statut_ref.'" size="10"></td>';
+if (! empty($arrayfields['t.active']['checked'])) print '<td class="liste_titre"><input type="text" class="flat" name="search_active" value="'.$search_active.'" size="10"></td>';
+
+	
+	// Extra fields
+	if (is_array($extrafields->attribute_label) && count($extrafields->attribute_label))
+	{
+        foreach($extrafields->attribute_label as $key => $val) 
+        {
+            if (! empty($arrayfields["ef.".$key]['checked']))
+            {
+                $align=$extrafields->getAlignFlag($key);
+                $typeofextrafield=$extrafields->attribute_type[$key];
+                print '<td class="liste_titre'.($align?' '.$align:'').'">';
+            	if (in_array($typeofextrafield, array('varchar', 'int', 'double', 'select')))
+				{
+				    $crit=$val;
+    				$tmpkey=preg_replace('/search_options_/','',$key);
+    				$searchclass='';
+    				if (in_array($typeofextrafield, array('varchar', 'select'))) $searchclass='searchstring';
+    				if (in_array($typeofextrafield, array('int', 'double'))) $searchclass='searchnum';
+    				print '<input class="flat'.($searchclass?' '.$searchclass:'').'" size="4" type="text" name="search_options_'.$tmpkey.'" value="'.dol_escape_htmltag($search_array_options['search_options_'.$tmpkey]).'">';
+				}
+                print '</td>';
+            }
+        }
+	}
+    // Fields from hook
+	$parameters=array('arrayfields'=>$arrayfields);
+    $reshook=$hookmanager->executeHooks('printFieldListOption',$parameters);    // Note that $action and $object may have been modified by hook
+    print $hookmanager->resPrint;
+    if (! empty($arrayfields['t.datec']['checked']))
+    {
+        // Date creation
+        print '<td class="liste_titre">';
+        print '</td>';
+    }
+    if (! empty($arrayfields['t.tms']['checked']))
+    {
+        // Date modification
+        print '<td class="liste_titre">';
+        print '</td>';
+    }
+    /*if (! empty($arrayfields['u.statut']['checked']))
+    {
+        // Status
+        print '<td class="liste_titre" align="center">';
+        print $form->selectarray('search_statut', array('-1'=>'','0'=>$langs->trans('Disabled'),'1'=>$langs->trans('Enabled')),$search_statut);
+        print '</td>';
+    }*/
+    // Action column
+	print '<td class="liste_titre" align="right">';
+	print '<input type="image" class="liste_titre" name="button_search" src="'.img_picto($langs->trans("Search"),'search.png','','',1).'" value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
+	print '<input type="image" class="liste_titre" name="button_removefilter" src="'.img_picto($langs->trans("Search"),'searchclear.png','','',1).'" value="'.dol_escape_htmltag($langs->trans("RemoveFilter")).'" title="'.dol_escape_htmltag($langs->trans("RemoveFilter")).'">';
+	print '</td>';
+	print '</tr>'."\n";
+        
+    
+    $i = 0;
+    while ($i < $num)
+    {
+        $obj = $db->fetch_object($resql);
+        if ($obj)
+        {
+            // You can use here results
+            print '<tr>';
+            
+if (! empty($arrayfields['t.entity']['checked'])) print '<td>'.$obj->entity.'</td>';
+if (! empty($arrayfields['t.gestion']['checked'])) print '<td>'.$obj->gestion.'</td>';
+if (! empty($arrayfields['t.fk_structure']['checked'])) print '<td>'.$obj->fk_structure.'</td>';
+if (! empty($arrayfields['t.ref']['checked'])) print '<td>'.$obj->ref.'</td>';
+if (! empty($arrayfields['t.sigla']['checked'])) print '<td>'.$obj->sigla.'</td>';
+if (! empty($arrayfields['t.label']['checked'])) print '<td>'.$obj->label.'</td>';
+if (! empty($arrayfields['t.pseudonym']['checked'])) print '<td>'.$obj->pseudonym.'</td>';
+if (! empty($arrayfields['t.partida']['checked'])) print '<td>'.$obj->partida.'</td>';
+if (! empty($arrayfields['t.amount']['checked'])) print '<td>'.$obj->amount.'</td>';
+if (! empty($arrayfields['t.classification']['checked'])) print '<td>'.$obj->classification.'</td>';
+if (! empty($arrayfields['t.source_verification']['checked'])) print '<td>'.$obj->source_verification.'</td>';
+if (! empty($arrayfields['t.unit']['checked'])) print '<td>'.$obj->unit.'</td>';
+if (! empty($arrayfields['t.responsible_one']['checked'])) print '<td>'.$obj->responsible_one.'</td>';
+if (! empty($arrayfields['t.responsible_two']['checked'])) print '<td>'.$obj->responsible_two.'</td>';
+if (! empty($arrayfields['t.responsible']['checked'])) print '<td>'.$obj->responsible.'</td>';
+if (! empty($arrayfields['t.m_jan']['checked'])) print '<td>'.$obj->m_jan.'</td>';
+if (! empty($arrayfields['t.m_feb']['checked'])) print '<td>'.$obj->m_feb.'</td>';
+if (! empty($arrayfields['t.m_mar']['checked'])) print '<td>'.$obj->m_mar.'</td>';
+if (! empty($arrayfields['t.m_apr']['checked'])) print '<td>'.$obj->m_apr.'</td>';
+if (! empty($arrayfields['t.m_may']['checked'])) print '<td>'.$obj->m_may.'</td>';
+if (! empty($arrayfields['t.m_jun']['checked'])) print '<td>'.$obj->m_jun.'</td>';
+if (! empty($arrayfields['t.m_jul']['checked'])) print '<td>'.$obj->m_jul.'</td>';
+if (! empty($arrayfields['t.m_aug']['checked'])) print '<td>'.$obj->m_aug.'</td>';
+if (! empty($arrayfields['t.m_sep']['checked'])) print '<td>'.$obj->m_sep.'</td>';
+if (! empty($arrayfields['t.m_oct']['checked'])) print '<td>'.$obj->m_oct.'</td>';
+if (! empty($arrayfields['t.m_nov']['checked'])) print '<td>'.$obj->m_nov.'</td>';
+if (! empty($arrayfields['t.m_dec']['checked'])) print '<td>'.$obj->m_dec.'</td>';
+if (! empty($arrayfields['t.p_jan']['checked'])) print '<td>'.$obj->p_jan.'</td>';
+if (! empty($arrayfields['t.p_feb']['checked'])) print '<td>'.$obj->p_feb.'</td>';
+if (! empty($arrayfields['t.p_mar']['checked'])) print '<td>'.$obj->p_mar.'</td>';
+if (! empty($arrayfields['t.p_apr']['checked'])) print '<td>'.$obj->p_apr.'</td>';
+if (! empty($arrayfields['t.p_may']['checked'])) print '<td>'.$obj->p_may.'</td>';
+if (! empty($arrayfields['t.p_jun']['checked'])) print '<td>'.$obj->p_jun.'</td>';
+if (! empty($arrayfields['t.p_jul']['checked'])) print '<td>'.$obj->p_jul.'</td>';
+if (! empty($arrayfields['t.p_aug']['checked'])) print '<td>'.$obj->p_aug.'</td>';
+if (! empty($arrayfields['t.p_sep']['checked'])) print '<td>'.$obj->p_sep.'</td>';
+if (! empty($arrayfields['t.p_oct']['checked'])) print '<td>'.$obj->p_oct.'</td>';
+if (! empty($arrayfields['t.p_nov']['checked'])) print '<td>'.$obj->p_nov.'</td>';
+if (! empty($arrayfields['t.p_dec']['checked'])) print '<td>'.$obj->p_dec.'</td>';
+if (! empty($arrayfields['t.fk_area']['checked'])) print '<td>'.$obj->fk_area.'</td>';
+if (! empty($arrayfields['t.weighting']['checked'])) print '<td>'.$obj->weighting.'</td>';
+if (! empty($arrayfields['t.fk_poa_reformulated']['checked'])) print '<td>'.$obj->fk_poa_reformulated.'</td>';
+if (! empty($arrayfields['t.version']['checked'])) print '<td>'.$obj->version.'</td>';
+if (! empty($arrayfields['t.statut']['checked'])) print '<td>'.$obj->statut.'</td>';
+if (! empty($arrayfields['t.statut_ref']['checked'])) print '<td>'.$obj->statut_ref.'</td>';
+if (! empty($arrayfields['t.active']['checked'])) print '<td>'.$obj->active.'</td>';
+
+            
+        	// Extra fields
+    		if (is_array($extrafields->attribute_label) && count($extrafields->attribute_label))
+    		{
+    		   foreach($extrafields->attribute_label as $key => $val) 
+    		   {
+    				if (! empty($arrayfields["ef.".$key]['checked'])) 
+    				{
+    					print '<td';
+    					$align=$extrafields->getAlignFlag($key);
+    					if ($align) print ' align="'.$align.'"';
+    					print '>';
+    					$tmpkey='options_'.$key;
+    					print $extrafields->showOutputField($key, $obj->$tmpkey, '', 1);
+    					print '</td>';
+    				}
+    		   }
+    		}
+            // Fields from hook
+    	    $parameters=array('arrayfields'=>$arrayfields, 'obj'=>$obj);
+    		$reshook=$hookmanager->executeHooks('printFieldListValue',$parameters);    // Note that $action and $object may have been modified by hook
+            print $hookmanager->resPrint;
+        	// Date creation
+            if (! empty($arrayfields['t.datec']['checked']))
+            {
+                print '<td align="center">';
+                print dol_print_date($db->jdate($obj->date_creation), 'dayhour');
+                print '</td>';
+            }
+            // Date modification
+            if (! empty($arrayfields['t.tms']['checked']))
+            {
+                print '<td align="center">';
+                print dol_print_date($db->jdate($obj->date_update), 'dayhour');
+                print '</td>';
+            }
+            // Status
+            /*
+            if (! empty($arrayfields['u.statut']['checked']))
+            {
+    		  $userstatic->statut=$obj->statut;
+              print '<td align="center">'.$userstatic->getLibStatut(3).'</td>';
+            }*/
+            // Action column
+            print '<td></td>';
+    		print '</tr>';
+        }
+        $i++;
+    }
+    
+    $db->free($resql);
+
+	$parameters=array('sql' => $sql);
+	$reshook=$hookmanager->executeHooks('printFieldListFooter',$parameters);    // Note that $action and $object may have been modified by hook
+	print $hookmanager->resPrint;
+
+	print "</table>\n";
+	print "</form>\n";
+	
+	$db->free($result);
+}
+else
+{
+    $error++;
+    dol_print_error($db);
+}
+
+
+// End of page
+llxFooter();
+$db->close();

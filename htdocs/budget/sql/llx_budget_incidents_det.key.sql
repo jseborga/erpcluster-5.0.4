@@ -1,0 +1,1 @@
+ALTER TABLE llx_budget_incidents_det ADD CONSTRAINT fk_budgetincidentsdet_budgetincidents_fkbudgetincident_rowid FOREIGN KEY (fk_budget_incident) REFERENCES llx_budget_incidents(rowid) ON DELETE RESTRICT ON UPDATE RESTRICT;

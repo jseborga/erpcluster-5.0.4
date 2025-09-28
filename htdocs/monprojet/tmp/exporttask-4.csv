@@ -1,0 +1,7 @@
+ref|label|hilo|item|login|fechaini|fechafin|detail|group|type|typename|unitprogram|unit|price
+TK1510-0091|ADMINISTRATIVO|||msalas|30/05/2016 12:00 AM|31/05/2016 12:00 AM|Activides de proyecto de orden administrativo|1|||0||0
+TK1510-0092|tarea 1a|TK1510-0091||msalas; jseborga|30/05/2016 12:00 AM|31/05/2016 12:00 AM||0|10|10. OTROS|12|H|0
+TK1510-0044|MONITOREO|||msalas|16/06/2016 12:00 AM|02/07/2016 12:00 AM|Monitoreo de Actividades|1|||1||0
+TK1510-0093|Monitoreo 1|TK1510-0044||gcalatayud; acontreras; jquispe; jseborga|16/06/2016 12:00 AM|02/07/2016 12:00 AM||0|||32|H|0
+TK1510-0045|ITEMS DE CONTRATO|||msalas|09/11/2015 12:00 AM|11/11/2015 12:00 AM|Conjunto de items de contrato|1|||1||0
+TK1510-0046|Instalación de faenas|TK1510-0045||msalas|09/11/2015 12:00 AM|11/11/2015 12:00 AM||0|||1|SET|5000

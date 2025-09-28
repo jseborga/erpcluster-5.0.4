@@ -1,0 +1,154 @@
+<?php
+/* Copyright (C) 2001-2004 Rodolphe Quiedeville <rodolphe@quiedeville.org>
+ * Copyright (C) 2004-2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2005-2009 Regis Houssin        <regis@dolibarr.fr>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ *      \file       htdocs/fabrication/liste.php
+ *      \ingroup    fabrication
+ *      \brief      Page liste des ordenes de trabajo
+ */
+
+require("../main.inc.php");
+require_once(DOL_DOCUMENT_ROOT."/fabrication/class/fabrication.class.php");
+require_once(DOL_DOCUMENT_ROOT."/fabrication/class/fabricationdet.class.php");
+require_once(DOL_DOCUMENT_ROOT."/product/stock/class/entrepot.class.php");
+require_once(DOL_DOCUMENT_ROOT."/societe/class/societe.class.php");
+
+$langs->load("stocks");
+$langs->load("almacen@almacen");
+$langs->load("fabrication@fabrication");
+
+if (!$user->rights->fabrication->leerop)
+  accessforbidden();
+
+$sref=isset($_GET["sref"])?$_GET["sref"]:$_POST["sref"];
+$snom=isset($_GET["snom"])?$_GET["snom"]:$_POST["snom"];
+$sall=isset($_GET["sall"])?$_GET["sall"]:$_POST["sall"];
+
+$sortfield = isset($_GET["sortfield"])?$_GET["sortfield"]:$_POST["sortfield"];
+$sortorder = isset($_GET["sortorder"])?$_GET["sortorder"]:$_POST["sortorder"];
+if (! $sortfield) $sortfield="e.ref";
+if (! $sortorder) $sortorder="ASC";
+$page = $_GET["page"];
+if ($page < 0) $page = 0;
+$limit = $conf->liste_limit;
+$offset = $limit * $page;
+
+
+$sql  = "SELECT e.rowid, e.ref as ref, c.ref as ref_pedido, cv.fk_entrepot, c.fk_soc, e.date_creation, e.date_delivery, e.fk_commande, e.statut, sa.ref AS refSolAlm, sa.rowid AS aRowid ";
+$sql.= " FROM ".MAIN_DB_PREFIX."fabrication as e";
+$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."commande as c ";
+$sql.= " ON e.fk_commande = c.rowid ";
+$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."commande_venta as cv ";
+$sql.= " ON c.rowid = cv.fk_commande ";
+
+$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."sol_almacen as sa ";
+$sql.= " ON e.rowid = sa.fk_fabrication ";
+
+$sql.= " WHERE e.entity = ".$conf->entity;
+if ($sref)
+{
+    $sql.= " AND e.ref like '%".$sref."%'";
+}
+if ($sall)
+{
+    $sql.= " AND (e.ref like '%".$sall."%' OR e.date_delivery like '%".$sall."%' OR e.description like '%".$sall."%')";
+}
+$sql.= " ORDER BY $sortfield $sortorder";
+$sql.= $db->plimit($limit+1, $offset);
+
+$result = $db->query($sql);
+if ($result)
+{
+	$num = $db->num_rows($result);
+
+	$i = 0;
+
+	$help_url='EN:Module_Stocks_En|FR:Module_Stock|ES:M&oacute;dulo_Stocks';
+	llxHeader("",$langs->trans("ListOfOrderProduction"),$help_url);
+
+	print_barre_liste($langs->trans("ListOfOrderProduction"), $page, "liste.php", "", $sortfield, $sortorder,'',$num);
+
+	print '<table class="noborder" width="100%">';
+
+	print "<tr class=\"liste_titre\">";
+	print_liste_field_titre($langs->trans("Ref"),"liste.php", "e.ref","","","",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("RefPedido"),"liste.php", "c.ref","","","",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Entrepot"),"liste.php", "cv.fk_entrepot","","","",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Soc"),"liste.php", "c.fk_soc","","","",$sortfield,$sortorder);
+
+	print_liste_field_titre($langs->trans("dateCreation"),"liste.php", "e.date_creation","","","",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("dateFabrication"),"liste.php", "e.date_delivery","","","",$sortfield,$sortorder);
+	print_liste_field_titre($langs->trans("Orderentrepot"),"liste.php", "sa.ref","","","",$sortfield,$sortorder);
+
+	print_liste_field_titre($langs->trans("Status"),"liste.php", "e.statut",'','','align="right"',$sortfield,$sortorder);
+	print "</tr>\n";
+	if ($num) {
+	  $entrepot=new Entrepot($db);
+	  $societe =new Societe($db);
+	  $generic_fabrication = new Fabrication($db);
+	  $var=True;
+	  while ($i < min($num,$limit))
+	    {
+	      $objp = $db->fetch_object($result);
+	      $entrepot->fetch($objp->fk_entrepot);
+	      $lieu = '';
+	      if ($objp->fk_entrepot == $entrepot->id)
+		$lieu = $entrepot->lieu;
+	      $soc = '';
+	      $societe->fetch($objp->fk_soc);
+	      if ($objp->fk_soc == $societe->id)
+		$soc = $societe->nom;
+	      $var=!$var;
+	      print "<tr $bc[$var]>";
+	      print '<td><a href="fiche.php?id='.$objp->rowid.'">'.img_object($langs->trans("ShowWarehouse"),'fabrication').' '.$objp->ref.'</a></td>';
+	      print '<td>'.$objp->ref_pedido.'</td>';
+	      print '<td>'.$lieu.'</td>';
+	      print '<td>'.$soc.'</td>';
+	      print '<td>'.$objp->date_creation.'</td>';
+	      print '<td>'.$objp->date_fabrication.'</td>';
+	      if (!empty($objp->refSolAlm))
+		print '<td><a href="'.DOL_URL_ROOT.'/almacen/fiche.php?id='.$objp->aRowid.'">'.img_object($langs->trans("Order"),'order').' '.$objp->refSolAlm.'</a></td>';
+	      else
+		if ($objp->statut > 0)
+		  {
+		    print '<td><a href="'.DOL_URL_ROOT.'/almacen/fiche.php?action=create&fk_fabrication='.$objp->rowid.'">'.img_object($langs->trans("NewOrder"),'order').' '.$langs->trans("Create").'</a></td>';
+		  }
+		else
+		  print '<td>&nbsp;</td>';
+	      print '<td align="right">'.$generic_fabrication->LibStatut($objp->statut,'',5).'</td>';
+	      print "</tr>\n";
+	      $i++;
+	    }
+	}
+
+	$db->free($result);
+
+	print "</table>";
+
+}
+else
+{
+  dol_print_error($db);
+}
+
+
+$db->close();
+
+llxFooter();
+?>

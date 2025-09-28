@@ -1,0 +1,1 @@
+ALTER TABLE llx_sol_almacen_log DROP type;
