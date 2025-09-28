@@ -8,6 +8,12 @@ RUN printf 'deb http://archive.debian.org/debian stretch main\n' \
     printf 'Acquire::Check-Valid-Until "false";\nAcquire::AllowInsecureRepositories "true";\nAPT::Get::AllowUnauthenticated "true";\n' \
         > /etc/apt/apt.conf.d/99archive
 
+# Establece DocumentRoot a htdocs y habilita permisos
+RUN sed -ri 's#DocumentRoot /var/www/html#DocumentRoot /var/www/html/htdocs#' /etc/apache2/sites-available/000-default.conf \
+ && printf '<Directory /var/www/html/htdocs>\nOptions Indexes FollowSymLinks\nAllowOverride All\nRequire all granted\n</Directory>\n' \
+    > /etc/apache2/conf-available/dolibarr.conf \
+ && a2enconf dolibarr
+
 RUN a2enmod rewrite && \
     apt-get -o Acquire::Check-Valid-Until=false -o Acquire::AllowInsecureRepositories=true update && \
     apt-get install -y --no-install-recommends --allow-unauthenticated \
