@@ -28,8 +28,8 @@ services:
       - ./documents:/var/www/html/documents
       - ./conf:/var/www/html/conf
       - ./htdocs/custom:/var/www/html/htdocs/custom
-    ports:
-      - "8092:80"
+    #ports:
+    #  - "8092:80"
 
 volumes:
   db_data:
